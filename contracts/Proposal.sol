@@ -55,7 +55,7 @@ contract Proposal {
 
     // Allows users to contribute funds to a proposal if the funding target has not been reached
     function contribute() public payable {
-        _amount = message.value;
+        uint _amount = msg.value;
         require(
             amountFunded + _amount <= fundingTarget,
             "cannot contribute more than the funding target"
@@ -70,7 +70,7 @@ contract Proposal {
 
     // Allows contributions by directly sending ether to this contract
     receive() external payable {
-        contribute(msg.value);
+        contribute();
     }
 
     // Allows providers to confirm a proposal once the funding target is met
@@ -80,15 +80,13 @@ contract Proposal {
             amountFunded == fundingTarget,
             "proposal has not been fully funded"
         );
-        // Update proposal status
-        status = Status.Accepted;
-        // ** Set provider
+        // Todo require message.sender isProvider then set provider address
     }
 
     // Allows user to request a refund after the funding deadline
     function refund() public {
         uint256 amount = contributions[msg.sender];
-        require(provider == null, "Proposal has already been accepted");
+        require(provider == address(0), "Proposal has already been accepted");
         require(amount > 0, "No funds to refund");
         require(
             block.timestamp > fundingDeadline,
