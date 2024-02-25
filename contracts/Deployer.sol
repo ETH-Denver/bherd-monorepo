@@ -2,8 +2,9 @@
 pragma solidity ^0.8.24;
 
 contract Deployer {
+    address public owner;
     address[] public proposals;
-    address[] public providers;
+    mapping(address => bool) public providers;
 
     function CreateProposal(
         string memory _content_type,
@@ -12,7 +13,9 @@ contract Deployer {
         uint _start_date,
         uint _end_date
     ) external {
-        ProposalContract proposal = new ProposalContract(
+        _deployer = address(this);
+        Proposal proposal = new Proposal(
+            _deployer,
             _content_type,
             _content_message,
             _target,
@@ -22,12 +25,29 @@ contract Deployer {
 
         proposals.push(address(proposal));
     }
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    modifier _ownerOnly() {
+        if (msg.sender == owner) _;
+    }
+
+    function AddProvider(address _address) public _ownerOnly {
+        providers[address] = true;
+    }
+
+    function IsProvider(address _address) public view returns (bool) {
+        return providers[_address] == true;
+    }
 }
 
-contract ProposalContract {
+contract Proposal {
+    address public deployer;
+    uint public end_date;
     uint public start_date;
     string public target;
-    uint public end_date;
     address public proposer;
     Content public content;
     struct Content {
@@ -36,6 +56,7 @@ contract ProposalContract {
     }
 
     constructor(
+        address memory _deployer,
         string memory _content_type,
         string memory _content_message,
         string memory _target,
@@ -44,6 +65,7 @@ contract ProposalContract {
     ) {
         content = Content(_content_type, _content_message);
         start_date = _start_date;
+        deployer = _deployer;
         end_date = _end_date;
         target = _target;
     }
