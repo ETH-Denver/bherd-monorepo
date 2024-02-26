@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
+import "./Proposal.sol";
 
 contract Deployer {
     address public owner;
@@ -7,20 +8,24 @@ contract Deployer {
     mapping(address => bool) public providers;
 
     function CreateProposal(
-        string memory _content_type,
-        string memory _content_message,
+        uint _startDay,
+        uint _endDay,
+        uint256 _lat,
+        uint256 _long,
         string memory _target,
-        uint _start_date,
-        uint _end_date
+        bool _contentType,
+        string memory _contentMessage
     ) external {
-        _deployer = address(this);
+        address _deployer = address(this);
         Proposal proposal = new Proposal(
             _deployer,
-            _content_type,
-            _content_message,
+            _startDay,
+            _endDay,
+            _lat,
+            _long,
             _target,
-            _start_date,
-            _end_date
+            _contentType,
+            _contentMessage
         );
 
         proposals.push(address(proposal));
@@ -35,38 +40,10 @@ contract Deployer {
     }
 
     function AddProvider(address _address) public _ownerOnly {
-        providers[address] = true;
+        providers[_address] = true;
     }
 
     function IsProvider(address _address) public view returns (bool) {
         return providers[_address] == true;
-    }
-}
-
-contract Proposal {
-    address public deployer;
-    uint public end_date;
-    uint public start_date;
-    string public target;
-    address public proposer;
-    Content public content;
-    struct Content {
-        string content_type;
-        string message;
-    }
-
-    constructor(
-        address memory _deployer,
-        string memory _content_type,
-        string memory _content_message,
-        string memory _target,
-        uint _start_date,
-        uint _end_date
-    ) {
-        content = Content(_content_type, _content_message);
-        start_date = _start_date;
-        deployer = _deployer;
-        end_date = _end_date;
-        target = _target;
     }
 }

@@ -6,6 +6,7 @@ contract Proposal {
     uint256 public constant FUNDING_LEAD = 30 days;
 
     // Proposal parameters
+    address public deployer;
     uint256 public startDay; // Date range of the ad, for specified time: start = end
     uint256 public endDay;
     uint256 public lat; // Latitude of ad
@@ -23,20 +24,22 @@ contract Proposal {
     mapping(address => uint256) private contributions; // track contributions in event of refunds
 
     constructor(
+        address _deployer,
         uint256 _startDay,
         uint256 _endDay,
         uint256 _lat,
         uint256 _long,
         string memory _target,
-        string memory _message,
-        bool _contentType
+        bool _contentType,
+        string memory _contentMessage
     ) {
+        deployer = _deployer;
         startDay = _startDay;
         endDay = _endDay;
         lat = _lat;
         long = _long;
         target = _target;
-        message = _message;
+        message = _contentMessage;
         contentType = _contentType;
 
         // Calculate ad cost based on content type
@@ -75,7 +78,7 @@ contract Proposal {
 
     // Allows providers to confirm a proposal once the funding target is met
     // Add modifier so that only provider can call this function
-    function acceptProposal() private {
+    function acceptProposal() public view {
         require(
             amountFunded == fundingTarget,
             "proposal has not been fully funded"
