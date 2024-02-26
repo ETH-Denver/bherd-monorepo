@@ -1,8 +1,9 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
+import "./Deployer.sol";
+
 contract Proposal {
-    // Funding deadline constant
     uint256 public constant FUNDING_LEAD = 30 days;
 
     // Proposal parameters
@@ -78,12 +79,13 @@ contract Proposal {
 
     // Allows providers to confirm a proposal once the funding target is met
     // Add modifier so that only provider can call this function
-    function acceptProposal() public view {
+    function acceptProposal() public {
+        require(Deployer(deployer).IsProvider(msg.sender),"Only providers can accept proposals");
         require(
             amountFunded == fundingTarget,
             "proposal has not been fully funded"
         );
-        // Todo require message.sender isProvider then set provider address
+        provider = msg.sender;
     }
 
     // Allows user to request a refund after the funding deadline
@@ -102,8 +104,11 @@ contract Proposal {
     }
 
     // Complete Proposal by uploading a url to evidence of the ad
-    function completeProposal(string memory _url) private {
+    function completeProposal(string memory _url) public {
+        require(msg.sender == provider,"Only the provider can complete proposal");
         url = _url;
-        // ** Disburse funds
+        // Disburse funds
+        bool sent = payable(msg.sender).send(fundingTarget);
+        require(sent, "Failed to send Ether");
     }
 }
