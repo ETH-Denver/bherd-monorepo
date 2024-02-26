@@ -21,7 +21,7 @@ contract Proposal {
     uint256 public amountFunded; // current funding total
     string public url; // proof of execution
 
-    mapping(address => uint256) private contributions; // track contributions in event of refunds
+    mapping(address => uint256) contributions; // track contributions in event of refunds
 
     constructor(
         address _deployer,

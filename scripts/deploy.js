@@ -12,17 +12,13 @@ async function main() {
 
   const lockedAmount = hre.ethers.parseEther("0.001");
 
-  const lock = await hre.ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
+  const deployer = await hre.ethers.deployContract("Deployer");
 
-  await lock.waitForDeployment();
+  await deployer.waitForDeployment();
 
-  console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
-  );
+  console.log('Deployer deployed');
+
+  // TODO: Create proposer
 }
 
 // We recommend this pattern to be able to use async/await everywhere

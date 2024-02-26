@@ -39,42 +39,6 @@
         "Deployer"
       ]
     },
-    "/Users/ET/ethenver/ethdenver2024hackathon/solidity/contracts/Lock.sol": {
-      "lastModificationDate": 1708892542311,
-      "contentHash": "dacf0d5cb5b45dc83086de5bc1c26c2c",
-      "sourceName": "contracts/Lock.sol",
-      "solcConfig": {
-        "version": "0.8.24",
-        "settings": {
-          "evmVersion": "paris",
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [],
-      "versionPragmas": [
-        "^0.8.24"
-      ],
-      "artifacts": [
-        "Lock"
-      ]
-    },
     "/Users/ET/ethenver/ethdenver2024hackathon/solidity/contracts/Proposal.sol": {
       "lastModificationDate": 1708912416522,
       "contentHash": "10bb96c572edce760b83889dd2d7eeb2",
