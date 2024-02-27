@@ -7,6 +7,9 @@ import {
   Button,
   Stack,
 } from "@mui/material";
+import {ethers, id, Wallet} from "ethers";
+import BasicModal from "../baseComponents/BasicModal";
+import ContributeForm from "../baseComponents/ContributeForm";
 
 const CustomTextField = (props) => (
   <TextField
@@ -19,7 +22,28 @@ const CustomTextField = (props) => (
   />
 );
 
+let provider;
+let signer;
+
+const signMessage = async () => {
+    provider = new ethers.BrowserProvider(window.ethereum);
+    signer = await provider.getSigner();
+
+    console.log("signer", signer);
+    console.log("address", signer.address);
+    try {
+        const result = await signer.signMessage("Signing message with MetaMask");
+
+        console.log(result);
+    } catch (error) {
+        // handle error
+        console.log(error);
+    }
+};
+
 export const ShowPage = () => {
+
+    const [walletAddress, setWalletAddress] = React.useState("");
   return (
     <Container
       sx={{
@@ -42,8 +66,13 @@ export const ShowPage = () => {
           <Typography sx={{ marginLeft: 2 }}>Denver, CO</Typography>
         </Box>
         <Stack sx={{ marginLeft: "0px" }} spacing={2} direction="row">
-          <Button variant="contained">Provider</Button>
-          <Button variant="contained">Contributor</Button>
+
+
+            <BasicModal
+                buttonTitle="Contribute"
+                modalTitle="How much would you like to contribute?"
+                modalBody={<ContributeForm />}
+            />
         </Stack>
         <Stack sx={{ marginTop: "40px" }} spacing={2} direction="row">
           <CustomTextField
