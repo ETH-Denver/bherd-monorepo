@@ -1,5 +1,26 @@
 import * as React from 'react';
 import {ButtonGroup, Button} from '@mui/material';
+import {ethers} from "ethers";
+
+let provider;
+let signer;
+
+const signMessage = async () => {
+    provider = new ethers.BrowserProvider(window.ethereum);
+    signer = await provider.getSigner();
+
+    console.log("signer", signer);
+    console.log("address", signer.address);
+    try {
+        const result = await signer.signMessage("Signing message with MetaMask");
+
+        console.log(result);
+    } catch (error) {
+        // handle error
+        console.log(error);
+    }
+};
+
 export default function ContributeForm() {
     return (
         <div>

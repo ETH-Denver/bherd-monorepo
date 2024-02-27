@@ -9,7 +9,7 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 520,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -21,13 +21,9 @@ export default function BasicModal({ buttonTitle = 'Open', modalTitle = '', moda
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    // let buttonTitle = typeof props.buttonTitle === 'string' ? props.buttonTitle : 'Open Modal'
-    // let modalTitle = typeof props.modalTitle === 'string' ? props.modalTitle : ''
-    // let modalBody = typeof props.modalBody === 'string' ? props.modalBody : ''
-
     return (
         <div>
-            <Button onClick={handleOpen}>{buttonTitle}</Button>
+            <Button variant="contained" onClick={handleOpen}>{buttonTitle}</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -35,12 +31,11 @@ export default function BasicModal({ buttonTitle = 'Open', modalTitle = '', moda
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                    <Typography id="modal-modal-title" variant="h6" component="h6" sx={{paddingBottom: '20px'}}>
                         { modalTitle }
                     </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        { modalBody }
-                    </Typography>
+
+                    { modalBody }
                 </Box>
             </Modal>
         </div>
