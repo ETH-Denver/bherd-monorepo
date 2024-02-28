@@ -1,4 +1,5 @@
 import { Button, Container, TextField } from "@mui/material";
+import React from "react";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -23,16 +24,17 @@ const ProposalForm = () => {
     <Container>
       <form onSubmit={handleSubmit}>
         <Autocomplete
+          apiKey={process.env.REACT_APP_GOOGLE_API}
           style={{ width: "90%" }}
-          apiKey="AIzaSyBkk4pDx-Vz48tU4tJ1iMKMPTcs2_csJt0"
           onPlaceSelected={(place) => {
             setLat(place.geometry.location.lat());
             setLong(place.geometry.location.lng());
           }}
-          componentRestrictions={{ country: "us" }}
+          componentrestrictions={{ country: "us" }}
           options={{
             types: ["geocode", "establishment"],
           }}
+          placeholder="Search for a location"
         />
         <TextField
           inputProps={{ maxLength: 12 }}
@@ -61,7 +63,6 @@ const ProposalForm = () => {
           selected={executionDate}
           onChange={(date) => setExecutionDate(date)}
           icon="fa fa-calendar"
-          label="Execution Date"
         />
         <Button variant="outlined" color="secondary" type="submit">
           Register
