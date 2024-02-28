@@ -22,6 +22,8 @@
     "hardhat": "^2.20.1"
   },
   "dependencies": {
-    "@dotenvx/dotenvx": "^0.20.2"
+    "@dotenvx/dotenvx": "^0.20.2",
+    "@web3modal/ethers": "^4.0.10",
+    "ethers": "^6.11.1"
   }
 }
