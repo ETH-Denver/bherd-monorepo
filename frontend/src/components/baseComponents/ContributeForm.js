@@ -13,10 +13,8 @@ const signMessage = async () => {
     console.log("address", signer.address);
     try {
         const result = await signer.signMessage("Signing message with MetaMask");
-
         console.log(result);
     } catch (error) {
-        // handle error
         console.log(error);
     }
 };
