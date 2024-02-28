@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { HomePage } from "./components/pages/HomePage";
 import { ShowPage } from "./components/pages/Show";
 import BaseLayout from "./components/layouts/BaseLayout";
+import { CreateProposalPage } from "components/pages/CreateProposal";
 
 function App() {
   const router = createBrowserRouter([
@@ -12,12 +13,12 @@ function App() {
       element: <BaseLayout children={<HomePage />} />,
     },
     {
-      path: "create",
-      element: <div>World, Hello!!</div>,
-    },
-    {
       path: "show",
       element: <BaseLayout children={<ShowPage />} />,
+    },
+    {
+      path: "create",
+      element: <BaseLayout children={<CreateProposalPage />} />,
     },
   ]);
 
