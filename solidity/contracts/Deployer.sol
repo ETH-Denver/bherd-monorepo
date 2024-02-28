@@ -13,9 +13,9 @@ contract Deployer {
         uint256 _lat,
         uint256 _long,
         string memory _target,
-        bool _contentType,
+        string memory _contentType,
         string memory _contentMessage
-    ) external {
+    ) external returns (Proposal) {
         address _deployer = address(this);
         Proposal proposal = new Proposal(
             _deployer,
@@ -29,6 +29,8 @@ contract Deployer {
         );
 
         proposals.push(address(proposal));
+
+        return proposal;
     }
 
     constructor() {
@@ -39,11 +41,15 @@ contract Deployer {
         if (msg.sender == owner) _;
     }
 
-    function AddProvider(address _address) public _ownerOnly {
+    function addProvider(address _address) public _ownerOnly {
         providers[_address] = true;
     }
 
-    function IsProvider(address _address) public view returns (bool) {
+    function getProposals() public view returns (address[] memory) {
+        return proposals;
+    }
+
+    function isProvider(address _address) public view returns (bool) {
         return providers[_address] == true;
     }
 }
