@@ -7,6 +7,21 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 contract Proposal is ERC721 {
     uint256 public constant FUNDING_LEAD = 30 days;
 
+    struct proposalInfo {
+        address deployer;
+        uint256 startDay;
+        uint256 endDay;
+        uint256 lat;
+        uint256 long;
+        string target;
+        string message;
+        string contentType;
+        uint256 fundingDeadline;
+        uint256 fundingTarget;
+        address provider;
+        uint256 amountFunded;
+    }
+
     // Proposal parameters
     address public deployer;
     uint256 public startDay; // Date range of the ad, for specified time: start = end
@@ -46,7 +61,10 @@ contract Proposal is ERC721 {
         contentType = _contentType;
 
         // Calculate ad cost based on content type
-        if (keccak256(abi.encodePacked(contentType)) == keccak256(abi.encodePacked("Skywriting"))) {
+        if (
+            keccak256(abi.encodePacked(contentType)) ==
+            keccak256(abi.encodePacked("Skywriting"))
+        ) {
             fundingTarget = 6e18; // 6 ETH for Skywriter
         } else {
             fundingTarget = 1e18; // 1 ETH for Banner Plane
@@ -82,9 +100,12 @@ contract Proposal is ERC721 {
     // Allows providers to confirm a proposal once the funding target is met
     // Add modifier so that only provider can call this function
     function acceptProposal() public {
-        require(Deployer(deployer).IsProvider(msg.sender),"Only providers can accept proposals");
         require(
-            amountFunded > fundingTarget*99/100,
+            Deployer(deployer).isProvider(msg.sender),
+            "Only providers can accept proposals"
+        );
+        require(
+            amountFunded > (fundingTarget * 99) / 100,
             "proposal has not been fully funded"
         );
         provider = msg.sender;
@@ -105,9 +126,30 @@ contract Proposal is ERC721 {
         require(sent, "Failed to send Ether");
     }
 
+    function getProposalInfo() public view returns (proposalInfo memory) {
+        proposalInfo memory info = proposalInfo(
+            deployer,
+            startDay,
+            endDay,
+            lat,
+            long,
+            target,
+            message,
+            contentType,
+            fundingDeadline,
+            fundingTarget,
+            provider,
+            amountFunded
+        );
+        return info;
+    }
+
     // Complete Proposal by uploading a url to evidence of the ad
     function completeProposal(string memory _url) public {
-        require(msg.sender == provider,"Only the provider can complete proposal");
+        require(
+            msg.sender == provider,
+            "Only the provider can complete proposal"
+        );
         url = _url;
         // Disburse funds
         bool sent = payable(msg.sender).send(fundingTarget);
@@ -119,13 +161,9 @@ contract Proposal is ERC721 {
         require(amount > 0, "User did not contribute");
         require(bytes(url).length != 0, "Proposal is not complete");
 
-        nftId ++;
+        nftId++;
         contributions[msg.sender] = 0;
 
         _safeMint(msg.sender, nftId);
-
     }
 }
-
-
-
