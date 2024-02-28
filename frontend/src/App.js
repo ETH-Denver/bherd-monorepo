@@ -17,7 +17,7 @@ function App() {
     },
     {
       path: "show",
-      element: <ShowPage />,
+      element: <BaseLayout children={<ShowPage />} />,
     },
   ]);
 
