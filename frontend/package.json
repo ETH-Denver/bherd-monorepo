@@ -4,7 +4,7 @@
   "homepage": "https://eth-denver.github.io/frontend/",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.11.3",
+    "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.11",
     "@mui/material": "^5.15.11",
@@ -13,7 +13,9 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "react": "^18.2.0",
+    "react-datepicker": "^6.2.0",
     "react-dom": "^18.2.0",
+    "react-google-autocomplete": "^2.7.3",
     "react-router-dom": "^6.22.1",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.8",
