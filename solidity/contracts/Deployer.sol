@@ -13,7 +13,7 @@ contract Deployer {
         uint256 _lat,
         uint256 _long,
         string memory _target,
-        bool _contentType,
+        string memory _contentType,
         string memory _contentMessage
     ) external returns (Proposal) {
         address _deployer = address(this);
@@ -41,15 +41,15 @@ contract Deployer {
         if (msg.sender == owner) _;
     }
 
-    function AddProvider(address _address) public _ownerOnly {
+    function addProvider(address _address) public _ownerOnly {
         providers[_address] = true;
     }
 
-    function GetProposals() public view returns (address[] memory) {
+    function getProposals() public view returns (address[] memory) {
         return proposals;
     }
 
-    function IsProvider(address _address) public view returns (bool) {
+    function isProvider(address _address) public view returns (bool) {
         return providers[_address] == true;
     }
 }

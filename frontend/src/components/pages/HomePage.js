@@ -2,13 +2,14 @@ import { Container, Typography } from "@mui/material";
 import { ProposalCard } from "../baseComponents/ProposalCard";
 import { SearchBar } from "../baseComponents/SearchBar";
 import { useReadContract, useWriteContract } from 'wagmi'
-import Deployer from "../../abis/Deployer.json";
+import Proposal from "../../abis/Deployer.json";
+import Deployer from "../../abis/Proposal.json";
 
 export const HomePage = () => {
   const deployerAddress = "0x6d6E4bEec48F68417c2f71DDeFBeD0D220882ff4";
   const proposalAddress = "0x3ea2f7E5d218D497C1Ad3E4093Cfe336af8c2470";
   const mockArray = [1, 2, 3, 4, 5, 6];
-  console.log('Deployer', Deployer);
+
   const result = useReadContract({
     abi: Deployer.abi,
     address: proposalAddress,
@@ -19,6 +20,15 @@ export const HomePage = () => {
     abi: Deployer.abi,
     address: deployerAddress,
     functionName: 'GetProposals',
+  })
+
+  const contracts = proposalsFromContract.map((address) => {
+    return {
+      abi: Proposal.abi,
+      address,
+      functionName: ''
+
+    }
   })
 
   console.log('proposals', proposalsFromContract)
