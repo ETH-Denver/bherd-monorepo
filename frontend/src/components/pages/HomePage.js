@@ -35,26 +35,6 @@ export const HomePage = () => {
   // @ts-ignore
   const proposalsInfo = useReadContracts({ contracts });
 
-  const CreateButton = () => {
-    const { writeContract } = useWriteContract();
-
-    return (
-      <button
-        onClick={() => {
-          console.log("test");
-          writeContract({
-            abi: Deployer.abi,
-            address: deployerAddress,
-            functionName: "createProposal",
-            args: [42, 42, 42, 42, "foo", "skywriter", "foo"],
-          });
-        }}
-      >
-        CreateProposal
-      </button>
-    );
-  };
-
   useEffect(() => {
     const proposalsData = proposalsInfo?.data?.map((proposal) => {
       return proposal;
@@ -73,7 +53,6 @@ export const HomePage = () => {
       >
         <Typography variant="h3">Active Proposals</Typography>
         <w3m-button />
-        <CreateButton />
         <Container sx={{ backgroundColor: "#dcdcdc", paddingTop: 2 }}>
           <SearchBar />
           <Container sx={{ minWidth: "100%" }}>
