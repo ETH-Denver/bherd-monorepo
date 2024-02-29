@@ -3,8 +3,25 @@ import { Box, Container, Typography, TextField, Stack } from "@mui/material";
 import BasicModal from "../baseComponents/BasicModal";
 import ContributeForm from "../baseComponents/ContributeForm";
 import MapIndicator from "components/baseComponents/MapIndicator";
+import { useReadContract } from 'wagmi'
+import Deployer from "../../abis/Deployer.json";
+import Proposal from "../../abis/Proposal.json";
+import {useState} from "react";
+import { useParams }  from "react-router-dom";
 
 export const ShowPage = () => {
+    const { address } = useParams();
+    const [proposals, setProposals] = useState([]);
+    const deployerAddress = "0x2A354874631Dc2Dc09f6Ff240f19b11fe83D6720";
+    const proposalAddress = "0x3ea2f7E5d218D497C1Ad3E4093Cfe336af8c2470";
+    const proposal = useReadContract({
+        abi: Proposal.abi,
+        address: address,
+        functionName: 'getProposalInfo',
+    })
+
+    console.log("proposal", proposal)
+
   return (
     <Container
       sx={{

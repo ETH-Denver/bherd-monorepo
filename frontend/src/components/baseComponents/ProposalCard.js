@@ -20,10 +20,10 @@ export const ProposalCard = (props) => {
   const providerStatus = provider ? "Filled" : "Unfilled";
 
   const navigate = useNavigate();
-
+  console.log('contractAddress', props.contractAddress)
   return (
     <Card
-      onClick={() => navigate("/show")}
+      onClick={() => navigate(`/show?address=${props.contractAddress}`)}
       sx={{
         backgroundColor: "#FAF9F6",
         borderColor: "black",
