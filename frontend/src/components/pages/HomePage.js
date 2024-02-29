@@ -90,7 +90,7 @@ export const HomePage = () => {
                   />
               })
             }
-          </Container>;
+          </Container>
         </Container>
       </Container>
     </Container>
