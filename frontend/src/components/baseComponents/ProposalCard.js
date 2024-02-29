@@ -23,7 +23,7 @@ export const ProposalCard = (props) => {
   console.log('contractAddress', props.contractAddress)
   return (
     <Card
-      onClick={() => navigate(`/show?address=${props.contractAddress}`)}
+      onClick={() => navigate(`/show/${props.contractAddress}`)}
       sx={{
         backgroundColor: "#FAF9F6",
         borderColor: "black",

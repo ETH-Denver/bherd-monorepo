@@ -11,16 +11,17 @@ import { useParams }  from "react-router-dom";
 
 export const ShowPage = () => {
     const { address } = useParams();
-    const [proposals, setProposals] = useState([]);
+    const [proposal, setProposal] = useState();
     const deployerAddress = "0x2A354874631Dc2Dc09f6Ff240f19b11fe83D6720";
     const proposalAddress = "0x3ea2f7E5d218D497C1Ad3E4093Cfe336af8c2470";
-    const proposal = useReadContract({
+    console.log("address", address)
+    const proposalContract = useReadContract({
         abi: Proposal.abi,
         address: address,
         functionName: 'getProposalInfo',
     })
 
-    console.log("proposal", proposal)
+    console.log("proposal", proposalContract)
 
   return (
     <Container

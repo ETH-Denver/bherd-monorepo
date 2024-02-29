@@ -59,7 +59,7 @@ function App() {
       element: <BaseLayout children={<HomePage />} />,
     },
     {
-      path: "show",
+      path: "/show/:address",
       element: <BaseLayout children={<ShowPage />} />,
     },
     {
