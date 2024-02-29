@@ -2,16 +2,18 @@ import { Box, Card, Container, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export const ProposalCard = ({
-  fundedAmount,
-  fundingTarget,
-  provider,
-  executionDate,
-  expirationDate,
-  location,
-}) => {
+export const ProposalCard = (props) => {
+  console.log('props', props)
+  const {
+    amountFunded: fundedAmount,
+    fundingTarget,
+    provider,
+    endDay: executionDate,
+    fundingDeadline: expirationDate,
+    location,
+  } = props.data;
   const fundingStatus =
-    fundedAmount - fundingTarget > 0 ? "Funded" : "Incomplete";
+    Number(fundedAmount) - Number(fundingTarget) > 0 ? "Funded" : "Incomplete";
 
   const providerStatus = provider ? "Filled" : "Unfilled";
 
@@ -51,11 +53,11 @@ export const ProposalCard = ({
             }}
           >
             <Typography>Expiration Date:</Typography>
-            <Typography>{expirationDate}</Typography>
+            <Typography>{Number(expirationDate)}</Typography>
           </Box>
           <Box>
             <Typography>Execution Date:</Typography>
-            <Typography>{executionDate}</Typography>
+            <Typography>{Number(executionDate)}</Typography>
           </Box>
         </Box>
         <Box
@@ -65,9 +67,9 @@ export const ProposalCard = ({
           }}
         >
           <Typography>Funded Amount:</Typography>
-          <Typography>${fundedAmount}</Typography>
+          <Typography>${Number(fundedAmount)}</Typography>
           <Typography>Funding Target:</Typography>
-          <Typography>${fundingTarget}</Typography>
+          <Typography>${Number(fundingTarget)}</Typography>
         </Box>
         <Box
           sx={{

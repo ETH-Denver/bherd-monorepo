@@ -7,7 +7,7 @@ contract Deployer {
     address[] public proposals;
     mapping(address => bool) public providers;
 
-    function CreateProposal(
+    function createProposal(
         uint _startDay,
         uint _endDay,
         uint256 _lat,

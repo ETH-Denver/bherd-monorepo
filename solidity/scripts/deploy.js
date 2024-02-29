@@ -16,7 +16,7 @@ async function main() {
 
   const address = await deployer.waitForDeployment();
 
-  console.log('Deployer deployed', address);
+  console.log('Deployer deployed at', address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
