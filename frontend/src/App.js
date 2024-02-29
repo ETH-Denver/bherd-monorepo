@@ -13,13 +13,10 @@ import { WagmiProvider } from "wagmi"
 import { arbitrum, mainnet, sepolia } from "wagmi/chains"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
-// 0. Setup queryClient
 const queryClient = new QueryClient()
 
-// 1. Get projectId at https://cloud.walletconnect.com
-const projectId = "84f258141749c751c14b63c689a57b07"
+const projectId = process.env.REACT_APP_WAGMI_PROJECT_ID;
 
-// 2. Create wagmiConfig
 const metadata = {
   name: "Web3Modal",
   description: "Web3Modal Example",

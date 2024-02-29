@@ -8,9 +8,8 @@ import { useEffect, useState } from "react";
 
 export const HomePage = () => {
   const [proposals, setProposals] = useState([]);
-  const deployerAddress = "0x2A354874631Dc2Dc09f6Ff240f19b11fe83D6720";
-  const proposalAddress = "0x3ea2f7E5d218D497C1Ad3E4093Cfe336af8c2470";
-  const mockArray = [1, 2, 3, 4, 5, 6];
+
+  const deployerAddress = process.env.REACT_APP_DEPLOYER_CONTRACT_SEPOLIA;
 
   const proposalsFromContract = useReadContract({
     abi: Deployer.abi,
@@ -33,9 +32,7 @@ export const HomePage = () => {
     return (
       <button
         onClick={() => {
-          console.log("test")
           writeContract({
-
             abi: Deployer.abi,
             address: deployerAddress,
             functionName: 'createProposal',
