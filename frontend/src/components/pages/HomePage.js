@@ -1,4 +1,4 @@
-import { Container, Typography } from "@mui/material";
+import { Container, Skeleton, Typography } from "@mui/material";
 import { ProposalCard } from "../baseComponents/ProposalCard";
 import { SearchBar } from "../baseComponents/SearchBar";
 import { useReadContract, useReadContracts, useWriteContract } from "wagmi";
@@ -15,7 +15,7 @@ export const HomePage = () => {
     address: deployerAddress,
     functionName: "getProposals",
   });
-
+  const fillerProposals = [];
   let contracts = [];
   if (proposalsFromContract && proposalsFromContract.data !== undefined) {
     for (const address of proposalsFromContract?.data) {
@@ -35,7 +35,19 @@ export const HomePage = () => {
     });
     setProposals(proposalsData);
   }, [proposalsInfo.data]);
-
+  const GenerateSkeletons = () => {
+    for (let i = 0; i < 4; i++) {
+      <Skeleton
+        sx={{
+          marginY: 1,
+          borderRadius: 2,
+        }}
+        variant="rectangular"
+        width={"100%"}
+        height={200}
+      />;
+    }
+  };
   return (
     <Container>
       <Container
@@ -57,47 +69,19 @@ export const HomePage = () => {
           }}
         >
           <SearchBar />
-          <Container sx={{ minWidth: "100%", maxHeight: "90vh" }}>
-            {proposals?.map((proposal, index) => {
-              if (proposal.status === "success")
-                return (
-                  <ProposalCard
-                    data={proposal.result}
-                    key={index}
-                    contractAddress={contracts[index]["address"]}
-                  />
-                );
-            })}
-            {proposals?.map((proposal, index) => {
-              if (proposal.status === "success")
-                return (
-                  <ProposalCard
-                    data={proposal.result}
-                    key={index}
-                    contractAddress={contracts[index]["address"]}
-                  />
-                );
-            })}
-            {proposals?.map((proposal, index) => {
-              if (proposal.status === "success")
-                return (
-                  <ProposalCard
-                    data={proposal.result}
-                    key={index}
-                    contractAddress={contracts[index]["address"]}
-                  />
-                );
-            })}
-            {proposals?.map((proposal, index) => {
-              if (proposal.status === "success")
-                return (
-                  <ProposalCard
-                    data={proposal.result}
-                    key={index}
-                    contractAddress={contracts[index]["address"]}
-                  />
-                );
-            })}
+          <Container sx={{ minWidth: "100%" }}>
+            {!proposals?.length &&
+              [...Array(4)].map((array) => (
+                <Skeleton
+                  sx={{
+                    marginY: 1,
+                    borderRadius: 2,
+                  }}
+                  variant="rectangular"
+                  width={"100%"}
+                  height={200}
+                />
+              ))}
             {proposals?.map((proposal, index) => {
               if (proposal.status === "success")
                 return (
