@@ -1,7 +1,7 @@
 import { Container, Skeleton, Typography } from "@mui/material";
 import { ProposalCard } from "../baseComponents/ProposalCard";
 import { SearchBar } from "../baseComponents/SearchBar";
-import { useReadContract, useReadContracts, useWriteContract } from "wagmi";
+import { useReadContract, useReadContracts } from "wagmi";
 import Deployer from "../../abis/Deployer.json";
 import Proposal from "../../abis/Proposal.json";
 import { useEffect, useState } from "react";
@@ -15,7 +15,6 @@ export const HomePage = () => {
     address: deployerAddress,
     functionName: "getProposals",
   });
-  const fillerProposals = [];
   let contracts = [];
   if (proposalsFromContract && proposalsFromContract.data !== undefined) {
     for (const address of proposalsFromContract?.data) {
@@ -35,19 +34,7 @@ export const HomePage = () => {
     });
     setProposals(proposalsData);
   }, [proposalsInfo.data]);
-  const GenerateSkeletons = () => {
-    for (let i = 0; i < 4; i++) {
-      <Skeleton
-        sx={{
-          marginY: 1,
-          borderRadius: 2,
-        }}
-        variant="rectangular"
-        width={"100%"}
-        height={200}
-      />;
-    }
-  };
+
   return (
     <Container>
       <Container
