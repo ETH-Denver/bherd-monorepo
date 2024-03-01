@@ -53,7 +53,7 @@ export function ContextProvider({ children }) {
 function App() {
   const router = createBrowserRouter([
     {
-      path: "frontend",
+      path: "/",
       element: <BaseLayout children={<HomePage />} />,
     },
     {
@@ -63,6 +63,10 @@ function App() {
     {
       path: "create",
       element: <BaseLayout children={<CreateProposalPage />} />,
+    },
+    {
+      path: "/:anything-that-doesnt-match",
+      element: <BaseLayout children={<HomePage />} />,
     },
   ]);
 
