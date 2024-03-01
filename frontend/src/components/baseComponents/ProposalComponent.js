@@ -62,7 +62,6 @@ export const ProposalComponent = (props) => {
 
   const providerStatus = provider !== "0x0000000000000000000000000000000000000000" ? "Filled" : "Unfilled";
 
-  console.log("contractAddress", props.contractAddress);
   return (
     <Container
       sx={{
@@ -91,7 +90,6 @@ export const ProposalComponent = (props) => {
                 modalBody={<ContributeForm proposalAddress={props.contractAddress} />}
               />
             }
-
 
             {/* WIP - waiting for proposer address to be added to proposal */
               fundingStatus === "Complete" && providerStatus === "Unfilled" &&

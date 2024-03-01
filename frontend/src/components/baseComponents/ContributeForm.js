@@ -10,7 +10,7 @@ const ContributeButton = () => {
   const proposalAddress = window.location.pathname.split("/").pop();
   const { writeContract } = useWriteContract();
   const [amount, setAmount] = React.useState("");
-  console.log(amount);
+
   return (
     <form
       style={{
@@ -36,7 +36,6 @@ const ContributeButton = () => {
         variant={"contained"}
         sx={{ backgroundColor: "#844aff", width: "25%", placeSelf: "end" }}
         onClick={(e) => {
-          console.log("amount", amount);
           e.preventDefault();
           writeContract({
             abi: Proposal.abi,

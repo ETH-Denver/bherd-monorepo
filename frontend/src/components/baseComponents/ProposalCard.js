@@ -21,7 +21,7 @@ export const ProposalCard = (props) => {
   const providerStatus = provider ? "Filled" : "Unfilled";
 
   const navigate = useNavigate();
-  console.log(ethers.formatEther(fundedAmount));
+
   return (
     <Card
       onClick={() => navigate(`/show/${props.contractAddress}`)}

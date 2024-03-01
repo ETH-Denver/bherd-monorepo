@@ -33,7 +33,6 @@ export const HomePage = () => {
     const proposalsData = proposalsInfo?.data?.map((proposal) => {
       return proposal;
     });
-    console.log(proposalsData);
     setProposals(proposalsData);
   }, [proposalsInfo.data]);
 
