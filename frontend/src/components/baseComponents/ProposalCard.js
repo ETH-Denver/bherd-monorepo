@@ -1,6 +1,7 @@
 import { Box, Card, Container, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { ethers } from "ethers";
 
 export const ProposalCard = (props) => {
   const {
@@ -11,7 +12,7 @@ export const ProposalCard = (props) => {
     fundingDeadline: expirationDate,
     message,
     location,
-    target
+    target,
   } = props.data;
 
   const fundingStatus =
@@ -20,7 +21,7 @@ export const ProposalCard = (props) => {
   const providerStatus = provider ? "Filled" : "Unfilled";
 
   const navigate = useNavigate();
-
+  console.log(ethers.formatEther(fundedAmount));
   return (
     <Card
       onClick={() => navigate(`/show/${props.contractAddress}`)}
@@ -33,10 +34,10 @@ export const ProposalCard = (props) => {
         borderRadius: 2,
       }}
     >
-      <Typography variant="h5" textAlign={'right'}>
+      <Typography variant="h5" textAlign={"right"}>
         Message: {message}
       </Typography>
-      <Typography variant="h5" textAlign={'left'}>
+      <Typography variant="h5" textAlign={"left"}>
         Target: {target}
       </Typography>
       <Box sx={{ display: "flex" }}>
@@ -72,9 +73,9 @@ export const ProposalCard = (props) => {
           }}
         >
           <Typography>Funded Amount:</Typography>
-          <Typography>${Number(fundedAmount)}</Typography>
+          <Typography>{`ETH ${ethers.formatEther(fundedAmount)}`}</Typography>
           <Typography>Funding Target:</Typography>
-          <Typography>${Number(fundingTarget)}</Typography>
+          <Typography>{`ETH ${ethers.formatEther(fundingTarget)}`}</Typography>
         </Box>
         <Box
           sx={{

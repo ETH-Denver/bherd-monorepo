@@ -1,9 +1,18 @@
-import {Box, Button, Card, Container, Stack, TextField, Typography} from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  Container,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import BasicModal from "./BasicModal";
 import ContributeForm from "./ContributeForm";
 import MapIndicator from "./MapIndicator";
+import { ethers } from "ethers";
 
 export const ProposalComponent = (props) => {
   if (!props.data) {
@@ -18,7 +27,7 @@ export const ProposalComponent = (props) => {
     fundingDeadline: expirationDate,
     message,
     location,
-    target
+    target,
   } = props.data;
 
   const fundingStatus =
@@ -26,7 +35,7 @@ export const ProposalComponent = (props) => {
 
   const providerStatus = provider ? "Filled" : "Unfilled";
 
-  console.log('contractAddress', props.contractAddress)
+  console.log("contractAddress", props.contractAddress);
   return (
     <Container
       sx={{
@@ -41,14 +50,18 @@ export const ProposalComponent = (props) => {
         color: "black",
       }}
     >
-      <Stack sx={{marginBottom: "50px"}} spacing={2} direction="column">
+      <Stack sx={{ marginBottom: "50px" }} spacing={2} direction="column">
         <Stack spacing={2} direction="row" justifyContent="space-between">
-          <Button sx={{ marginRight: "0px" }} href={"/frontend"}>Back to List</Button>
+          <Button sx={{ marginRight: "0px" }} href={"/frontend"}>
+            Back to List
+          </Button>
           <BasicModal
             sx={{ marginLeft: "0px" }}
             buttonTitle="Contribute"
             modalTitle="How much would you like to contribute to this campaign?"
-            modalBody={<ContributeForm proposalAddress={props.contractAddress} />}
+            modalBody={
+              <ContributeForm proposalAddress={props.contractAddress} />
+            }
           />
         </Stack>
 
@@ -58,10 +71,11 @@ export const ProposalComponent = (props) => {
             justifyContent: "center",
             textAlign: "center",
             minHeight: "175px",
-            background: 'linear-gradient(to bottom, skyblue, white)' }}
+            background: "linear-gradient(to bottom, skyblue, white)",
+          }}
         >
-          <Typography variant="h1" sx={{ fontFamily: 'Bubble', color: "#fff"}}>
-            { target }
+          <Typography variant="h1" sx={{ fontFamily: "Bubble", color: "#fff" }}>
+            {target}
           </Typography>
         </Box>
         <Stack sx={{ marginTop: "40px" }} spacing={2} direction="row">
@@ -83,7 +97,7 @@ export const ProposalComponent = (props) => {
             disabled
             id="filled-disabled"
             label="Funded Amount"
-            defaultValue={Number(fundedAmount)}
+            defaultValue={`ETH ${ethers.formatEther(fundedAmount)}`}
             variant="filled"
           />
         </Stack>
@@ -92,7 +106,7 @@ export const ProposalComponent = (props) => {
             disabled
             id="filled-disabled"
             label="Funding Target"
-            defaultValue={Number(fundingTarget)}
+            defaultValue={`ETH ${ethers.formatEther(fundingTarget)}`}
             variant="filled"
           />
           <TextField
