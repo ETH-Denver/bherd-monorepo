@@ -14,7 +14,7 @@ const ethDenverTheme = createTheme({
       fontFamily: "Darker-Hanken-Grotesk",
     },
     h3: {
-      fontFamily: "Hanken-Grotesk-Regular",
+      fontFamily: "Darker-Hanken-Grotesk",
     },
     filled: {
       fontFamily: "Hanken-Grotesk-Regular",

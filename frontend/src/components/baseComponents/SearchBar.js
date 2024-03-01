@@ -1,6 +1,7 @@
 import { InputBase, styled } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import React from "react";
+import {ethDenverTheme} from "../../ethDenverTheme";
 
 export const SearchBar = () => {
   const Search = styled("div")(({ theme }) => ({
@@ -8,7 +9,7 @@ export const SearchBar = () => {
     borderRadius: theme.shape.borderRadius,
     backgroundColor: "white",
     "&:hover": {
-      backgroundColor: "blue",
+      backgroundColor: ethDenverTheme.palette.primary.main,
     },
     marginLeft: 0,
     width: "100%",
