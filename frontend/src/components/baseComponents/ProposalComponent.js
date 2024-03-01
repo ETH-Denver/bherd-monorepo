@@ -8,7 +8,6 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-// import Web3 from 'web3';
 import { keyframes } from '@emotion/react';
 import BasicModal from "./BasicModal";
 import ContributeForm from "./ContributeForm";
@@ -50,8 +49,14 @@ export const ProposalComponent = (props) => {
     target,
   } = props.data;
 
-  // const web3 = new Web3();
-  // const fundedAmountInEth = web3.utils.fromWei(fundedAmount.toString(), 'ether');
+  // takes a unix timestamp and returns a formatted date string
+  function unixTimestampToDateString(timestamp) {
+    return new Date(Number(timestamp) * 1000).toLocaleDateString();
+  }
+
+  const executionDateFormatted = unixTimestampToDateString(executionDate);
+  const expirationDateFormatted = unixTimestampToDateString(expirationDate);
+
   const fundingStatus =
     Number(fundedAmount) - Number(fundingTarget) > 0 ? "Funded" : "Incomplete";
 
@@ -111,14 +116,14 @@ export const ProposalComponent = (props) => {
             disabled
             id="filled-disabled"
             label="Expiration Date"
-            defaultValue={Number(expirationDate)}
+            defaultValue={expirationDateFormatted}
             variant="filled"
           />
           <TextField
             disabled
             id="filled-disabled"
             label="Execution Date"
-            defaultValue={Number(executionDate)}
+            defaultValue={executionDateFormatted}
             variant="filled"
           />
           <TextField
