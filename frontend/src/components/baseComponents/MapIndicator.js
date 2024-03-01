@@ -1,7 +1,8 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
+import { Container } from "@mui/material";
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const Pin = ({ text }) => <div style={{ fontSize: 40 }}>{text}</div>;
 
 export default function MapIndicator() {
   const defaultProps = {
@@ -9,18 +10,18 @@ export default function MapIndicator() {
       lat: 39.78127,
       lng: -104.97138,
     },
-    zoom: 17,
+    zoom: 15,
   };
 
   return (
     // Important! Always set the container height explicitly
-    <div style={{ height: "100vh", width: "100%" }}>
+    <div style={{ height: "30vh", width: "30%" }}>
       <GoogleMapReact
         bootstrapURLKeys={{ key: "" }}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
-        <AnyReactComponent lat={59.955413} lng={30.337844} text="My Marker" />
+        <Pin lat={39.78127} lng={-104.97138} text="📍" />
       </GoogleMapReact>
     </div>
   );
