@@ -6,22 +6,27 @@ import MapIndicator from "components/baseComponents/MapIndicator";
 import { useReadContract } from 'wagmi'
 import Deployer from "../../abis/Deployer.json";
 import Proposal from "../../abis/Proposal.json";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import { useParams }  from "react-router-dom";
+import {ProposalCard} from "../baseComponents/ProposalCard";
 
 export const ShowPage = () => {
     const { address } = useParams();
     const [proposal, setProposal] = useState();
-    const deployerAddress = "0x2A354874631Dc2Dc09f6Ff240f19b11fe83D6720";
-    const proposalAddress = "0x3ea2f7E5d218D497C1Ad3E4093Cfe336af8c2470";
-    console.log("address", address)
     const proposalContract = useReadContract({
         abi: Proposal.abi,
         address: address,
         functionName: 'getProposalInfo',
     })
 
-    console.log("proposal", proposalContract)
+    useEffect(() => {
+        if (proposalContract && proposalContract.data !== undefined) {
+            setProposal(proposalContract.data)
+        }
+    }, [proposalContract.data]);
+
+    console.log("address", address)
+    console.log("proposal", proposal)
 
   return (
     <Container
@@ -41,7 +46,7 @@ export const ShowPage = () => {
       <Stack spacing={2} direction="column">
         <Box sx={{ display: "flex", border: "1px dashed grey" }}>
           <Typography variant="h5">
-            Help troll the trolls the the troll toll convention
+              { proposal?.target }
           </Typography>
         </Box>
         <Stack sx={{ marginLeft: "0px" }} spacing={2} direction="row">
@@ -56,21 +61,21 @@ export const ShowPage = () => {
             disabled
             id="filled-disabled"
             label="Expiration Date"
-            defaultValue="1/1/23"
+            defaultValue={Number(proposal?.endDay)}
             variant="filled"
           />
           <TextField
             disabled
             id="filled-disabled"
             label="Execution Date"
-            defaultValue="1/2/23"
+            defaultValue={Number(proposal?.startDay)}
             variant="filled"
           />
           <TextField
             disabled
             id="filled-disabled"
             label="Funded Amount"
-            defaultValue="$5,000"
+            defaultValue={Number(proposal?.amountFunded)}
             variant="filled"
           />
         </Stack>
@@ -79,7 +84,7 @@ export const ShowPage = () => {
             disabled
             id="filled-disabled"
             label="Funding Target"
-            defaultValue="$15,000"
+            defaultValue={proposal?.fundingTarget}
             variant="filled"
           />
           <TextField
@@ -105,7 +110,7 @@ export const ShowPage = () => {
             label="Message"
             multiline
             rows={2}
-            defaultValue="Take to the skies and troll the trolls!"
+            defaultValue={proposal?.message}
             variant="filled"
           />
         </Stack>
