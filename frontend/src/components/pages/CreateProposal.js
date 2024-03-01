@@ -5,7 +5,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Autocomplete from "react-google-autocomplete";
 import { useWriteContract } from "wagmi";
-// @ts-ignore
 import Deployer from "../../abis/Deployer.json";
 
 const ProposalForm = () => {
