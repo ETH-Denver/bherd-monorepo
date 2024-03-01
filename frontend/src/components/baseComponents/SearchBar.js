@@ -13,6 +13,8 @@ export const SearchBar = () => {
     },
     marginLeft: 0,
     width: "100%",
+    marginTop: "2vh",
+    marginBottom: "2vh",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
       width: "auto",
