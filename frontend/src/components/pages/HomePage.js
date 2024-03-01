@@ -52,7 +52,6 @@ export const HomePage = () => {
         }}
       >
         <Typography variant="h3">Active Proposals</Typography>
-        <w3m-button />
         <Container sx={{ backgroundColor: "#dcdcdc", paddingTop: 2 }}>
           <SearchBar />
           <Container sx={{ minWidth: "100%" }}>

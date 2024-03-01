@@ -4,6 +4,7 @@ import React from "react";
 export default function BaseLayout({ children }) {
   return (
     <Container disableGutters={true} sx={{ minWidth: "100vw", padding: 0 }}>
+      <w3m-button />
       <Container
         disableGutters={true}
         sx={{
