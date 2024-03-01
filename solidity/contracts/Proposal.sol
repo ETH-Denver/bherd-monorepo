@@ -3,28 +3,26 @@ pragma solidity ^0.8.0;
 
 import "./Deployer.sol";
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract Proposal is ERC1155 {
-    using Counters for Counters.Counter;
-    Counters.Counter public tokenId;
-
     uint256 public constant FUNDING_LEAD = 30 days;
 
     // Proposal parameters
-    address public deployer;
+    address public deployer; // Contract factory address
+    address public proposer; // Proposal creator
     uint256 public startDay; // Date range of the ad, for specified time: start = end
     int256 public lat; // Latitude of ad
     int256 public long; // Longitude of ad
-    bytes public target; // Event description
-    bytes public message; // Proposed message
+    string public target; // Event description
+    string public message; // Proposed message
     uint public contentType; // Banner plane, Skywriter etc
 
     uint256 public fundingDeadline; // Fundraising deadline if fundingTarget not met users can request a refund
     uint256 public fundingTarget; // Ad cost
     address public provider; // default provider is the team
     uint256 public amountFunded; // current funding total
-    bytes public url; // proof of execution
+    string public url; // proof of execution
+    uint public tokenId; // NFT id
 
     mapping(address => uint256) contributions; // track contributions in event of refunds
 
@@ -37,12 +35,13 @@ contract Proposal is ERC1155 {
         uint _contentType,
         string memory _contentMessage
     ) ERC1155("") {
+        proposer = tx.origin;
         deployer = _deployer;
         startDay = _startDay;
         lat = _lat;
         long = _long;
-        target = bytes(_target);
-        message = bytes(_contentMessage);
+        target = _target;
+        message = _contentMessage;
         contentType = _contentType;
 
         // Calculate ad cost based on content type
@@ -59,9 +58,9 @@ contract Proposal is ERC1155 {
             FUNDING_LEAD;
 
         // Mint loyalty token and proposer nft
-        _mint(address(this), tokenId.current(), 1e18, "");
-        tokenId.increment();
-        _mint(tx.origin, tokenId.current(), 1, "");
+        _mint(address(this), tokenId, 1e18, "");
+        tokenId++;
+        _mint(proposer, tokenId, 1, "");
     }
 
     // Allows users to contribute funds to a proposal if the funding target has not been reached
@@ -119,24 +118,24 @@ contract Proposal is ERC1155 {
             msg.sender == provider,
             "Only the provider can complete proposal"
         );
-        url = bytes(_url);
+        url = _url;
         // Disburse funds
         bool sent = payable(msg.sender).send(fundingTarget);
         require(sent, "Failed to send Ether");
 
         // Mint provider NFT
-        tokenId.increment();
-        _mint(msg.sender, tokenId.current(), 1, "");
+        tokenId++;
+        _mint(msg.sender, tokenId, 1, "");
     }
 
     function mint() external {
         uint256 amount = contributions[msg.sender];
         require(amount > 0, "User did not contribute");
-        require(url.length != 0, "Proposal is not complete");
+        require(bytes(url).length != 0, "Proposal is not complete");
 
         // Mint token
-        tokenId.increment();
+        tokenId++;
         contributions[msg.sender] = 0;
-        _mint(msg.sender, tokenId.current(), 1, "");
+        _mint(msg.sender, tokenId, 1, "");
     }
 }

@@ -38,7 +38,7 @@ const ProposalForm = () => {
             address: deployerAddress,
             functionName: "createProposal",
             args: [
-              executionDate.getTime(),
+              process.env.REACT_APP_DEPLOYER_CONTRACT_SEPOLIA,
               executionDate.getTime(),
               lat * 10 ** JSON.stringify(lat).split(".")[1].length,
               long * 10 ** JSON.stringify(long).split(".")[1].length,
@@ -84,7 +84,7 @@ const ProposalForm = () => {
         label="Content Type"
         onChange={(event, selected) => {
           console.log(selected);
-          setContentType(event.target.value);
+          setContentType(0);
         }}
         sx={{ mb: 3, width: 500 }}
         renderValue={(selected) => {

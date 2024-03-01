@@ -1,8 +1,7 @@
-<<<<<<< HEAD
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+frontend/node_modules
 /.pnp
 .pnp.js
 
@@ -18,14 +17,9 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-=======
-.DS_Store
-node_modules
-.env
 
 # Hardhat files
 /cache
@@ -38,4 +32,4 @@ node_modules
 # solidity-coverage files
 /coverage
 /coverage.json
->>>>>>> solidity/main
+solidity/node_modules
