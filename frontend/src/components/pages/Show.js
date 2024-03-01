@@ -1,14 +1,8 @@
 import * as React from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  TextField,
-  Button,
-  Stack,
-} from "@mui/material";
+import { Box, Container, Typography, TextField, Stack } from "@mui/material";
 import BasicModal from "../baseComponents/BasicModal";
 import ContributeForm from "../baseComponents/ContributeForm";
+import MapIndicator from "components/baseComponents/MapIndicator";
 
 export const ShowPage = () => {
   return (
@@ -25,19 +19,19 @@ export const ShowPage = () => {
         color: "black",
       }}
     >
+      <MapIndicator />
       <Stack spacing={2} direction="column">
-        <Box sx={{ display: "flex", border: '1px dashed grey' }}>
+        <Box sx={{ display: "flex", border: "1px dashed grey" }}>
           <Typography variant="h5">
             Help troll the trolls the the troll toll convention
           </Typography>
-          <Typography sx={{ marginLeft: 2 }}>Denver, CO</Typography>
         </Box>
         <Stack sx={{ marginLeft: "0px" }} spacing={2} direction="row">
-            <BasicModal
-                buttonTitle="Contribute"
-                modalTitle="How much would you like to contribute to this campaign?"
-                modalBody={<ContributeForm />}
-            />
+          <BasicModal
+            buttonTitle="Contribute"
+            modalTitle="How much would you like to contribute to this campaign?"
+            modalBody={<ContributeForm />}
+          />
         </Stack>
         <Stack sx={{ marginTop: "40px" }} spacing={2} direction="row">
           <TextField
