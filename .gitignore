@@ -37,3 +37,7 @@ node_modules
 # solidity-coverage files
 /coverage
 /coverage.json
+
+
+# Mark's IDE
+.idea/
