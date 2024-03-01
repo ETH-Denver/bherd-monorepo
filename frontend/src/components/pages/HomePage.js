@@ -1,7 +1,7 @@
-import { Container, Typography } from "@mui/material";
+import { Container, Skeleton, Typography } from "@mui/material";
 import { ProposalCard } from "../baseComponents/ProposalCard";
 import { SearchBar } from "../baseComponents/SearchBar";
-import { useReadContract, useReadContracts, useWriteContract } from "wagmi";
+import { useReadContract, useReadContracts } from "wagmi";
 import Deployer from "../../abis/Deployer.json";
 import Proposal from "../../abis/Proposal.json";
 import { useEffect, useState } from "react";
@@ -15,7 +15,6 @@ export const HomePage = () => {
     address: deployerAddress,
     functionName: "getProposals",
   });
-
   let contracts = [];
   if (proposalsFromContract && proposalsFromContract.data !== undefined) {
     for (const address of proposalsFromContract?.data) {
@@ -46,9 +45,30 @@ export const HomePage = () => {
         }}
       >
         <Typography variant="h3">Active Proposals</Typography>
-        <Container sx={{ backgroundColor: "#dcdcdc", paddingTop: 2 }}>
+        <Container
+          sx={{
+            backgroundColor: "#d7d3d3",
+            paddingTop: 2,
+            minHeight: "90vh",
+            borderRadius: 2,
+            marginY: 0,
+            overflowY: "scroll",
+          }}
+        >
           <SearchBar />
           <Container sx={{ minWidth: "100%" }}>
+            {!proposals?.length &&
+              [...Array(4)].map((array) => (
+                <Skeleton
+                  sx={{
+                    marginY: 1,
+                    borderRadius: 2,
+                  }}
+                  variant="rectangular"
+                  width={"100%"}
+                  height={200}
+                />
+              ))}
             {proposals?.map((proposal, index) => {
               if (proposal.status === "success")
                 return (
