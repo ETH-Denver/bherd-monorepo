@@ -3,7 +3,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 export const ProposalCard = (props) => {
-  console.log('props', props)
   const {
     amountFunded: fundedAmount,
     fundingTarget,
@@ -14,6 +13,7 @@ export const ProposalCard = (props) => {
     location,
     target
   } = props.data;
+
   const fundingStatus =
     Number(fundedAmount) - Number(fundingTarget) > 0 ? "Funded" : "Incomplete";
 

@@ -1,5 +1,6 @@
 import { InputBase, styled } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import React from "react";
 
 export const SearchBar = () => {
   const Search = styled("div")(({ theme }) => ({
