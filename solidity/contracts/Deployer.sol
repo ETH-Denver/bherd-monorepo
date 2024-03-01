@@ -8,19 +8,17 @@ contract Deployer {
     mapping(address => bool) public providers;
 
     function createProposal(
-        uint _startDay,
-        uint _endDay,
-        uint256 _lat,
-        uint256 _long,
+        uint8 _startDay,
+        int256 _lat,
+        int256 _long,
         string memory _target,
-        string memory _contentType,
+        uint _contentType,
         string memory _contentMessage
     ) external returns (Proposal) {
         address _deployer = address(this);
         Proposal proposal = new Proposal(
             _deployer,
             _startDay,
-            _endDay,
             _lat,
             _long,
             _target,

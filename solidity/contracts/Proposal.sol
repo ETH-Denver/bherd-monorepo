@@ -11,63 +11,42 @@ contract Proposal is ERC1155 {
 
     uint256 public constant FUNDING_LEAD = 30 days;
 
-    struct proposalInfo {
-        address deployer;
-        uint256 startDay;
-        uint256 endDay;
-        uint256 lat;
-        uint256 long;
-        string target;
-        string message;
-        string contentType;
-        uint256 fundingDeadline;
-        uint256 fundingTarget;
-        address provider;
-        uint256 amountFunded;
-    }
-
     // Proposal parameters
     address public deployer;
     uint256 public startDay; // Date range of the ad, for specified time: start = end
-    uint256 public endDay;
-    uint256 public lat; // Latitude of ad
-    uint256 public long; // Longitude of ad
-    string public target; // Event description
-    string public message; // Proposed message
-    string public contentType; // Banner plane, Skywriter etc
+    int256 public lat; // Latitude of ad
+    int256 public long; // Longitude of ad
+    bytes public target; // Event description
+    bytes public message; // Proposed message
+    uint public contentType; // Banner plane, Skywriter etc
 
     uint256 public fundingDeadline; // Fundraising deadline if fundingTarget not met users can request a refund
     uint256 public fundingTarget; // Ad cost
     address public provider; // default provider is the team
     uint256 public amountFunded; // current funding total
-    string public url; // proof of execution
+    bytes public url; // proof of execution
 
     mapping(address => uint256) contributions; // track contributions in event of refunds
 
     constructor(
         address _deployer,
         uint256 _startDay,
-        uint256 _endDay,
-        uint256 _lat,
-        uint256 _long,
+        int256 _lat,
+        int256 _long,
         string memory _target,
-        string memory _contentType,
+        uint _contentType,
         string memory _contentMessage
     ) ERC1155("") {
         deployer = _deployer;
         startDay = _startDay;
-        endDay = _endDay;
         lat = _lat;
         long = _long;
-        target = _target;
-        message = _contentMessage;
+        target = bytes(_target);
+        message = bytes(_contentMessage);
         contentType = _contentType;
 
         // Calculate ad cost based on content type
-        if (
-            keccak256(abi.encodePacked(contentType)) ==
-            keccak256(abi.encodePacked("Skywriting"))
-        ) {
+        if (contentType == 1) {
             fundingTarget = 6e18; // 6 ETH for Skywriter
         } else {
             fundingTarget = 1e18; // 1 ETH for Banner Plane
@@ -109,7 +88,7 @@ contract Proposal is ERC1155 {
     // Add modifier so that only provider can call this function
     function acceptProposal() public {
         require(
-            Deployer(deployer).IsProvider(msg.sender),
+            Deployer(deployer).isProvider(msg.sender),
             "Only providers can accept proposals"
         );
         require(
@@ -134,31 +113,13 @@ contract Proposal is ERC1155 {
         require(sent, "Failed to send Ether");
     }
 
-    function getProposalInfo() public view returns (proposalInfo memory) {
-        proposalInfo memory info = proposalInfo(
-            deployer,
-            startDay,
-            endDay,
-            lat,
-            long,
-            target,
-            message,
-            contentType,
-            fundingDeadline,
-            fundingTarget,
-            provider,
-            amountFunded
-        );
-        return info;
-    }
-
     // Complete Proposal by uploading a url to evidence of the ad
     function completeProposal(string memory _url) public {
         require(
             msg.sender == provider,
             "Only the provider can complete proposal"
         );
-        url = _url;
+        url = bytes(_url);
         // Disburse funds
         bool sent = payable(msg.sender).send(fundingTarget);
         require(sent, "Failed to send Ether");
@@ -171,7 +132,7 @@ contract Proposal is ERC1155 {
     function mint() external {
         uint256 amount = contributions[msg.sender];
         require(amount > 0, "User did not contribute");
-        require(bytes(url).length != 0, "Proposal is not complete");
+        require(url.length != 0, "Proposal is not complete");
 
         // Mint token
         tokenId.increment();
