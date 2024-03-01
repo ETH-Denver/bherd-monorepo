@@ -12,6 +12,8 @@ import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 import { WagmiProvider } from "wagmi";
 import { arbitrum, mainnet, sepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {ThemeProvider} from "@mui/material/styles";
+import {ethDenverTheme} from "./ethDenverTheme";
 
 const queryClient = new QueryClient();
 
@@ -71,9 +73,11 @@ function App() {
   ]);
 
   const children = (
-    <div>
-      <RouterProvider router={router} />
-    </div>
+    <ThemeProvider theme={ethDenverTheme}>
+      <div>
+        <RouterProvider router={router} />
+      </div>
+    </ThemeProvider>
   );
 
   return ContextProvider({ children });
