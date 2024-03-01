@@ -1,4 +1,4 @@
-import { Container, Typography } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
@@ -24,7 +24,20 @@ export const Header = () => {
       >
         B Herd
       </Typography>
-      <w3m-button style={{ display: "flex", justifyContent: "flex-end" }} />
+      <Container
+        sx={{ display: "flex", flexDirection: "column", width: "fit-content" }}
+      >
+        <w3m-button style={{ display: "flex", justifyContent: "flex-end" }} />
+        <Button
+          variant="contained"
+          onClick={() => {
+            navigate("/create");
+          }}
+          sx={{ width: 260 }}
+        >
+          Create Proposal
+        </Button>
+      </Container>
     </Container>
   );
 };
