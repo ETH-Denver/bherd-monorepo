@@ -10,7 +10,6 @@ export const HomePage = () => {
   const [proposals, setProposals] = useState([]);
   const deployerAddress = "0x2A354874631Dc2Dc09f6Ff240f19b11fe83D6720";
   const proposalAddress = "0x3ea2f7E5d218D497C1Ad3E4093Cfe336af8c2470";
-  const mockArray = [1, 2, 3, 4, 5, 6];
 
   const proposalsFromContract = useReadContract({
     abi: Deployer.abi,
@@ -76,7 +75,6 @@ export const HomePage = () => {
         }}
       >
         <Typography variant="h3">Active Proposals</Typography>
-        <w3m-button />
         <CreateButton />
         <Container sx={{ backgroundColor: "#dcdcdc", paddingTop: 2 }}>
           <SearchBar />

@@ -20,7 +20,7 @@ require("@nomicfoundation/hardhat-toolbox");
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   networks: {
-    sepolia: {
+    goerli: {
       url: "https://eth-goerli.g.alchemy.com/v2/CJ0p2QdZRojuoMvpsiQmMKiRojJXSGvP",
       accounts: [process.env.PRIVATE_KEY],
     },

@@ -33,11 +33,11 @@ export const ShowPage = () => {
           <Typography sx={{ marginLeft: 2 }}>Denver, CO</Typography>
         </Box>
         <Stack sx={{ marginLeft: "0px" }} spacing={2} direction="row">
-            <BasicModal
-                buttonTitle="Contribute"
-                modalTitle="How much would you like to contribute to this campaign?"
-                modalBody={<ContributeForm />}
-            />
+          <BasicModal
+            buttonTitle="Contribute"
+            modalTitle="How much would you like to contribute to this campaign?"
+            modalBody={<ContributeForm />}
+          />
         </Stack>
         <Stack sx={{ marginTop: "40px" }} spacing={2} direction="row">
           <TextField
