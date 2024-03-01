@@ -20,7 +20,7 @@ const Pin = ({ text }) => (
 export default function MapIndicator() {
   const [address, setAddress] = React.useState("");
 
-  setKey("AIzaSyBkk4pDx-Vz48tU4tJ1iMKMPTcs2_csJt0");
+  setKey(process.env.REACT_APP_GOOGLE_API);
   geocode(RequestType.LATLNG, "39.78127,-104.97138")
     .then(({ results }) => {
       const address = results[0].formatted_address;

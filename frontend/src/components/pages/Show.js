@@ -1,12 +1,5 @@
 import * as React from "react";
-import {
-  Box,
-  Container,
-  Typography,
-  TextField,
-  Button,
-  Stack,
-} from "@mui/material";
+import { Box, Container, Typography, TextField, Stack } from "@mui/material";
 import BasicModal from "../baseComponents/BasicModal";
 import ContributeForm from "../baseComponents/ContributeForm";
 import MapIndicator from "components/baseComponents/MapIndicator";
