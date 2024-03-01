@@ -19,7 +19,6 @@ export const ShowPage = () => {
         color: "black",
       }}
     >
-      <MapIndicator />
       <Stack spacing={2} direction="column">
         <Box sx={{ display: "flex", border: "1px dashed grey" }}>
           <Typography variant="h5">
