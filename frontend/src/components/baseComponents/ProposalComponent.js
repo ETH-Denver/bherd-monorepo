@@ -8,11 +8,31 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+// import Web3 from 'web3';
+import { keyframes } from '@emotion/react';
 import BasicModal from "./BasicModal";
 import ContributeForm from "./ContributeForm";
 import MapIndicator from "./MapIndicator";
 import { ethers } from "ethers";
+
+const floatAnimation = keyframes`
+  0% {
+    transform: translateX(-100px);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(100px); // adjust this value as needed
+    opacity: 0;
+  }
+  50.01% {
+    transform: translateX(-100px); // move it back to left off-screen
+    opacity: 0; // keep it invisible
+  }
+  100% {
+    transform: translateX(-100px);
+    opacity: 1;
+  }
+`;
 
 export const ProposalComponent = (props) => {
   if (!props.data) {
@@ -30,6 +50,8 @@ export const ProposalComponent = (props) => {
     target,
   } = props.data;
 
+  // const web3 = new Web3();
+  // const fundedAmountInEth = web3.utils.fromWei(fundedAmount.toString(), 'ether');
   const fundingStatus =
     Number(fundedAmount) - Number(fundingTarget) > 0 ? "Funded" : "Incomplete";
 
@@ -52,17 +74,23 @@ export const ProposalComponent = (props) => {
     >
       <Stack sx={{ marginBottom: "50px" }} spacing={2} direction="column">
         <Stack spacing={2} direction="row" justifyContent="space-between">
-          <Button sx={{ marginRight: "0px" }} href={"/frontend"}>
-            Back to List
-          </Button>
-          <BasicModal
-            sx={{ marginLeft: "0px" }}
-            buttonTitle="Contribute"
-            modalTitle="How much would you like to contribute to this campaign?"
-            modalBody={
-              <ContributeForm proposalAddress={props.contractAddress} />
-            }
-          />
+          <Stack>
+            <Button sx={{ marginRight: "0px" }} href={"/frontend"}>Back to List</Button>
+          </Stack>
+          <Stack spacing={2} direction="row">
+            <BasicModal
+              sx={{ marginLeft: "0px" }}
+              buttonTitle="Contribute"
+              modalTitle="How much would you like to contribute to this campaign?"
+              modalBody={<ContributeForm proposalAddress={props.contractAddress} />}
+            />
+            {/* WIP - waiting for proposer address to be added to proposal */}
+            <BasicModal
+              buttonTitle="Execute Proposal"
+              modalTitle="Are you sure you would like to close this campaign to new contributions?"
+              modalBody={<Button>Nooo!!!</Button>}
+            />
+          </Stack>
         </Stack>
 
         <Box
@@ -74,8 +102,8 @@ export const ProposalComponent = (props) => {
             background: "linear-gradient(to bottom, skyblue, white)",
           }}
         >
-          <Typography variant="h1" sx={{ fontFamily: "Bubble", color: "#fff" }}>
-            {target}
+          <Typography variant="h1" sx={{ fontFamily: 'Bubble', color: "#fff", animation: `${floatAnimation} 7s infinite`}}>
+            { target }
           </Typography>
         </Box>
         <Stack sx={{ marginTop: "40px" }} spacing={2} direction="row">
@@ -83,14 +111,14 @@ export const ProposalComponent = (props) => {
             disabled
             id="filled-disabled"
             label="Expiration Date"
-            defaultValue={Number(executionDate)}
+            defaultValue={Number(expirationDate)}
             variant="filled"
           />
           <TextField
             disabled
             id="filled-disabled"
             label="Execution Date"
-            defaultValue={Number("1")}
+            defaultValue={Number(executionDate)}
             variant="filled"
           />
           <TextField
@@ -113,14 +141,14 @@ export const ProposalComponent = (props) => {
             disabled
             id="filled-disabled"
             label="Funding Status"
-            defaultValue="Funding Open"
+            defaultValue={fundingStatus}
             variant="filled"
           />
           <TextField
             disabled
             id="filled-disabled"
             label="Provider Status"
-            defaultValue="Filled"
+            defaultValue={providerStatus}
             variant="filled"
           />
         </Stack>

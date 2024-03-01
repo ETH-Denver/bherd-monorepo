@@ -22,6 +22,7 @@ export const ShowPage = () => {
         }
     }, [proposalContract.data]);
 
+    console.log('proposal', proposal)
   return (
     proposal ? <ProposalComponent data={proposal}/> : null
   );
