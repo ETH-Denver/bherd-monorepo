@@ -83,18 +83,24 @@ export const ProposalComponent = (props) => {
             <Button sx={{ marginRight: "0px" }} href={"/frontend"}>Back to List</Button>
           </Stack>
           <Stack spacing={2} direction="row">
-            <BasicModal
-              sx={{ marginLeft: "0px" }}
-              buttonTitle="Contribute"
-              modalTitle="How much would you like to contribute to this campaign?"
-              modalBody={<ContributeForm proposalAddress={props.contractAddress} />}
-            />
-            {/* WIP - waiting for proposer address to be added to proposal */}
-            <BasicModal
-              buttonTitle="Execute Proposal"
-              modalTitle="Are you sure you would like to close this campaign to new contributions?"
-              modalBody={<Button>Nooo!!!</Button>}
-            />
+            {fundingStatus === "Incomplete" && providerStatus === "Unfilled" &&
+              <BasicModal
+                sx={{ marginLeft: "0px" }}
+                buttonTitle="Contribute"
+                modalTitle="How much would you like to contribute to this campaign?"
+                modalBody={<ContributeForm proposalAddress={props.contractAddress} />}
+              />
+            }
+
+
+            {/* WIP - waiting for proposer address to be added to proposal */
+              fundingStatus === "Complete" && providerStatus === "Unfilled" &&
+                <BasicModal
+                  buttonTitle="Execute Proposal"
+                  modalTitle="Are you sure you would like to close this campaign to new contributions?"
+                  modalBody={<Button>Nooo!!!</Button>}
+                />
+            }
           </Stack>
         </Stack>
 
