@@ -21,6 +21,7 @@ require("@nomicfoundation/hardhat-toolbox");
 module.exports = {
   networks: {
     goerli: {
+      chainId: 5,
       url: "https://eth-goerli.g.alchemy.com/v2/CJ0p2QdZRojuoMvpsiQmMKiRojJXSGvP",
       accounts: [process.env.PRIVATE_KEY],
     },
