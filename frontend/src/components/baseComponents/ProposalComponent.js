@@ -48,7 +48,7 @@ export const ProposalComponent = (props) => {
             sx={{ marginLeft: "0px" }}
             buttonTitle="Contribute"
             modalTitle="How much would you like to contribute to this campaign?"
-            modalBody={<ContributeForm />}
+            modalBody={<ContributeForm proposalAddress={props.contractAddress} />}
           />
         </Stack>
 
@@ -113,7 +113,7 @@ export const ProposalComponent = (props) => {
         <Stack sx={{ marginTop: "40px" }} spacing={2} direction="row">
           <TextField
             disabled
-            sx={{ width: "500px" }}
+            sx={{ width: "100%" }}
             id="filled-multiline-static"
             label="Message"
             multiline
