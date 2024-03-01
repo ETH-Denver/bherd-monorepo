@@ -46,9 +46,58 @@ export const HomePage = () => {
         }}
       >
         <Typography variant="h3">Active Proposals</Typography>
-        <Container sx={{ backgroundColor: "#dcdcdc", paddingTop: 2 }}>
+        <Container
+          sx={{
+            backgroundColor: "#d7d3d3",
+            paddingTop: 2,
+            minHeight: "90vh",
+            borderRadius: 2,
+            marginY: 0,
+            overflowY: "scroll",
+          }}
+        >
           <SearchBar />
-          <Container sx={{ minWidth: "100%" }}>
+          <Container sx={{ minWidth: "100%", maxHeight: "90vh" }}>
+            {proposals?.map((proposal, index) => {
+              if (proposal.status === "success")
+                return (
+                  <ProposalCard
+                    data={proposal.result}
+                    key={index}
+                    contractAddress={contracts[index]["address"]}
+                  />
+                );
+            })}
+            {proposals?.map((proposal, index) => {
+              if (proposal.status === "success")
+                return (
+                  <ProposalCard
+                    data={proposal.result}
+                    key={index}
+                    contractAddress={contracts[index]["address"]}
+                  />
+                );
+            })}
+            {proposals?.map((proposal, index) => {
+              if (proposal.status === "success")
+                return (
+                  <ProposalCard
+                    data={proposal.result}
+                    key={index}
+                    contractAddress={contracts[index]["address"]}
+                  />
+                );
+            })}
+            {proposals?.map((proposal, index) => {
+              if (proposal.status === "success")
+                return (
+                  <ProposalCard
+                    data={proposal.result}
+                    key={index}
+                    contractAddress={contracts[index]["address"]}
+                  />
+                );
+            })}
             {proposals?.map((proposal, index) => {
               if (proposal.status === "success")
                 return (

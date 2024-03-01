@@ -4,7 +4,17 @@ import React from "react";
 
 export default function BaseLayout({ children }) {
   return (
-    <Container disableGutters={true} sx={{ minWidth: "100vw", padding: 0 }}>
+    <Container
+      disableGutters={true}
+      sx={{
+        minWidth: "100vw",
+        padding: 0,
+        minHeight: "100vh",
+        backgroundColor: "#fffcec",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <Header />
       {children}
       <Container
