@@ -3,15 +3,17 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 export const ProposalCard = (props) => {
-  console.log('props', props)
   const {
     amountFunded: fundedAmount,
     fundingTarget,
     provider,
     endDay: executionDate,
     fundingDeadline: expirationDate,
+    message,
     location,
+    target
   } = props.data;
+
   const fundingStatus =
     Number(fundedAmount) - Number(fundingTarget) > 0 ? "Funded" : "Incomplete";
 
@@ -31,8 +33,11 @@ export const ProposalCard = (props) => {
         borderRadius: 2,
       }}
     >
-      <Typography variant="h5">
-        Nunc gravida magna sit amet est dictum, a consectetur massa tristique.
+      <Typography variant="h5" textAlign={'right'}>
+        Message: {message}
+      </Typography>
+      <Typography variant="h5" textAlign={'left'}>
+        Target: {target}
       </Typography>
       <Box sx={{ display: "flex" }}>
         <Typography>Location:</Typography>

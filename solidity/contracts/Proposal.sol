@@ -2,9 +2,13 @@
 pragma solidity ^0.8.0;
 
 import "./Deployer.sol";
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract Proposal is ERC721 {
+contract Proposal is ERC1155 {
+    using Counters for Counters.Counter;
+    Counters.Counter public tokenId;
+
     uint256 public constant FUNDING_LEAD = 30 days;
 
     struct proposalInfo {
@@ -37,7 +41,6 @@ contract Proposal is ERC721 {
     address public provider; // default provider is the team
     uint256 public amountFunded; // current funding total
     string public url; // proof of execution
-    uint256 public nftId; // NFT id
 
     mapping(address => uint256) contributions; // track contributions in event of refunds
 
@@ -50,7 +53,7 @@ contract Proposal is ERC721 {
         string memory _target,
         string memory _contentType,
         string memory _contentMessage
-    ) ERC721("B Herd", "HERD") {
+    ) ERC1155("") {
         deployer = _deployer;
         startDay = _startDay;
         endDay = _endDay;
@@ -75,6 +78,11 @@ contract Proposal is ERC721 {
             block.timestamp +
             (startDay * 24 * 60 * 60) -
             FUNDING_LEAD;
+
+        // Mint loyalty token and proposer nft
+        _mint(address(this), tokenId.current(), 1e18, "");
+        tokenId.increment();
+        _mint(tx.origin, tokenId.current(), 1, "");
     }
 
     // Allows users to contribute funds to a proposal if the funding target has not been reached
@@ -101,11 +109,11 @@ contract Proposal is ERC721 {
     // Add modifier so that only provider can call this function
     function acceptProposal() public {
         require(
-            Deployer(deployer).isProvider(msg.sender),
+            Deployer(deployer).IsProvider(msg.sender),
             "Only providers can accept proposals"
         );
         require(
-            amountFunded > (fundingTarget * 99) / 100,
+            amountFunded > ((fundingTarget * 98) / 100),
             "proposal has not been fully funded"
         );
         provider = msg.sender;
@@ -154,6 +162,10 @@ contract Proposal is ERC721 {
         // Disburse funds
         bool sent = payable(msg.sender).send(fundingTarget);
         require(sent, "Failed to send Ether");
+
+        // Mint provider NFT
+        tokenId.increment();
+        _mint(msg.sender, tokenId.current(), 1, "");
     }
 
     function mint() external {
@@ -161,9 +173,9 @@ contract Proposal is ERC721 {
         require(amount > 0, "User did not contribute");
         require(bytes(url).length != 0, "Proposal is not complete");
 
-        nftId++;
+        // Mint token
+        tokenId.increment();
         contributions[msg.sender] = 0;
-
-        _safeMint(msg.sender, nftId);
+        _mint(msg.sender, tokenId.current(), 1, "");
     }
 }
