@@ -2,18 +2,14 @@ import { Container, Typography } from "@mui/material";
 import { ProposalCard } from "../baseComponents/ProposalCard";
 import { SearchBar } from "../baseComponents/SearchBar";
 import { useReadContract, useReadContracts, useWriteContract } from "wagmi";
-// @ts-ignore
 import Deployer from "../../abis/Deployer.json";
-// @ts-ignore
 import Proposal from "../../abis/Proposal.json";
 import { useEffect, useState } from "react";
 import React from "react";
 
 export const HomePage = () => {
   const [proposals, setProposals] = useState([]);
-
   const deployerAddress = process.env.REACT_APP_DEPLOYER_CONTRACT_SEPOLIA;
-
   const proposalsFromContract = useReadContract({
     abi: Deployer.abi,
     address: deployerAddress,
@@ -51,12 +47,14 @@ export const HomePage = () => {
 
       return;
     });
-    proposal.data.status = 'success';
+    console.log(proposal);
+    if (proposalsInfo?.data) { proposal.data.status = 'success'; }
+
     const output = [proposal];
 
     setProposals(output);
   }, [proposalsInfo.data]);
-
+  // console.log('proposals', proposals)
   return (
     <Container>
       <Container

@@ -12,16 +12,15 @@ export default function BaseLayout({ children }) {
           minHeight: "50px",
           backgroundColor: "#ff65af",
         }}
-      ></Container>
+      >
+        <w3m-button />
+      </Container>
       {children}
       <Container
         disableGutters={true}
-        sx={{
-          minWidth: "100vw",
-          minHeight: "200px",
-          backgroundColor: "#844aff",
-        }}
-      ></Container>
+        sx={{ minWidth: "100vw", minHeight: "200px", backgroundColor: "#844aff" }}
+      >
+      </Container>
     </Container>
   );
 }

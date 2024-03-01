@@ -5,7 +5,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Autocomplete from "react-google-autocomplete";
 import { useWriteContract } from "wagmi";
-// @ts-ignore
 import Deployer from "../../abis/Deployer.json";
 
 const ProposalForm = () => {
@@ -24,15 +23,6 @@ const ProposalForm = () => {
         variant="outlined"
         color="secondary"
         onClick={() => {
-          console.log(
-            executionDate.getTime(),
-            executionDate.getTime(),
-            lat * 10 ** JSON.stringify(lat).split(".")[1].length,
-            long * 10 ** JSON.stringify(long).split(".")[1].length,
-            target,
-            contentType,
-            content
-          );
           writeContract({
             abi: Deployer.abi,
             address: deployerAddress,
@@ -88,7 +78,6 @@ const ProposalForm = () => {
         }}
         sx={{ mb: 3, width: 500 }}
         renderValue={(selected) => {
-          console.log(selected);
           if (selected.length === 0) {
             return <em>Please Select an Option</em>;
           }

@@ -15,3 +15,18 @@ module.exports = {
   },
   solidity: "0.8.24",
 };
+require("@nomicfoundation/hardhat-toolbox");
+
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+  networks: {
+    goerli: {
+      url: "https://eth-goerli.g.alchemy.com/v2/CJ0p2QdZRojuoMvpsiQmMKiRojJXSGvP",
+      accounts: [process.env.PRIVATE_KEY],
+    },
+    local: {
+      url: "http://127.0.01:8545",
+    },
+  },
+  solidity: "0.8.24",
+};

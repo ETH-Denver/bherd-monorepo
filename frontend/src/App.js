@@ -13,8 +13,7 @@ import { WagmiProvider } from "wagmi";
 import { arbitrum, mainnet, sepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 const projectId = process.env.REACT_APP_WAGMI_PROJECT_ID;
 
@@ -27,7 +26,6 @@ const metadata = {
 
 const chains = [arbitrum, mainnet, sepolia];
 const config = defaultWagmiConfig({
-  // @ts-ignore
   chains, // required
   projectId, // required
   metadata, // required
@@ -59,7 +57,7 @@ function App() {
       element: <BaseLayout children={<HomePage />} />,
     },
     {
-      path: "show",
+      path: "/show/:address",
       element: <BaseLayout children={<ShowPage />} />,
     },
     {
