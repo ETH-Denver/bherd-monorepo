@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const ContributeButton = () => {
   const navigate = useNavigate();
-  let proposalAddress = window.location.pathname.split("/").pop()
+  const proposalAddress = window.location.pathname.split("/").pop()
   const { writeContract } = useWriteContract();
   const [amount, setAmount] = React.useState("")
   return (
