@@ -50,7 +50,7 @@ export const ProposalComponent = (props) => {
   } = props.data;
 
   // takes a unix timestamp and returns a formatted date string
-  function unixTimestampToDateString(timestamp) {
+  const unixTimestampToDateString = (timestamp) => {
     return new Date(Number(timestamp) * 1000).toLocaleDateString();
   }
 
@@ -58,9 +58,9 @@ export const ProposalComponent = (props) => {
   const expirationDateFormatted = unixTimestampToDateString(expirationDate);
 
   const fundingStatus =
-    Number(fundedAmount) - Number(fundingTarget) > 0 ? "Funded" : "Incomplete";
+    Number(fundingTarget) - Number(fundedAmount) > 0 ? "Incomplete" : "Funded";
 
-  const providerStatus = provider ? "Filled" : "Unfilled";
+  const providerStatus = provider !== "0x0000000000000000000000000000000000000000" ? "Filled" : "Unfilled";
 
   console.log("contractAddress", props.contractAddress);
   return (
