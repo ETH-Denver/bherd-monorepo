@@ -10,8 +10,17 @@ import {
 import BasicModal from "../baseComponents/BasicModal";
 import ContributeForm from "../baseComponents/ContributeForm";
 import MapIndicator from "components/baseComponents/MapIndicator";
+import { geocode, RequestType, setKey } from "react-geocode";
 
 export const ShowPage = () => {
+  setKey("AIzaSyBkk4pDx-Vz48tU4tJ1iMKMPTcs2_csJt0");
+  geocode(RequestType.LATLNG, "39.78127,-104.97138")
+    .then(({ results }) => {
+      const address = results[0].formatted_address;
+      console.log(address);
+    })
+    .catch(console.error);
+
   return (
     <Container
       sx={{
