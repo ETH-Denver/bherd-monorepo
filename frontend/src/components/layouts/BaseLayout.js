@@ -4,7 +4,6 @@ import React from "react";
 export default function BaseLayout({ children }) {
   return (
     <Container disableGutters={true} sx={{ minWidth: "100vw", padding: 0 }}>
-      <w3m-button />
       <Container
         disableGutters={true}
         sx={{
@@ -12,16 +11,15 @@ export default function BaseLayout({ children }) {
           minHeight: "50px",
           backgroundColor: "#ff65af",
         }}
-      ></Container>
+      >
+        <w3m-button />
+      </Container>
       {children}
       <Container
         disableGutters={true}
-        sx={{
-          minWidth: "100vw",
-          minHeight: "200px",
-          backgroundColor: "#844aff",
-        }}
-      ></Container>
+        sx={{ minWidth: "100vw", minHeight: "200px", backgroundColor: "#844aff" }}
+      >
+      </Container>
     </Container>
   );
 }
