@@ -14,9 +14,9 @@ async function main() {
 
   const deployer = await hre.ethers.deployContract("Deployer");
 
-  const address = await deployer.waitForDeployment();
+  const contract = await deployer.waitForDeployment();
 
-  console.log('Deployer deployed at', address);
+  console.log('Deployer deployed at', contract);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
