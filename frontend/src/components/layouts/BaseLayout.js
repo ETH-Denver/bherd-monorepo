@@ -12,7 +12,7 @@ export default function BaseLayout({ children }) {
           backgroundColor: "#ff65af",
         }}
       >
-        <w3m-button/>
+        <w3m-button />
       </Container>
       {children}
       <Container
