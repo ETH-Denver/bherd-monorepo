@@ -7,10 +7,10 @@ const Pin = ({ text }) => (
   <div
     style={{
       fontSize: 40,
-      position: "absolute", // Change from "fixed" to "absolute"
-      top: "50%", // Adjust these values based on your layout
-      left: "50%", // Adjust these values based on your layout
-      transform: "translate(-50%, -50%)", // Center the pin
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
     }}
   >
     {text}
