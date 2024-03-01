@@ -1,35 +1,52 @@
-import * as React from "react";
-import { ButtonGroup, Button } from "@mui/material";
+import * as React from 'react';
+import { Button, Input, InputAdornment } from '@mui/material';
 import { ethers } from "ethers";
+import { useWriteContract } from 'wagmi'
+import Proposal from "../../abis/Proposal.json";
+import { useNavigate } from "react-router-dom";
 
-let provider;
-let signer;
+const ContributeButton = () => {
+    const navigate = useNavigate();
+    const proposalAddress = "0x3ea2f7E5d218D497C1Ad3E4093Cfe336af8c2470";
+    const { writeContract } = useWriteContract();
+    const [amount, setAmount] = React.useState("")
 
-const signMessage = async () => {
-  // @ts-ignore
-  provider = new ethers.BrowserProvider(window.ethereum);
-  signer = await provider.getSigner();
+    return (
+        <form style={{ display: "flex", flexDirection: "column", height: "fitContent", justifyContent: "space-between" }}>
+            <InputAdornment
+                position="start"
+            >GWEI
+                <Input onChange={(e) => { setAmount(e.target.value) }} defaultValue={"000"} type={'integer'}></Input>
+            </InputAdornment>
 
-  console.log("signer", signer);
-  console.log("address", signer.address);
-  try {
-    const result = await signer.signMessage("Signing message with MetaMask");
-    console.log(result);
-  } catch (error) {
-    console.log(error);
-  }
-};
+            <Button
+                variant={"contained"}
+                sx={{ backgroundColor: "#844aff", width: "25%", placeSelf: "end" }}
+                onClick={(e) => {
+                    console.log('amount', amount)
+                    e.preventDefault();
+                    writeContract({
+                        abi: Proposal.abi,
+                        address: proposalAddress,
+                        functionName: 'contribute',
+                        gasLimit: 42069n,
+                        value: ethers.parseEther(amount),
+                    })
+                    navigate("/frontend")
+                }
+                }
+            >
+                Contribute
+            </Button >
+        </form >
+    )
+}
+
 
 export default function ContributeForm() {
-  return (
-    <div>
-      <ButtonGroup variant="contained" aria-label="Basic button group">
-        <Button value={1}>$1 USDc</Button>
-        <Button value={10}>$10 USDc</Button>
-        <Button value={25}>$25 USDc</Button>
-        <Button value={50}>$50 USDc</Button>
-        <Button value={100}>$100 USDc</Button>
-      </ButtonGroup>
-    </div>
-  );
+    return (
+        <div>
+            <ContributeButton></ContributeButton>
+        </div>
+    );
 }

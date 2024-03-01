@@ -11,7 +11,6 @@ import React from "react";
 
 export const HomePage = () => {
   const [proposals, setProposals] = useState([]);
-
   const deployerAddress = process.env.REACT_APP_DEPLOYER_CONTRACT_SEPOLIA;
 
   const proposalsFromContract = useReadContract({
@@ -52,6 +51,7 @@ export const HomePage = () => {
         }}
       >
         <Typography variant="h3">Active Proposals</Typography>
+        <CreateButton />
         <Container sx={{ backgroundColor: "#dcdcdc", paddingTop: 2 }}>
           <SearchBar />
           <Container sx={{ minWidth: "100%" }}>
