@@ -10,7 +10,6 @@ const ContributeButton = () => {
   let proposalAddress = window.location.pathname.split("/").pop()
   const { writeContract } = useWriteContract();
   const [amount, setAmount] = React.useState("")
-  console.log('proposalAddress', proposalAddress)
   return (
     <form style={{ display: "flex", flexDirection: "column", height: "fitContent", justifyContent: "space-between" }}>
       <InputAdornment
