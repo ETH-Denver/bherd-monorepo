@@ -37,34 +37,49 @@ export const ProposalComponent = (props) => {
   if (!props.data) {
     return null;
   }
+  const fields = [
+    "amountFunded",
+    "deployer",
+    "startDay",
+    "lat",
+    "long",
+    "target",
+    "message",
+    "contentType",
+    "fundingDeadline",
+    "fundingTarget",
+    "provider",
+  ];
 
-  const {
-    amountFunded: fundedAmount,
-    fundingTarget,
-    provider,
-    endDay: executionDate,
-    fundingDeadline: expirationDate,
-    message,
-    location,
-    target,
-  } = props.data;
-
+  const fieldsMappedToValues = props.data.reduce((acc, item, index) => {
+    acc[fields[index]] = item.result;
+    return acc;
+  }, {});
   // takes a unix timestamp and returns a formatted date string
   const unixTimestampToDateString = (timestamp) => {
     return new Date(Number(timestamp) * 1000).toLocaleDateString();
   };
 
-  const executionDateFormatted = unixTimestampToDateString(executionDate);
-  const expirationDateFormatted = unixTimestampToDateString(expirationDate);
+  const executionDateFormatted = unixTimestampToDateString(
+    fieldsMappedToValues.startDay
+  );
+  const expirationDateFormatted = unixTimestampToDateString(
+    fieldsMappedToValues.startDay
+  );
 
   const fundingStatus =
-    Number(fundingTarget) - Number(fundedAmount) > 0 ? "Incomplete" : "Funded";
+    Number(fieldsMappedToValues.fundingTarget) -
+      Number(fieldsMappedToValues.amountFunded) >
+    0
+      ? "Incomplete"
+      : "Funded";
 
   const providerStatus =
-    provider !== "0x0000000000000000000000000000000000000000"
+    fieldsMappedToValues.provider !==
+    "0x0000000000000000000000000000000000000000"
       ? "Filled"
       : "Unfilled";
-  console.log(message, "message");
+
   return (
     <Container
       sx={{
@@ -111,7 +126,6 @@ export const ProposalComponent = (props) => {
             }
           </Stack>
         </Stack>
-
         <Box
           sx={{
             display: "flex",
@@ -129,7 +143,7 @@ export const ProposalComponent = (props) => {
               animation: `${floatAnimation} 7s infinite`,
             }}
           >
-            {target}
+            {fieldsMappedToValues.target}
           </Typography>
         </Box>
         <Stack sx={{ marginTop: "40px" }} spacing={2} direction="row">
@@ -151,9 +165,9 @@ export const ProposalComponent = (props) => {
             disabled
             id="filled-disabled"
             label="Funded Amount"
-            defaultValue={
-              fundedAmount ? `ETH ${ethers.formatEther(fundedAmount)}` : ""
-            }
+            defaultValue={`ETH ${ethers.formatEther(
+              fieldsMappedToValues.amountFunded
+            )}`}
             variant="filled"
           />
         </Stack>
@@ -162,9 +176,9 @@ export const ProposalComponent = (props) => {
             disabled
             id="filled-disabled"
             label="Funding Target"
-            defaultValue={
-              fundingTarget ? `ETH ${ethers.formatEther(fundingTarget)}` : ""
-            }
+            defaultValue={`ETH ${ethers.formatEther(
+              fieldsMappedToValues.fundingTarget
+            )}`}
             variant="filled"
           />
           <TextField
@@ -190,12 +204,15 @@ export const ProposalComponent = (props) => {
             label="Message"
             multiline
             rows={2}
-            defaultValue={message}
+            defaultValue={fieldsMappedToValues.message}
             variant="filled"
           />
         </Stack>
       </Stack>
-      <MapIndicator />
+      <MapIndicator
+        lat={fieldsMappedToValues.lat}
+        long={fieldsMappedToValues.long}
+      />
     </Container>
   );
 };

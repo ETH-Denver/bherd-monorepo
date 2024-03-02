@@ -72,8 +72,6 @@ export const HomePage = () => {
     }
   }, [proposalsInfo.data]);
 
-  console.log(proposals);
-
   return (
     <Container>
       <Container
@@ -83,7 +81,9 @@ export const HomePage = () => {
           textAlign: "center",
         }}
       >
-        <Typography variant="h3" sx={{marginY: 4}}>Active Proposals</Typography>
+        <Typography variant="h3" sx={{ marginY: 4 }}>
+          Active Proposals
+        </Typography>
         <Container
           sx={{
             backgroundColor: "#d7d3d3",
@@ -110,14 +110,13 @@ export const HomePage = () => {
               ))}
             {proposals?.map((proposal, index) => {
               if (proposal.data.status === "success")
-                console.log(proposal.data.proposalAddress, "proposal data");
-              return (
-                <ProposalCard
-                  data={proposal.data}
-                  key={index}
-                  contractAddress={proposal.data.proposalAddress}
-                />
-              );
+                return (
+                  <ProposalCard
+                    data={proposal.data}
+                    key={index}
+                    contractAddress={proposal.data.proposalAddress}
+                  />
+                );
             })}
           </Container>
         </Container>

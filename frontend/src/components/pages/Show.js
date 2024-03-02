@@ -10,7 +10,6 @@ import { Box, Container, Stack } from "@mui/material";
 export const ShowPage = () => {
   const { address } = useParams();
 
-  console.log("address", address);
   const [proposal, setProposal] = useState();
   const fields = [
     "amountFunded",
@@ -37,29 +36,13 @@ export const ShowPage = () => {
     });
     return calls;
   };
-  // const {
-  //   data: proposalContract,
-  //   error,
-  //   loading,
-  // } = useReadContract({
-  //   abi: Proposal.abi,
-  //   address: address,
-  //   functionName: "getProposalInfo",
-  // });
+
   const result = useReadContracts({
     contracts: getContractData(address).flat(),
   });
 
-  console.log(getContractData(address), "getContract");
-  // if (error) {
-  //   console.log("alert", error);
-  // }
   useEffect(() => {
-    console.log("result", result);
-    // console.log(data);
     if (result !== undefined) {
-      console.log("hereerere");
-      console.log("dataaaaaaaaahhhhh", result.data);
       setProposal(result.data);
     }
   }, [result.data]);
