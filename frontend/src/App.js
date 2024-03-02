@@ -12,6 +12,8 @@ import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 import { WagmiProvider } from "wagmi";
 import { arbitrum, mainnet, sepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {ThemeProvider} from "@mui/material/styles";
+import {ethDenverTheme} from "./ethDenverTheme";
 
 const queryClient = new QueryClient();
 
@@ -53,7 +55,7 @@ export function ContextProvider({ children }) {
 function App() {
   const router = createBrowserRouter([
     {
-      path: "frontend",
+      path: "/",
       element: <BaseLayout children={<HomePage />} />,
     },
     {
@@ -64,12 +66,18 @@ function App() {
       path: "create",
       element: <BaseLayout children={<CreateProposalPage />} />,
     },
+    {
+      path: "/:anything-that-doesnt-match",
+      element: <BaseLayout children={<HomePage />} />,
+    },
   ]);
 
   const children = (
-    <div>
-      <RouterProvider router={router} />
-    </div>
+    <ThemeProvider theme={ethDenverTheme}>
+      <div>
+        <RouterProvider router={router} />
+      </div>
+    </ThemeProvider>
   );
 
   return ContextProvider({ children });

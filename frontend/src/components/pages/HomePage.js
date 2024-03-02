@@ -83,7 +83,7 @@ export const HomePage = () => {
           textAlign: "center",
         }}
       >
-        <Typography variant="h3">Active Proposals</Typography>
+        <Typography variant="h3" sx={{marginY: 4}}>Active Proposals</Typography>
         <Container
           sx={{
             backgroundColor: "#d7d3d3",

@@ -45,7 +45,7 @@ export default function MapIndicator() {
         textAlign: "center",
       }}
     >
-      <Typography sx={{ marginLeft: 2 }}>{address}</Typography>
+      <Typography sx={{ marginLeft: 2, fontSize: "1.3rem", paddingBottom: "20px" }}>{address}</Typography>
       <div style={{ height: "100%", width: "100%" }}>
         <GoogleMapReact
           draggable={false}
