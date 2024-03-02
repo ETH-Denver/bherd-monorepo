@@ -88,7 +88,7 @@ export const ProposalComponent = (props) => {
       sx={{
         backgroundColor: "#fff",
         minHeight: "100vh",
-        minWidth: "100vw",
+        maxWidth: "50%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

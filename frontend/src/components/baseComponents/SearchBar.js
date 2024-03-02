@@ -7,9 +7,10 @@ export const SearchBar = () => {
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: "white",
+    color: "#fff",
+    backgroundColor: ethDenverTheme.palette.primary.main,
     "&:hover": {
-      backgroundColor: ethDenverTheme.palette.primary.main,
+      backgroundColor: ethDenverTheme.palette.secondary.main,
     },
     marginLeft: 0,
     width: "100%",

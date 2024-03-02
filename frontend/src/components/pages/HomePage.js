@@ -4,6 +4,7 @@ import { SearchBar } from "../baseComponents/SearchBar";
 import { useReadContract, useReadContracts, useWriteContract } from "wagmi";
 import Deployer from "../../abis/Deployer.json";
 import Proposal from "../../abis/Proposal.json";
+import { ethDenverTheme } from "../../ethDenverTheme";
 import { useEffect, useState } from "react";
 import React from "react";
 
@@ -74,28 +75,30 @@ export const HomePage = () => {
 
   return (
     <Container>
-      <Container
+      <Container id={"2nd-container"}
         sx={{
           display: "flex",
           flexDirection: "column",
           textAlign: "center",
+          paddingY: "10vh"
         }}
       >
-        <Typography variant="h3" sx={{ marginY: 4 }}>
-          Active Proposals
-        </Typography>
         <Container
           sx={{
-            backgroundColor: "#d7d3d3",
-            paddingTop: 2,
-            minHeight: "90vh",
+            backgroundColor: ethDenverTheme.palette.secondary.main,
+            paddingY: "4vh",
+            minHeight: "80vh",
             borderRadius: 2,
             marginY: 0,
             overflowY: "scroll",
           }}
         >
-          <SearchBar />
+          <Typography variant="h1" sx={{ fontFamily: "Darker-Hanken-Grotesk", fontWeight: "bold", color: "#fff", marginY: 4 }}>
+            Active Proposals
+          </Typography>
           <Container sx={{ minWidth: "100%" }}>
+            <SearchBar />
+
             {!proposalsInfo.data &&
               [...Array(4)].map((array) => (
                 <Skeleton
