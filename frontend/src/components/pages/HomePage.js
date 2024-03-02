@@ -1,21 +1,47 @@
 import { Container, Typography, Skeleton } from "@mui/material";
 import { ProposalCard } from "../baseComponents/ProposalCard";
 import { SearchBar } from "../baseComponents/SearchBar";
-import { useReadContract, useReadContracts, useWriteContract } from "wagmi";
+import { useAccount, useReadContract, useReadContracts, useWriteContract } from "wagmi";
 import Deployer from "../../abis/Deployer.json";
 import Proposal from "../../abis/Proposal.json";
 import { ethDenverTheme } from "../../ethDenverTheme";
 import { useEffect, useState } from "react";
 import React from "react";
 
+const chainToDeployerAddresses = (chainId) => {
+  let address;
+  switch (chainId) {
+    case 51:
+      address = process.env.REACT_APP_DEPLOYER_CONTRACT_XDC
+      break;
+    case 59140:
+      address = process.env.REACT_APP_DEPLOYER_CONTRACT_GOERLI_LINEA
+      break;
+    case 5:
+      address = process.env.REACT_APP_DEPLOYER_CONTRACT_GOERLI
+      break;
+    case 11155111:
+      address = process.env.REACT_APP_DEPLOYER_CONTRACT_SEPOLIA;
+      break;
+    case 84532:
+      address = process.env.REACT_APP_DEPLOYER_CONTRACT_BASE_SEPOLIA
+      break;
+  }
+  return address;
+}
+
 export const HomePage = () => {
+  const { chain } = useAccount();
   const [proposals, setProposals] = useState([]);
-  const deployerAddress = process.env.REACT_APP_DEPLOYER_CONTRACT_SEPOLIA;
+  const foo = chainToDeployerAddresses(chain.id);
+  console.log('foo', foo);
+  const deployerAddress = chainToDeployerAddresses(chain.id)
   const proposalsFromContract = useReadContract({
     abi: Deployer.abi,
     address: deployerAddress,
     functionName: "getProposals",
   });
+
 
   const fields = [
     "amountFunded",
@@ -74,6 +100,7 @@ export const HomePage = () => {
       }
     }
   }, [proposalsInfo.data]);
+
 
   return (
     <Container>

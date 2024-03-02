@@ -4,10 +4,14 @@ This project demonstrates a basic Hardhat use case. It comes with a sample contr
 
 Try running some of the following tasks:
 
+Compile the contracts:
 ```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
+npx hardhat --network <network-name> run scripts/deploy.js
 ```
+Deploy deployer contract to network:
+```shell
+npx hardhat --network <network-name> run scripts/deploy.js
+```
+
+The script will log a deployer address under the key `target` which you will add to the relevant .env variable in the frontend .env file
+

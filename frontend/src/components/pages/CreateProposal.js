@@ -14,7 +14,7 @@ import Autocomplete from "react-google-autocomplete";
 import { useWriteContract } from "wagmi";
 import Deployer from "../../abis/Deployer.json";
 import { useNavigate } from "react-router-dom";
-import {ethDenverTheme} from "../../ethDenverTheme";
+import { ethDenverTheme } from "../../ethDenverTheme";
 
 const ProposalForm = () => {
   const [executionDate, setExecutionDate] = useState(new Date());
@@ -32,13 +32,13 @@ const ProposalForm = () => {
         variant="outlined"
         color="secondary"
         onClick={() => {
+          console.log('here');
           writeContract({
             abi: Deployer.abi,
             address: deployerAddress,
             functionName: "createProposal",
             args: [
               executionDate.getTime(),
-
               lat * 10 ** 7,
               long * 10 ** 7,
               target,
@@ -69,7 +69,7 @@ const ProposalForm = () => {
         Create a Proposal
       </Typography>
       <Container
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center"}}
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
         <Container>
           <Autocomplete
