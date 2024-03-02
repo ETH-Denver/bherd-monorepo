@@ -1,7 +1,7 @@
-import { Container, Skeleton, Typography } from "@mui/material";
+import { Container, Typography, Skeleton } from "@mui/material";
 import { ProposalCard } from "../baseComponents/ProposalCard";
 import { SearchBar } from "../baseComponents/SearchBar";
-import { useReadContract, useReadContracts } from "wagmi";
+import { useReadContract, useReadContracts, useWriteContract } from "wagmi";
 import Deployer from "../../abis/Deployer.json";
 import Proposal from "../../abis/Proposal.json";
 import { useEffect, useState } from "react";
@@ -15,25 +15,64 @@ export const HomePage = () => {
     address: deployerAddress,
     functionName: "getProposals",
   });
+
+  const fields = [
+    "amountFunded",
+    "deployer",
+    "startDay",
+    "lat",
+    "long",
+    "target",
+    "message",
+    "contentType",
+    "fundingDeadline",
+    "fundingTarget",
+    "provider",
+  ];
+
+  const getContractData = (address) => {
+    const calls = [];
+
+    fields.map((field) => {
+      calls.push({
+        abi: Proposal.abi,
+        address,
+        functionName: field,
+      });
+    });
+    return calls;
+  };
+
   let contracts = [];
   if (proposalsFromContract && proposalsFromContract.data !== undefined) {
     for (const address of proposalsFromContract?.data) {
-      contracts.push({
-        abi: Proposal.abi,
-        address,
-        functionName: "getProposalInfo",
-      });
+      contracts.push(getContractData(address));
     }
   }
-
-  const proposalsInfo = useReadContracts({ contracts });
+  const proposalsInfo = useReadContracts({ contracts: contracts.flat() });
 
   useEffect(() => {
-    const proposalsData = proposalsInfo?.data?.map((proposal) => {
-      return proposal;
-    });
-    setProposals(proposalsData);
+    if (proposalsInfo?.data) {
+      const chunkSize = fields.length;
+      for (let i = 0; i < proposalsInfo.data.length; i += chunkSize) {
+        const chunk = proposalsInfo.data.slice(i, i + chunkSize);
+
+        const proposal = {};
+        proposal.data = {};
+
+        chunk.map((field, index) => {
+          proposal.data[fields[index]] = field.result;
+        });
+        const contractAddressIndex = i === 0 ? 0 : i / fields.length;
+        proposal.data.status = "success";
+        proposal.data.proposalAddress =
+          proposalsFromContract.data[contractAddressIndex];
+        setProposals((proposals) => [...proposals, proposal]);
+      }
+    }
   }, [proposalsInfo.data]);
+
+  console.log(proposals);
 
   return (
     <Container>
@@ -57,7 +96,7 @@ export const HomePage = () => {
         >
           <SearchBar />
           <Container sx={{ minWidth: "100%" }}>
-            {!proposals?.length &&
+            {!proposalsInfo.data &&
               [...Array(4)].map((array) => (
                 <Skeleton
                   sx={{
@@ -70,14 +109,15 @@ export const HomePage = () => {
                 />
               ))}
             {proposals?.map((proposal, index) => {
-              if (proposal.status === "success")
-                return (
-                  <ProposalCard
-                    data={proposal.result}
-                    key={index}
-                    contractAddress={contracts[index]["address"]}
-                  />
-                );
+              if (proposal.data.status === "success")
+                console.log(proposal.data.proposalAddress, "proposal data");
+              return (
+                <ProposalCard
+                  data={proposal.data}
+                  key={index}
+                  contractAddress={proposal.data.proposalAddress}
+                />
+              );
             })}
           </Container>
         </Container>

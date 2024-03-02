@@ -73,9 +73,9 @@ export const ProposalCard = (props) => {
           }}
         >
           <Typography>Funded Amount:</Typography>
-          <Typography>{`ETH ${ethers.formatEther(fundedAmount)}`}</Typography>
+          {/* <Typography>{`ETH ${ethers.formatEther(fundedAmount)}`}</Typography>
           <Typography>Funding Target:</Typography>
-          <Typography>{`ETH ${ethers.formatEther(fundingTarget)}`}</Typography>
+          <Typography>{`ETH ${ethers.formatEther(fundingTarget)}`}</Typography> */}
         </Box>
         <Box
           sx={{

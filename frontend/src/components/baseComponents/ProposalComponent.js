@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { keyframes } from '@emotion/react';
+import { keyframes } from "@emotion/react";
 import BasicModal from "./BasicModal";
 import ContributeForm from "./ContributeForm";
 import MapIndicator from "./MapIndicator";
@@ -52,7 +52,7 @@ export const ProposalComponent = (props) => {
   // takes a unix timestamp and returns a formatted date string
   const unixTimestampToDateString = (timestamp) => {
     return new Date(Number(timestamp) * 1000).toLocaleDateString();
-  }
+  };
 
   const executionDateFormatted = unixTimestampToDateString(executionDate);
   const expirationDateFormatted = unixTimestampToDateString(expirationDate);
@@ -60,8 +60,11 @@ export const ProposalComponent = (props) => {
   const fundingStatus =
     Number(fundingTarget) - Number(fundedAmount) > 0 ? "Incomplete" : "Funded";
 
-  const providerStatus = provider !== "0x0000000000000000000000000000000000000000" ? "Filled" : "Unfilled";
-
+  const providerStatus =
+    provider !== "0x0000000000000000000000000000000000000000"
+      ? "Filled"
+      : "Unfilled";
+  console.log(message, "message");
   return (
     <Container
       sx={{
@@ -79,25 +82,32 @@ export const ProposalComponent = (props) => {
       <Stack sx={{ marginBottom: "50px" }} spacing={2} direction="column">
         <Stack spacing={2} direction="row" justifyContent="space-between">
           <Stack>
-            <Button sx={{ marginRight: "0px" }} href={"/frontend"}>Back to List</Button>
+            <Button sx={{ marginRight: "0px" }} href={"/frontend"}>
+              Back to List
+            </Button>
           </Stack>
           <Stack spacing={2} direction="row">
-            {fundingStatus === "Incomplete" && providerStatus === "Unfilled" &&
-              <BasicModal
-                sx={{ marginLeft: "0px" }}
-                buttonTitle="Contribute"
-                modalTitle="How much would you like to contribute to this campaign?"
-                modalBody={<ContributeForm proposalAddress={props.contractAddress} />}
-              />
-            }
+            {fundingStatus === "Incomplete" &&
+              providerStatus === "Unfilled" && (
+                <BasicModal
+                  sx={{ marginLeft: "0px" }}
+                  buttonTitle="Contribute"
+                  modalTitle="How much would you like to contribute to this campaign?"
+                  modalBody={
+                    <ContributeForm proposalAddress={props.contractAddress} />
+                  }
+                />
+              )}
 
-            {/* WIP - waiting for proposer address to be added to proposal */
-              fundingStatus === "Complete" && providerStatus === "Unfilled" &&
+            {
+              /* WIP - waiting for proposer address to be added to proposal */
+              fundingStatus === "Complete" && providerStatus === "Unfilled" && (
                 <BasicModal
                   buttonTitle="Execute Proposal"
                   modalTitle="Are you sure you would like to close this campaign to new contributions?"
                   modalBody={<Button>Nooo!!!</Button>}
                 />
+              )
             }
           </Stack>
         </Stack>
@@ -111,8 +121,15 @@ export const ProposalComponent = (props) => {
             background: "linear-gradient(to bottom, skyblue, white)",
           }}
         >
-          <Typography variant="h1" sx={{ fontFamily: 'Bubble', color: "#fff", animation: `${floatAnimation} 7s infinite`}}>
-            { target }
+          <Typography
+            variant="h1"
+            sx={{
+              fontFamily: "Bubble",
+              color: "#fff",
+              animation: `${floatAnimation} 7s infinite`,
+            }}
+          >
+            {target}
           </Typography>
         </Box>
         <Stack sx={{ marginTop: "40px" }} spacing={2} direction="row">
@@ -134,7 +151,9 @@ export const ProposalComponent = (props) => {
             disabled
             id="filled-disabled"
             label="Funded Amount"
-            defaultValue={`ETH ${ethers.formatEther(fundedAmount)}`}
+            defaultValue={
+              fundedAmount ? `ETH ${ethers.formatEther(fundedAmount)}` : ""
+            }
             variant="filled"
           />
         </Stack>
@@ -143,7 +162,9 @@ export const ProposalComponent = (props) => {
             disabled
             id="filled-disabled"
             label="Funding Target"
-            defaultValue={`ETH ${ethers.formatEther(fundingTarget)}`}
+            defaultValue={
+              fundingTarget ? `ETH ${ethers.formatEther(fundingTarget)}` : ""
+            }
             variant="filled"
           />
           <TextField
