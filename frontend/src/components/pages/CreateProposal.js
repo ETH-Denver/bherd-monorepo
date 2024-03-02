@@ -13,6 +13,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import Autocomplete from "react-google-autocomplete";
 import { useWriteContract } from "wagmi";
 import Deployer from "../../abis/Deployer.json";
+import { useNavigate } from "react-router-dom";
+import {ethDenverTheme} from "../../ethDenverTheme";
 
 const ProposalForm = () => {
   const [executionDate, setExecutionDate] = useState(new Date());
@@ -22,7 +24,7 @@ const ProposalForm = () => {
   const [long, setLong] = useState("");
   const [contentType, setContentType] = useState("");
   const deployerAddress = process.env.REACT_APP_DEPLOYER_CONTRACT_SEPOLIA;
-
+  const navigate = useNavigate();
   const CreateButton = () => {
     const { writeContract } = useWriteContract();
     return (
@@ -44,6 +46,7 @@ const ProposalForm = () => {
               content,
             ],
           });
+          navigate("/");
         }}
       >
         Create Proposal
@@ -54,19 +57,19 @@ const ProposalForm = () => {
   return (
     <Container
       sx={{
-        backgroundColor: "#d7d3d3",
+        backgroundColor: ethDenverTheme.palette.ethPrimary.midGrey,
+        marginY: 5,
         paddingTop: 2,
-        minHeight: "90vh",
+        minHeight: "50vh",
         borderRadius: 2,
-        marginY: 0,
         overflowY: "scroll",
       }}
     >
-      <Typography variant="h1" sx={{ mb: 3, textAlign: "center" }}>
+      <Typography variant="h1" sx={{ color: 'white', mb: 3, textAlign: "center", fontFamily: "Hanken-Grotesk-Regular" }}>
         Create a Proposal
       </Typography>
       <Container
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center"}}
       >
         <Container>
           <Autocomplete

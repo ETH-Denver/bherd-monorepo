@@ -39,7 +39,7 @@ export default function BasicModal({
             border: "2px solid #000",
             boxShadow: 24,
             p: 4,
-            height: "70vh",
+            height: "15vh",
             width: "60vw",
             overflow: "scroll",
             textAlign: "center",

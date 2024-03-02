@@ -45,7 +45,7 @@ const ContributeButton = () => {
             gasLimit: 42069n,
             value: ethers.parseEther(amount),
           });
-          navigate("/show/" + proposalAddress);
+          navigate(`/show/${proposalAddress}`);
         }}
       >
         Contribute

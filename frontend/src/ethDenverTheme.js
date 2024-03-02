@@ -2,13 +2,13 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const ethDenverTheme = createTheme({
   palette: {
-    ethDenverPrimary: {
+    ethPrimary: {
       ethPink: "#ff65af",
       skyPurple: "#844aff",
       midGrey: "#C5C5C5",
       lightGrey: "#F8F8F9",
     },
-    ethDenverSecondary: {
+    ethSecondary: {
       brightRed: "#FF3254",
       blueBlue: "#00E7F2",
       goodGreen: "#27E26F",

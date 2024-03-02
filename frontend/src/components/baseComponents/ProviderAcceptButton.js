@@ -5,6 +5,7 @@ import { useAccount, useReadContract, useWriteContract } from "wagmi";
 import Proposal from "../../abis/Proposal.json";
 import Deployer from "../../abis/Deployer.json";
 import { useNavigate } from "react-router-dom";
+import {ethDenverTheme} from "../../ethDenverTheme";
 
 const ProviderAcceptButton = (props) => {
   const { fundingStatus } = props;
@@ -43,7 +44,7 @@ const ProviderAcceptButton = (props) => {
       <Button
         variant={"contained"}
         sx={{
-          backgroundColor: "#844aff",
+          backgroundColor: ethDenverTheme.palette.primary.main,
           width: "fit-content",
           placeSelf: "end",
           display: isButtonDisplayed ? "block" : "none",
