@@ -1,9 +1,11 @@
 import * as React from "react";
-import { useReadContracts } from "wagmi";
+import MapIndicator from "components/baseComponents/MapIndicator";
+import { useReadContract, useReadContracts } from "wagmi";
 import Proposal from "../../abis/Proposal.json";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ProposalComponent } from "../baseComponents/ProposalComponent";
+import { Box, Container, Stack } from "@mui/material";
 
 export const ShowPage = () => {
   const { address } = useParams();
@@ -27,7 +29,7 @@ export const ShowPage = () => {
   const getContractData = (address) => {
     const calls = [];
 
-    fields.forEach((field) => {
+    fields.map((field) => {
       calls.push({
         abi: Proposal.abi,
         address,
@@ -45,7 +47,7 @@ export const ShowPage = () => {
     if (result !== undefined) {
       setProposal(result.data);
     }
-  }, [result, result.data]);
+  }, [result.data]);
 
   return result?.data ? <ProposalComponent data={proposal} /> : null;
 };
