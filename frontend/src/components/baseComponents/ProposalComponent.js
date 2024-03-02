@@ -14,6 +14,7 @@ import ContributeForm from "./ContributeForm";
 import MapIndicator from "./MapIndicator";
 import { ethers } from "ethers";
 import ProviderAcceptButton from "./ProviderAcceptButton";
+import ProviderFulfillmentForm from "./ProviderFulfillment";
 
 const floatAnimation = keyframes`
   0% {
@@ -105,6 +106,7 @@ export const ProposalComponent = (props) => {
           <ProviderAcceptButton
             fundingStatus={fundingStatus}
           ></ProviderAcceptButton>
+          <ProviderFulfillmentForm></ProviderFulfillmentForm>
           <Stack spacing={2} direction="row">
             {fundingStatus === "Incomplete" &&
               providerStatus === "Unfilled" && (
