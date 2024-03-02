@@ -22,8 +22,8 @@ export const Header = () => {
         src={EthDenverLogo}
         alt="Logo"
         style={{
-          width: "4%",
-          paddingLeft: "10px",
+          width: "7vh",
+          paddingLeft: "5vh",
           paddingRight: "10px",
           paddingTop: "10px",
           paddingBottom: "10px",
@@ -31,9 +31,9 @@ export const Header = () => {
       />
 
       <Typography
-        variant="h3"
+        variant="h2"
         component="div"
-        sx={{ flexGrow: 1, color: "#ffff", "&:hover": { cursor: "pointer" } }}
+        sx={{ fontSize: "8vh", fontWeight: 600, fontFamily: "Darker-Hanken-Grotesk",flexGrow: 1, color: "#ffff", "&:hover": { cursor: "pointer" } }}
         onClick={() => {
           navigate("/frontend");
         }}

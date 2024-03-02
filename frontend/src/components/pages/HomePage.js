@@ -99,7 +99,7 @@ export const HomePage = () => {
           <Typography
             variant="h1"
             sx={{
-              fontFamily: "Darker-Hanken-Grotesk",
+              fontFamily: "Hanken-Grotesk-Regular",
               fontWeight: "bold",
               color: "#fff",
               marginY: 4,
@@ -108,8 +108,6 @@ export const HomePage = () => {
             Active Proposals
           </Typography>
           <Container sx={{ minWidth: "100%" }}>
-            <SearchBar />
-
             {!proposalsInfo.data &&
               [...Array(4)].map((array) => (
                 <Skeleton
