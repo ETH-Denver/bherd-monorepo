@@ -52,21 +52,27 @@ export const HomePage = () => {
   const proposalsInfo = useReadContracts({ contracts: contracts.flat() });
 
   useEffect(() => {
-    const proposal = {};
-    proposal.data = {};
-    proposalsInfo?.data?.forEach((field, index) => {
-      proposal.data[fields[index]] = field.result;
-    });
     if (proposalsInfo?.data) {
-      proposal.data.status = "success";
+      const chunkSize = fields.length;
+      for (let i = 0; i < proposalsInfo.data.length; i += chunkSize) {
+        const chunk = proposalsInfo.data.slice(i, i + chunkSize);
+
+        const proposal = {};
+        proposal.data = {};
+
+        chunk.map((field, index) => {
+          proposal.data[fields[index]] = field.result;
+        });
+        const contractAddressIndex = i === 0 ? 0 : i / fields.length;
+        proposal.data.status = "success";
+        proposal.data.proposalAddress =
+          proposalsFromContract.data[contractAddressIndex];
+        setProposals((proposals) => [...proposals, proposal]);
+      }
     }
-
-    const output = [proposal];
-
-    setProposals(output);
   }, [proposalsInfo.data]);
 
-  console.log(proposalsInfo.data?.[1].result);
+  console.log(proposals);
 
   return (
     <Container>
@@ -104,12 +110,12 @@ export const HomePage = () => {
               ))}
             {proposals?.map((proposal, index) => {
               if (proposal.data.status === "success")
-                console.log(proposalsInfo.data, "proposal data");
+                console.log(proposal.data.proposalAddress, "proposal data");
               return (
                 <ProposalCard
                   data={proposal.data}
                   key={index}
-                  contractAddress={proposalsInfo.data?.[1].result}
+                  contractAddress={proposal.data.proposalAddress}
                 />
               );
             })}
