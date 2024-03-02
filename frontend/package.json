@@ -1,7 +1,7 @@
 {
   "name": "front-end",
   "version": "0.1.0",
-  "homepage": "https://eth-denver.github.io/bherd-monorepo/",
+  "homepage": "https://bherd.xyz/",
   "private": true,
   "dependencies": {
     "@dotenvx/dotenvx": "^0.23.0",
