@@ -51,16 +51,16 @@ export const HomePage = () => {
 
         chunk.map((field, index) => {
           proposal.data[fields[index]] = field.result;
-
         })
-
+        const contractAddressIndex = i === 0 ? 0 : i / fields.length
         proposal.data.status = 'success';
+        proposal.data.proposalAddress = proposalsFromContract.data[contractAddressIndex];
         setProposals(proposals => [...proposals, proposal]);
       }
     }
 
   }, [proposalsInfo.data]);
-
+  console.log('proposals', proposals)
   return (
     <Container>
       <Container
