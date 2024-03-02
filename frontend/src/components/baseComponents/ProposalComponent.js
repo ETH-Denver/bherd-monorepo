@@ -13,6 +13,7 @@ import BasicModal from "./BasicModal";
 import ContributeForm from "./ContributeForm";
 import MapIndicator from "./MapIndicator";
 import { ethers } from "ethers";
+import NFTMintCard from "./NFTMintCard";
 
 const floatAnimation = keyframes`
   0% {
@@ -37,6 +38,7 @@ export const ProposalComponent = (props) => {
   if (!props.data) {
     return null;
   }
+
   const fields = [
     "amountFunded",
     "deployer",
@@ -55,6 +57,11 @@ export const ProposalComponent = (props) => {
     acc[fields[index]] = item.result;
     return acc;
   }, {});
+
+  // if (fieldsMappedToValues) {
+  //   return <NFTMintCard proposal={fieldsMappedToValues}/>;
+  // }
+
   // takes a unix timestamp and returns a formatted date string
   const unixTimestampToDateString = (timestamp) => {
     return new Date(Number(timestamp) * 1000).toLocaleDateString();
@@ -143,7 +150,7 @@ export const ProposalComponent = (props) => {
               animation: `${floatAnimation} 7s infinite`,
             }}
           >
-            {fieldsMappedToValues.target}
+            {fieldsMappedToValues.message}
           </Typography>
         </Box>
         <Stack sx={{ marginTop: "40px" }} spacing={2} direction="row">

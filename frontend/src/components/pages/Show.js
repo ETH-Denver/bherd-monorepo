@@ -23,6 +23,7 @@ export const ShowPage = () => {
     "fundingDeadline",
     "fundingTarget",
     "provider",
+    "proposer",
   ];
   const getContractData = (address) => {
     const calls = [];
