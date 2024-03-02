@@ -53,6 +53,8 @@ export const HomePage = () => {
   const proposalsInfo = useReadContracts({ contracts: contracts.flat() });
 
   useEffect(() => {
+    setProposals([]);
+
     if (proposalsInfo?.data) {
       const chunkSize = fields.length;
       for (let i = 0; i < proposalsInfo.data.length; i += chunkSize) {
@@ -75,12 +77,13 @@ export const HomePage = () => {
 
   return (
     <Container>
-      <Container id={"2nd-container"}
+      <Container
+        id={"2nd-container"}
         sx={{
           display: "flex",
           flexDirection: "column",
           textAlign: "center",
-          paddingY: "10vh"
+          paddingY: "10vh",
         }}
       >
         <Container
@@ -93,7 +96,15 @@ export const HomePage = () => {
             overflowY: "scroll",
           }}
         >
-          <Typography variant="h1" sx={{ fontFamily: "Darker-Hanken-Grotesk", fontWeight: "bold", color: "#fff", marginY: 4 }}>
+          <Typography
+            variant="h1"
+            sx={{
+              fontFamily: "Darker-Hanken-Grotesk",
+              fontWeight: "bold",
+              color: "#fff",
+              marginY: 4,
+            }}
+          >
             Active Proposals
           </Typography>
           <Container sx={{ minWidth: "100%" }}>
