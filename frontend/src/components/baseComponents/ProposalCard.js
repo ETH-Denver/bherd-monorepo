@@ -32,10 +32,13 @@ export const ProposalCard = (props) => {
         marginY: 1,
         filter: "drop-shadow(0px 4px 4px #4444dd)",
         borderRadius: 2,
-
       }}
     >
-      <Typography variant="h5" textAlign={"right"} sx={{fontFamily: "Hanken-Grotesk-Regular"}}>
+      <Typography
+        variant="h5"
+        textAlign={"right"}
+        sx={{ fontFamily: "Hanken-Grotesk-Regular" }}
+      >
         Message: {message}
       </Typography>
       <Typography variant="h5" textAlign={"left"}>
@@ -74,9 +77,9 @@ export const ProposalCard = (props) => {
           }}
         >
           <Typography>Funded Amount:</Typography>
-          {/* <Typography>{`ETH ${ethers.formatEther(fundedAmount)}`}</Typography>
+          <Typography>{`ETH ${ethers.formatEther(fundedAmount)}`}</Typography>
           <Typography>Funding Target:</Typography>
-          <Typography>{`ETH ${ethers.formatEther(fundingTarget)}`}</Typography> */}
+          <Typography>{`ETH ${ethers.formatEther(fundingTarget)}`}</Typography>
         </Box>
         <Box
           sx={{
