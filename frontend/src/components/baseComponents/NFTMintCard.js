@@ -9,9 +9,6 @@ const NFTMintCard = (props) => {
   const proposalAddress = window.location.pathname.split("/").pop();
   const { writeContract } = useWriteContract();
 
-  console.log("proposalAddress", proposalAddress);
-  console.log("NFTMintCard props", props.proposal);
-
   return (
     <Button
       variant={"contained"}
@@ -27,7 +24,6 @@ const NFTMintCard = (props) => {
           address: proposalAddress,
           functionName: "mint",
         });
-        console.log("result", result);
       }}
     >
       Mint Your NFT
