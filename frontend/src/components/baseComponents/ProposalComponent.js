@@ -126,7 +126,7 @@ export const ProposalComponent = (props) => {
                   buttonTitle="Contribute"
                   modalTitle="How much would you like to contribute to this campaign?"
                   modalBody={
-                    <ContributeForm proposalAddress={props.contractAddress} />
+                    <ContributeForm proposalAddress={props.contractAddress} amountRemaining={ethers.formatEther(fieldsMappedToValues.amountFunded)} />
                   }
                 />
               )}

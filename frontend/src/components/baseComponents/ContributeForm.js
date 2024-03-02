@@ -6,7 +6,8 @@ import Proposal from "../../abis/Proposal.json";
 import { useNavigate } from "react-router-dom";
 import { ethDenverTheme } from "../../ethDenverTheme";
 
-const ContributeButton = () => {
+const ContributeButton = ({ amountRemaining }) => {
+  console.log(amountRemaining);
   const navigate = useNavigate();
   const proposalAddress = window.location.pathname.split("/").pop();
   const { writeContract } = useWriteContract();
@@ -28,7 +29,7 @@ const ContributeButton = () => {
           onChange={(e) => {
             setAmount(e.target.value);
           }}
-          defaultValue={"1.0"}
+          defaultValue={1.0 - amountRemaining}
           type={"integer"}
         ></Input>
       </InputAdornment>
@@ -54,10 +55,10 @@ const ContributeButton = () => {
   );
 };
 
-export default function ContributeForm() {
+export default function ContributeForm({ amountRemaining }) {
   return (
     <div>
-      <ContributeButton></ContributeButton>
+      <ContributeButton amountRemaining={amountRemaining}></ContributeButton>
     </div>
   );
 }
