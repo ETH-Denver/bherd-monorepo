@@ -15,6 +15,8 @@ import MapIndicator from "./MapIndicator";
 import { ethers } from "ethers";
 import NFTMintCard from "./NFTMintCard";
 import { useNavigate } from "react-router-dom";
+import ProviderAcceptButton from "./ProviderAcceptButton";
+import ProviderFulfillmentForm from "./ProviderFulfillment";
 
 const floatAnimation = keyframes`
   0% {
@@ -78,13 +80,13 @@ export const ProposalComponent = (props) => {
   const fundingStatus =
     Number(fieldsMappedToValues.fundingTarget) -
       Number(fieldsMappedToValues.amountFunded) >
-    0
+      0
       ? "Incomplete"
       : "Funded";
 
   const providerStatus =
     fieldsMappedToValues.provider !==
-    "0x0000000000000000000000000000000000000000"
+      "0x0000000000000000000000000000000000000000"
       ? "Filled"
       : "Unfilled";
   console.log(url);
@@ -109,6 +111,10 @@ export const ProposalComponent = (props) => {
               Back to List
             </Button>
           </Stack>
+          <ProviderAcceptButton
+            fundingStatus={fundingStatus}
+          ></ProviderAcceptButton>
+          <ProviderFulfillmentForm></ProviderFulfillmentForm>
           <Stack spacing={2} direction="row">
             {fundingStatus === "Funded" &&
               providerStatus === "Filled" &&

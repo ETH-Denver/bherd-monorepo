@@ -10,7 +10,7 @@ import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 
 import { WagmiProvider } from "wagmi";
-import { arbitrum, mainnet, sepolia } from "wagmi/chains";
+import { arbitrumNova, mainnet, sepolia, baseSepolia, lineaTestnet, xdcTestnet } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {ThemeProvider} from "@mui/material/styles";
 import {ethDenverTheme} from "./ethDenverTheme";
@@ -26,7 +26,7 @@ const metadata = {
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 
-const chains = [arbitrum, mainnet, sepolia];
+const chains = [arbitrumNova, mainnet, sepolia, baseSepolia, lineaTestnet, xdcTestnet];
 const config = defaultWagmiConfig({
   chains, // required
   projectId, // required
