@@ -67,7 +67,7 @@ export const ProposalCard = (props) => {
           </Box>
           <Box>
             <Typography>Execution Date:</Typography>
-            <Typography>{Number(executionDate)}</Typography>
+            <Typography>{executionDate}</Typography>
           </Box>
         </Box>
         <Box

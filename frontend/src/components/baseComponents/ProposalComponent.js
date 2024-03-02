@@ -55,7 +55,6 @@ export const ProposalComponent = (props) => {
     acc[fields[index]] = item.result;
     return acc;
   }, {});
-  console.log(fieldsMappedToValues);
   // takes a unix timestamp and returns a formatted date string
   const unixTimestampToDateString = (timestamp) => {
     return new Date(Number(timestamp) * 1000).toLocaleDateString();
