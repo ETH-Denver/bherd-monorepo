@@ -1,4 +1,4 @@
-import { Box, Card, Container, Typography } from "@mui/material";
+import { Box, Card, Container, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
@@ -26,73 +26,47 @@ export const ProposalCard = (props) => {
     <Card
       onClick={() => navigate(`/show/${props.contractAddress}`)}
       sx={{
-        backgroundColor: "#FAF9F6",
-        borderColor: "black",
+        backgroundColor: "#fff",
+        borderColor: "white",
         borderStyle: "solid",
-        marginY: 1,
-        filter: "drop-shadow(0px 4px 4px #4444dd)",
+        marginY: 3,
+        filter: "drop-shadow(12px 12px 0px #ff65af)",
         borderRadius: 2,
       }}
     >
-      <Typography
-        variant="h5"
-        textAlign={"right"}
-        sx={{ fontFamily: "Hanken-Grotesk-Regular" }}
-      >
-        Message: {message}
-      </Typography>
-      <Typography variant="h5" textAlign={"left"}>
-        Target: {target}
-      </Typography>
-      <Box sx={{ display: "flex" }}>
-        <Typography>Location:</Typography>
-        <Typography>{location}</Typography>
+      <Box>
+        <Stack sx={{ textAlign: "left", paddingLeft: "2vh", paddingTop: "1vh" }}>
+          <Typography sx={{ fontFamily: "Bubble", fontSize: "4vh", paddingBottom: "2vh" }}>
+            {message}
+          </Typography>
+        </Stack>
       </Box>
-      <Container
+      <Box
         sx={{
           display: "flex",
-          textAlign: "center",
+          flexDirection: "row",
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Typography>Expiration Date:</Typography>
-            <Typography>{Number(expirationDate)}</Typography>
-          </Box>
-          <Box>
-            <Typography>Execution Date:</Typography>
-            <Typography>{executionDate}</Typography>
-          </Box>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Typography>Funded Amount:</Typography>
-          <Typography>{`ETH ${ethers.formatEther(fundedAmount)}`}</Typography>
-          <Typography>Funding Target:</Typography>
-          <Typography>{`ETH ${ethers.formatEther(fundingTarget)}`}</Typography>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Typography>Funding Status:</Typography>
-          <Typography>{fundingStatus}</Typography>
-          <Typography>Provider Status:</Typography>
-          <Typography>{providerStatus}</Typography>
-        </Box>
-      </Container>
+        <Stack sx={{ textAlign: "left", paddingLeft: "2vh", display: "flex" }}>
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
+            Intention: {target}
+          </Typography>
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
+            Location: {location}
+          </Typography>
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
+            Expiration Date: {Number(expirationDate)}
+          </Typography>
+          <Typography variant="h5">Execution Date: {executionDate}</Typography>
+        </Stack>
+        <Stack sx={{ textAlign: "right", paddingRight: "2vh", paddingBottom: "1vh", display: "flex" }}>
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>Funded Amount: {`ETH ${ethers.formatEther(fundedAmount)}`}</Typography>
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>Funding Target: {`ETH ${ethers.formatEther(fundingTarget)}`}</Typography>
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>Funding Status: {fundingStatus}</Typography>
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>Provider Status: {providerStatus}</Typography>
+        </Stack>
+      </Box>
     </Card>
   );
 };

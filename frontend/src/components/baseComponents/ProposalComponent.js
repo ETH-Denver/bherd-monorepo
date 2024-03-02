@@ -17,6 +17,7 @@ import NFTMintCard from "./NFTMintCard";
 import { useNavigate } from "react-router-dom";
 import ProviderAcceptButton from "./ProviderAcceptButton";
 import ProviderFulfillmentForm from "./ProviderFulfillment";
+import {ethDenverTheme} from "../../ethDenverTheme";
 
 const floatAnimation = keyframes`
   0% {
@@ -95,7 +96,7 @@ export const ProposalComponent = (props) => {
       sx={{
         backgroundColor: "#fff",
         minHeight: "100vh",
-        minWidth: "100vw",
+        maxWidth: "50%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -146,6 +147,7 @@ export const ProposalComponent = (props) => {
             textAlign: "center",
             minHeight: "175px",
             background: "linear-gradient(to bottom, skyblue, white)",
+            overflow: "hidden"
           }}
         >
           <Typography
@@ -160,6 +162,18 @@ export const ProposalComponent = (props) => {
           </Typography>
         </Box>
         <Stack sx={{ marginTop: "40px" }} spacing={2} direction="row">
+          <TextField
+            disabled
+            sx={{ width: "100%" }}
+            id="filled-multiline-static"
+            label="Intention"
+            multiline
+            rows={2}
+            defaultValue={fieldsMappedToValues.target}
+            variant="filled"
+          />
+        </Stack>
+        <Stack sx={{ marginTop: "40px", justifyContent: "space-between" }} spacing={2} direction="row">
           <TextField
             disabled
             id="filled-disabled"
@@ -184,7 +198,7 @@ export const ProposalComponent = (props) => {
             variant="filled"
           />
         </Stack>
-        <Stack sx={{ marginTop: "40px" }} spacing={2} direction="row">
+        <Stack sx={{ marginTop: "40px", justifyContent: "space-between" }} spacing={2} direction="row">
           <TextField
             disabled
             id="filled-disabled"

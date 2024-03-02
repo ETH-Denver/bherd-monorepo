@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import { useWriteContract } from "wagmi";
 import Proposal from "../../abis/Proposal.json";
 import { useNavigate } from "react-router-dom";
+import { ethDenverTheme } from "../../ethDenverTheme";
 
 const ContributeButton = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const ContributeButton = () => {
 
       <Button
         variant={"contained"}
-        sx={{ backgroundColor: "#844aff", width: "25%", placeSelf: "end" }}
+        sx={{ backgroundColor: ethDenverTheme.palette.primary.main, color: "white", width: "25%", placeSelf: "end" }}
         onClick={(e) => {
           e.preventDefault();
           writeContract({

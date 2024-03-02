@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import {ethDenverTheme} from "../../ethDenverTheme";
 
 export default function BasicModal({
   buttonTitle = "Open",
@@ -16,7 +17,7 @@ export default function BasicModal({
   return (
     <Box>
       <Button
-        sx={{ backgroundColor: "#844aff" }}
+        sx={{ backgroundColor: ethDenverTheme.palette.primary.main, color: "white" }}
         variant="contained"
         onClick={handleOpen}
       >

@@ -1,6 +1,7 @@
 import { Container } from "@mui/material";
 import { Header } from "components/baseComponents/Header";
 import React from "react";
+import {ethDenverTheme} from "../../ethDenverTheme";
 
 export default function BaseLayout({ children }) {
   return (
@@ -10,7 +11,7 @@ export default function BaseLayout({ children }) {
         minWidth: "100vw",
         padding: 0,
         minHeight: "100vh",
-        backgroundColor: "#fffcec",
+        backgroundColor: "#fff",
         display: "flex",
         flexDirection: "column",
       }}
@@ -22,7 +23,7 @@ export default function BaseLayout({ children }) {
         sx={{
           minWidth: "100vw",
           minHeight: "200px",
-          backgroundColor: "#844aff",
+          backgroundColor: ethDenverTheme.palette.primary.main,
         }}
       ></Container>
     </Container>
