@@ -78,14 +78,14 @@ export const ProposalComponent = (props) => {
     Number(fieldsMappedToValues.fundingTarget) -
       Number(fieldsMappedToValues.amountFunded) >
     0
-      ? "Incomplete"
+      ? "Accepting Contributions"
       : "Funded";
 
   const providerStatus =
     fieldsMappedToValues.provider !==
     "0x0000000000000000000000000000000000000000"
-      ? "Filled"
-      : "Unfilled";
+      ? "Provider Accepted"
+      : "Awaiting Provider";
   return (
     <Container
       sx={{
@@ -126,7 +126,7 @@ export const ProposalComponent = (props) => {
                   buttonTitle="Contribute"
                   modalTitle="How much would you like to contribute to this campaign?"
                   modalBody={
-                    <ContributeForm proposalAddress={props.contractAddress} />
+                    <ContributeForm proposalAddress={props.contractAddress} amountRemaining={ethers.formatEther(fieldsMappedToValues.amountFunded)} />
                   }
                 />
               )}
