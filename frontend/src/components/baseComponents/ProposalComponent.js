@@ -210,8 +210,8 @@ export const ProposalComponent = (props) => {
         </Stack>
       </Stack>
       <MapIndicator
-        lat={fieldsMappedToValues.lat}
-        long={fieldsMappedToValues.long}
+        lat={Number(fieldsMappedToValues.lat) / 10 ** 7}
+        long={Number(fieldsMappedToValues.long) / 10 ** 7}
       />
     </Container>
   );
