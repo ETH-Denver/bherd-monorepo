@@ -22,7 +22,6 @@ contract Proposal is ERC1155 {
     uint256 public fundingTarget; // Ad cost
     address public provider; // default provider is the team
     uint256 public amountFunded; // current funding total
-    string public url; // proof of execution
     uint public tokenId; // NFT id
 
     mapping(address => uint256) contributions; // track contributions in event of refunds
@@ -58,10 +57,9 @@ contract Proposal is ERC1155 {
             (startDay * 24 * 60 * 60) -
             FUNDING_LEAD;
 
-        // Mint loyalty token and proposer nft
+        // Mint loyalty token
         _mint(address(this), tokenId, 1e18, "");
         tokenId ++;
-        _mint(proposer, tokenId, 1, "");
     }
 
     // Allows users to contribute funds to a proposal if the funding target has not been reached
@@ -119,11 +117,13 @@ contract Proposal is ERC1155 {
             msg.sender == provider,
             "Only the provider can complete proposal"
         );
-        url = _url;
+        _setURI(_url);
         // Disburse funds
         bool sent = payable(msg.sender).send(fundingTarget);
         require(sent, "Failed to send Ether");
 
+        // Mint proposer NFT
+        _mint(proposer, tokenId, 1, "");
         // Mint provider NFT
         tokenId ++;
         _mint(msg.sender, tokenId, 1, "");
@@ -132,7 +132,7 @@ contract Proposal is ERC1155 {
     function mint() external {
         uint256 amount = contributions[msg.sender];
         require(amount > 0, "User did not contribute");
-        require(bytes(url).length != 0, "Proposal is not complete");
+        require(bytes(uri(1)).length != 0, "Proposal is not complete");
 
         // Mint token
         tokenId ++;
