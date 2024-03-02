@@ -34,7 +34,6 @@ export default function MapIndicator({ lat, long }) {
     },
     zoom: 15,
   };
-  console.log(lat, long, "lat long");
   return (
     <Container
       sx={{

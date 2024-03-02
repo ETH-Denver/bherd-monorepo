@@ -51,6 +51,8 @@ export const ProposalComponent = (props) => {
     "fundingDeadline",
     "fundingTarget",
     "provider",
+    "proposer",
+    "url",
   ];
 
   const fieldsMappedToValues = props.data.reduce((acc, item, index) => {
@@ -58,14 +60,12 @@ export const ProposalComponent = (props) => {
     return acc;
   }, {});
 
-  // if (fieldsMappedToValues) {
-  //   return <NFTMintCard proposal={fieldsMappedToValues}/>;
-  // }
-
   // takes a unix timestamp and returns a formatted date string
   const unixTimestampToDateString = (timestamp) => {
     return new Date(Number(timestamp) * 1000).toLocaleDateString();
   };
+
+  const url = fieldsMappedToValues.url;
 
   const executionDateFormatted = unixTimestampToDateString(
     fieldsMappedToValues.startDay
@@ -86,7 +86,7 @@ export const ProposalComponent = (props) => {
     "0x0000000000000000000000000000000000000000"
       ? "Filled"
       : "Unfilled";
-
+  console.log(url);
   return (
     <Container
       sx={{
@@ -109,6 +109,23 @@ export const ProposalComponent = (props) => {
             </Button>
           </Stack>
           <Stack spacing={2} direction="row">
+            {fundingStatus === "Funded" &&
+              providerStatus === "Filled" &&
+              url && (
+                <BasicModal
+                  buttonTitle="View Proof"
+                  modalTitle="The proof is in the pudding!"
+                  modalBody={
+                    <iframe
+                      style={{ width: "100%", height: "100%" }}
+                      title="proof"
+                      src={
+                        "https://www.youtube.com/embed/dQw4w9WgXcQ?si=G1gMvZ6a8b8Kkcu4"
+                      }
+                    />
+                  }
+                />
+              )}
             {fundingStatus === "Incomplete" &&
               providerStatus === "Unfilled" && (
                 <BasicModal

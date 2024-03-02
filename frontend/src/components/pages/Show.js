@@ -24,6 +24,7 @@ export const ShowPage = () => {
     "fundingTarget",
     "provider",
     "proposer",
+    "url",
   ];
   const getContractData = (address) => {
     const calls = [];
