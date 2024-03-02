@@ -7,7 +7,6 @@ export const Header = () => {
   const account = useAccount();
   const navigate = useNavigate();
 
-  console.log("account", account.address);
   return (
     <Container
       disableGutters={true}
@@ -19,8 +18,17 @@ export const Header = () => {
         height: "13vh",
       }}
     >
-
-      <img src={EthDenverLogo} alt="Logo" style={{ width: '4%', paddingLeft: "10px", paddingRight: "10px", paddingTop: "10px", paddingBottom: "10px" }} />
+      <img
+        src={EthDenverLogo}
+        alt="Logo"
+        style={{
+          width: "4%",
+          paddingLeft: "10px",
+          paddingRight: "10px",
+          paddingTop: "10px",
+          paddingBottom: "10px",
+        }}
+      />
 
       <Typography
         variant="h3"
@@ -35,17 +43,17 @@ export const Header = () => {
       <Container
         sx={{ display: "flex", flexDirection: "row", width: "fit-content" }}
       >
-        { account && account.address &&
+        {account && account.address && (
           <Button
             variant="contained"
             onClick={() => {
               navigate("/create");
             }}
-            sx={{ width: 260, backgroundColor: "#fff", marginRight: "10px"}}
+            sx={{ width: 260, backgroundColor: "#fff", marginRight: "10px" }}
           >
             Create Proposal
           </Button>
-        }
+        )}
         <w3m-button style={{ display: "flex", justifyContent: "flex-end" }} />
       </Container>
     </Container>
