@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { ethDenverTheme } from "../../ethDenverTheme";
 
 const ContributeButton = ({ amountRemaining }) => {
-  console.log(amountRemaining);
   const navigate = useNavigate();
   const proposalAddress = window.location.pathname.split("/").pop();
   const { writeContract } = useWriteContract();
