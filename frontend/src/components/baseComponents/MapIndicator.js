@@ -17,11 +17,11 @@ const Pin = ({ text }) => (
   </div>
 );
 
-export default function MapIndicator() {
+export default function MapIndicator({ lat, long }) {
   const [address, setAddress] = React.useState("");
 
   setKey(process.env.REACT_APP_GOOGLE_API);
-  geocode(RequestType.LATLNG, "39.78127,-104.97138")
+  geocode(RequestType.LATLNG, `${lat},${long}`)
     .then(({ results }) => {
       const address = results[0].formatted_address;
       setAddress(address);
@@ -29,8 +29,8 @@ export default function MapIndicator() {
     .catch(console.error);
   const defaultProps = {
     center: {
-      lat: 39.78127,
-      lng: -104.97138,
+      lat: lat,
+      lng: long,
     },
     zoom: 15,
   };
@@ -45,7 +45,11 @@ export default function MapIndicator() {
         textAlign: "center",
       }}
     >
-      <Typography sx={{ marginLeft: 2, fontSize: "1.3rem", paddingBottom: "20px" }}>{address}</Typography>
+      <Typography
+        sx={{ marginLeft: 2, fontSize: "1.3rem", paddingBottom: "20px" }}
+      >
+        {address}
+      </Typography>
       <div style={{ height: "100%", width: "100%" }}>
         <GoogleMapReact
           draggable={false}
@@ -53,7 +57,7 @@ export default function MapIndicator() {
           defaultCenter={defaultProps.center}
           defaultZoom={defaultProps.zoom}
         >
-          <Pin lat={39.78127} lng={-104.97138} text="📍" />
+          {/* <Pin lat={lat} lng={long} text="📍" /> */}
         </GoogleMapReact>
       </div>
     </Container>

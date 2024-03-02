@@ -55,7 +55,7 @@ export const ProposalComponent = (props) => {
     acc[fields[index]] = item.result;
     return acc;
   }, {});
-  console.log(ethers.formatEther(fieldsMappedToValues.amountFunded));
+  console.log(fieldsMappedToValues);
   // takes a unix timestamp and returns a formatted date string
   const unixTimestampToDateString = (timestamp) => {
     return new Date(Number(timestamp) * 1000).toLocaleDateString();
@@ -127,7 +127,6 @@ export const ProposalComponent = (props) => {
             }
           </Stack>
         </Stack>
-
         <Box
           sx={{
             display: "flex",
@@ -211,7 +210,10 @@ export const ProposalComponent = (props) => {
           />
         </Stack>
       </Stack>
-      <MapIndicator />
+      <MapIndicator
+        lat={fieldsMappedToValues.lat}
+        long={fieldsMappedToValues.long}
+      />
     </Container>
   );
 };
