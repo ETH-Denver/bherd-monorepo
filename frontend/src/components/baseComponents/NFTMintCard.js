@@ -13,25 +13,25 @@ const NFTMintCard = (props) => {
   console.log("NFTMintCard props", props.proposal);
 
   return (
-    <div>
-      <h1>Oh Sh*t! You Mint!</h1>
-      <p></p>
-      <Button
-        variant={"contained"}
-        sx={{ backgroundColor: "#844aff", width: "25%", placeSelf: "end" }}
-        onClick={(e) => {
-          e.preventDefault();
-          const result = writeContract({
-            abi: Proposal.abi,
-            address: proposalAddress,
-            functionName: "mint",
-          });
-          console.log("result", result);
-        }}
-      >
-        Mint!
-      </Button>
-    </div>
+    <Button
+      variant={"contained"}
+      sx={{
+        backgroundColor: "#844aff",
+        width: "fit-content",
+        placeSelf: "end",
+      }}
+      onClick={(e) => {
+        e.preventDefault();
+        const result = writeContract({
+          abi: Proposal.abi,
+          address: proposalAddress,
+          functionName: "mint",
+        });
+        console.log("result", result);
+      }}
+    >
+      Mint Your NFT
+    </Button>
   );
 };
 

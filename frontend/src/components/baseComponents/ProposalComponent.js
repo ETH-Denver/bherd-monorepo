@@ -14,6 +14,7 @@ import ContributeForm from "./ContributeForm";
 import MapIndicator from "./MapIndicator";
 import { ethers } from "ethers";
 import NFTMintCard from "./NFTMintCard";
+import { useNavigate } from "react-router-dom";
 
 const floatAnimation = keyframes`
   0% {
@@ -35,10 +36,10 @@ const floatAnimation = keyframes`
 `;
 
 export const ProposalComponent = (props) => {
+  const navigate = useNavigate();
   if (!props.data) {
     return null;
   }
-
   const fields = [
     "amountFunded",
     "deployer",
@@ -112,19 +113,9 @@ export const ProposalComponent = (props) => {
             {fundingStatus === "Funded" &&
               providerStatus === "Filled" &&
               url && (
-                <BasicModal
-                  buttonTitle="View Proof"
-                  modalTitle="The proof is in the pudding!"
-                  modalBody={
-                    <iframe
-                      style={{ width: "100%", height: "100%" }}
-                      title="proof"
-                      src={
-                        "https://www.youtube.com/embed/dQw4w9WgXcQ?si=G1gMvZ6a8b8Kkcu4"
-                      }
-                    />
-                  }
-                />
+                <Button>
+                  <a href={url}>View Proof</a>
+                </Button>
               )}
             {fundingStatus === "Incomplete" &&
               providerStatus === "Unfilled" && (
@@ -137,17 +128,9 @@ export const ProposalComponent = (props) => {
                   }
                 />
               )}
-
-            {
-              /* WIP - waiting for proposer address to be added to proposal */
-              fundingStatus === "Complete" && providerStatus === "Unfilled" && (
-                <BasicModal
-                  buttonTitle="Execute Proposal"
-                  modalTitle="Are you sure you would like to close this campaign to new contributions?"
-                  modalBody={<Button>Nooo!!!</Button>}
-                />
-              )
-            }
+            {fundingStatus === "Funded" &&
+              providerStatus === "Filled" &&
+              url && <NFTMintCard />}
           </Stack>
         </Stack>
         <Box
