@@ -34,16 +34,19 @@ export default function BasicModal({
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: 520,
             bgcolor: "background.paper",
             border: "2px solid #000",
             boxShadow: 24,
             p: 4,
+            height: "70vh",
+            width: "60vw",
+            overflow: "scroll",
+            textAlign: "center",
           }}
         >
           <Typography
             id="modal-modal-title"
-            variant="h6"
+            variant="h3"
             component="h6"
             sx={{ paddingBottom: "20px" }}
           >

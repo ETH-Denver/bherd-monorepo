@@ -13,6 +13,8 @@ import BasicModal from "./BasicModal";
 import ContributeForm from "./ContributeForm";
 import MapIndicator from "./MapIndicator";
 import { ethers } from "ethers";
+import NFTMintCard from "./NFTMintCard";
+import { useNavigate } from "react-router-dom";
 import ProviderAcceptButton from "./ProviderAcceptButton";
 import ProviderFulfillmentForm from "./ProviderFulfillment";
 
@@ -36,6 +38,7 @@ const floatAnimation = keyframes`
 `;
 
 export const ProposalComponent = (props) => {
+  const navigate = useNavigate();
   if (!props.data) {
     return null;
   }
@@ -51,16 +54,21 @@ export const ProposalComponent = (props) => {
     "fundingDeadline",
     "fundingTarget",
     "provider",
+    "proposer",
+    "url",
   ];
 
   const fieldsMappedToValues = props.data.reduce((acc, item, index) => {
     acc[fields[index]] = item.result;
     return acc;
   }, {});
+
   // takes a unix timestamp and returns a formatted date string
   const unixTimestampToDateString = (timestamp) => {
     return new Date(Number(timestamp) * 1000).toLocaleDateString();
   };
+
+  const url = fieldsMappedToValues.url;
 
   const executionDateFormatted = unixTimestampToDateString(
     fieldsMappedToValues.startDay
@@ -81,7 +89,7 @@ export const ProposalComponent = (props) => {
       "0x0000000000000000000000000000000000000000"
       ? "Filled"
       : "Unfilled";
-
+  console.log(url);
   return (
     <Container
       sx={{
@@ -108,6 +116,13 @@ export const ProposalComponent = (props) => {
           ></ProviderAcceptButton>
           <ProviderFulfillmentForm></ProviderFulfillmentForm>
           <Stack spacing={2} direction="row">
+            {fundingStatus === "Funded" &&
+              providerStatus === "Filled" &&
+              url && (
+                <Button>
+                  <a href={url}>View Proof</a>
+                </Button>
+              )}
             {fundingStatus === "Incomplete" &&
               providerStatus === "Unfilled" && (
                 <BasicModal
@@ -119,17 +134,9 @@ export const ProposalComponent = (props) => {
                   }
                 />
               )}
-
-            {
-              /* WIP - waiting for proposer address to be added to proposal */
-              fundingStatus === "Complete" && providerStatus === "Unfilled" && (
-                <BasicModal
-                  buttonTitle="Execute Proposal"
-                  modalTitle="Are you sure you would like to close this campaign to new contributions?"
-                  modalBody={<Button>Nooo!!!</Button>}
-                />
-              )
-            }
+            {fundingStatus === "Funded" &&
+              providerStatus === "Filled" &&
+              url && <NFTMintCard />}
           </Stack>
         </Stack>
         <Box
@@ -149,7 +156,7 @@ export const ProposalComponent = (props) => {
               animation: `${floatAnimation} 7s infinite`,
             }}
           >
-            {fieldsMappedToValues.target}
+            {fieldsMappedToValues.message}
           </Typography>
         </Box>
         <Stack sx={{ marginTop: "40px" }} spacing={2} direction="row">
