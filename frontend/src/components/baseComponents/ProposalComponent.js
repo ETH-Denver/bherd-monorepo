@@ -15,6 +15,7 @@ import MapIndicator from "./MapIndicator";
 import { ethers } from "ethers";
 import ProviderAcceptButton from "./ProviderAcceptButton";
 import ProviderFulfillmentForm from "./ProviderFulfillment";
+import {ethDenverTheme} from "../../ethDenverTheme";
 
 const floatAnimation = keyframes`
   0% {
@@ -139,6 +140,7 @@ export const ProposalComponent = (props) => {
             textAlign: "center",
             minHeight: "175px",
             background: "linear-gradient(to bottom, skyblue, white)",
+            overflow: "hidden"
           }}
         >
           <Typography
@@ -149,9 +151,21 @@ export const ProposalComponent = (props) => {
               animation: `${floatAnimation} 7s infinite`,
             }}
           >
-            {fieldsMappedToValues.target}
+            {fieldsMappedToValues.message}
           </Typography>
         </Box>
+        <Stack sx={{ marginTop: "40px" }} spacing={2} direction="row">
+          <TextField
+            disabled
+            sx={{ width: "100%" }}
+            id="filled-multiline-static"
+            label="Intention"
+            multiline
+            rows={2}
+            defaultValue={fieldsMappedToValues.target}
+            variant="filled"
+          />
+        </Stack>
         <Stack sx={{ marginTop: "40px" }} spacing={2} direction="row">
           <TextField
             disabled
