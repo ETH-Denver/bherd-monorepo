@@ -1,4 +1,4 @@
-import { Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useAccount } from "wagmi";
 import EthDenverLogo from "../../asssets/ethdenver-spork-logo-transparent.png";
@@ -16,40 +16,49 @@ export const Header = () => {
         display: "flex",
         alignItems: "center",
         height: "13vh",
-        "&:hover": { cursor: "pointer" },
-      }}
-      onClick={() => {
-        navigate("/frontend");
+        justifyContent: "space-between",
       }}
     >
-      <img
-        src={EthDenverLogo}
-        alt="Logo"
-        style={{
-          width: "7vh",
-          paddingLeft: "5vh",
-          paddingRight: "10px",
-          paddingTop: "10px",
-          paddingBottom: "10px",
-        }}
-      />
-
-      <Typography
-        variant="h2"
-        component="div"
-        sx={{
-          fontSize: "8vh",
-          fontWeight: 600,
-          fontFamily: "Darker-Hanken-Grotesk",
-          flexGrow: 1,
-          color: "#ffff",
-          "&:hover": { cursor: "pointer" },
+      <Box
+        sx={{ display: "flex", "&:hover": { cursor: "pointer" } }}
+        onClick={() => {
+          navigate("/frontend");
         }}
       >
-        B Herd
-      </Typography>
+        <img
+          src={EthDenverLogo}
+          alt="Logo"
+          style={{
+            width: "7vh",
+            paddingLeft: "5vh",
+            paddingRight: "10px",
+            paddingTop: "10px",
+            paddingBottom: "10px",
+          }}
+        />
+
+        <Typography
+          variant="h2"
+          component="div"
+          sx={{
+            fontSize: "8vh",
+            fontWeight: 600,
+            fontFamily: "Darker-Hanken-Grotesk",
+            flexGrow: 1,
+            color: "#ffff",
+          }}
+        >
+          B Herd
+        </Typography>
+      </Box>
       <Container
-        sx={{ display: "flex", flexDirection: "row", width: "fit-content" }}
+        disableGutters
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          width: "fit-content",
+          marginX: 0,
+        }}
       >
         {account && account.address && (
           <Button
