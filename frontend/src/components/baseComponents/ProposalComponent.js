@@ -166,7 +166,7 @@ export const ProposalComponent = (props) => {
             variant="filled"
           />
         </Stack>
-        <Stack sx={{ marginTop: "40px" }} spacing={2} direction="row">
+        <Stack sx={{ marginTop: "40px", justifyContent: "space-between" }} spacing={2} direction="row">
           <TextField
             disabled
             id="filled-disabled"
@@ -191,7 +191,7 @@ export const ProposalComponent = (props) => {
             variant="filled"
           />
         </Stack>
-        <Stack sx={{ marginTop: "40px" }} spacing={2} direction="row">
+        <Stack sx={{ marginTop: "40px", justifyContent: "space-between" }} spacing={2} direction="row">
           <TextField
             disabled
             id="filled-disabled"
