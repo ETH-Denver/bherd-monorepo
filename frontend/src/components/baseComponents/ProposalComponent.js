@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  Card,
   Container,
   Stack,
   TextField,
@@ -14,10 +13,8 @@ import ContributeForm from "./ContributeForm";
 import MapIndicator from "./MapIndicator";
 import { ethers } from "ethers";
 import NFTMintCard from "./NFTMintCard";
-import { useNavigate } from "react-router-dom";
 import ProviderAcceptButton from "./ProviderAcceptButton";
 import ProviderFulfillmentForm from "./ProviderFulfillment";
-import {ethDenverTheme} from "../../ethDenverTheme";
 
 const floatAnimation = keyframes`
   0% {
@@ -39,7 +36,6 @@ const floatAnimation = keyframes`
 `;
 
 export const ProposalComponent = (props) => {
-  const navigate = useNavigate();
   if (!props.data) {
     return null;
   }
@@ -81,16 +77,15 @@ export const ProposalComponent = (props) => {
   const fundingStatus =
     Number(fieldsMappedToValues.fundingTarget) -
       Number(fieldsMappedToValues.amountFunded) >
-      0
+    0
       ? "Incomplete"
       : "Funded";
 
   const providerStatus =
     fieldsMappedToValues.provider !==
-      "0x0000000000000000000000000000000000000000"
+    "0x0000000000000000000000000000000000000000"
       ? "Filled"
       : "Unfilled";
-  console.log(url);
   return (
     <Container
       sx={{
@@ -147,7 +142,7 @@ export const ProposalComponent = (props) => {
             textAlign: "center",
             minHeight: "175px",
             background: "linear-gradient(to bottom, skyblue, white)",
-            overflow: "hidden"
+            overflow: "hidden",
           }}
         >
           <Typography
@@ -173,7 +168,11 @@ export const ProposalComponent = (props) => {
             variant="filled"
           />
         </Stack>
-        <Stack sx={{ marginTop: "40px", justifyContent: "space-between" }} spacing={2} direction="row">
+        <Stack
+          sx={{ marginTop: "40px", justifyContent: "space-between" }}
+          spacing={2}
+          direction="row"
+        >
           <TextField
             disabled
             id="filled-disabled"
@@ -198,7 +197,11 @@ export const ProposalComponent = (props) => {
             variant="filled"
           />
         </Stack>
-        <Stack sx={{ marginTop: "40px", justifyContent: "space-between" }} spacing={2} direction="row">
+        <Stack
+          sx={{ marginTop: "40px", justifyContent: "space-between" }}
+          spacing={2}
+          direction="row"
+        >
           <TextField
             disabled
             id="filled-disabled"
