@@ -35,7 +35,7 @@ contract Proposal is ERC1155 {
         string memory _target,
         uint _contentType,
         string memory _contentMessage
-    ) ERC1155("") {
+    ) ERC1155("ipfs://QmQMWnHT1TFktiq6XnykNkshamWPydU3peW2RKuQKcBzS2.png") {
         proposer = tx.origin;
         deployer = _deployer;
         startDay = _startDay;
