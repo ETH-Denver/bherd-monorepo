@@ -9,7 +9,7 @@ const ContributeButton = () => {
   const navigate = useNavigate();
   const proposalAddress = window.location.pathname.split("/").pop();
   const { writeContract } = useWriteContract();
-  const [amount, setAmount] = React.useState("");
+  const [amount, setAmount] = React.useState("1.0");
 
   return (
     <form
