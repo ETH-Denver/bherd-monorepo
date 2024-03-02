@@ -34,27 +34,33 @@ export const HomePage = () => {
   let contracts = [];
   if (proposalsFromContract && proposalsFromContract.data !== undefined) {
     for (const address of proposalsFromContract?.data) {
+
       contracts.push(getContractData(address));
     }
   }
   const proposalsInfo = useReadContracts({ contracts: contracts.flat() });
 
   useEffect(() => {
-    const proposal = {};
-    proposal.data = {};
-    proposalsInfo?.data?.map((field, index) => {
-      proposal.data[fields[index]] = field.result;
+    if (proposalsInfo?.data) {
+      const chunkSize = fields.length;
+      for (let i = 0; i < proposalsInfo.data.length; i += chunkSize) {
+        const chunk = proposalsInfo.data.slice(i, i + chunkSize);
 
-      return;
-    });
-    console.log(proposal);
-    if (proposalsInfo?.data) { proposal.data.status = 'success'; }
+        const proposal = {};
+        proposal.data = {};
 
-    const output = [proposal];
+        chunk.map((field, index) => {
+          proposal.data[fields[index]] = field.result;
 
-    setProposals(output);
+        })
+
+        proposal.data.status = 'success';
+        setProposals(proposals => [...proposals, proposal]);
+      }
+    }
+
   }, [proposalsInfo.data]);
-  // console.log('proposals', proposals)
+
   return (
     <Container>
       <Container
