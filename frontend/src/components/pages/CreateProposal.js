@@ -1,4 +1,11 @@
-import { Button, Container, MenuItem, Select, TextField } from "@mui/material";
+import {
+  Button,
+  Container,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
@@ -14,7 +21,7 @@ const ProposalForm = () => {
   const [lat, setLat] = useState("");
   const [long, setLong] = useState("");
   const [contentType, setContentType] = useState("");
-  const deployerAddress = "0x2A354874631Dc2Dc09f6Ff240f19b11fe83D6720";
+  const deployerAddress = process.env.REACT_APP_DEPLOYER_CONTRACT_SEPOLIA;
 
   const CreateButton = () => {
     const { writeContract } = useWriteContract();
@@ -29,86 +36,123 @@ const ProposalForm = () => {
             functionName: "createProposal",
             args: [
               executionDate.getTime(),
-              executionDate.getTime(),
-              lat * 10 ** JSON.stringify(lat).split(".")[1].length,
-              long * 10 ** JSON.stringify(long).split(".")[1].length,
+
+              lat * 10 ** 7,
+              long * 10 ** 7,
               target,
-              contentType,
+              0,
               content,
             ],
           });
         }}
       >
-        CreateProposal
+        Create Proposal
       </Button>
     );
   };
 
   return (
-    <Container>
-      <Autocomplete
-        apiKey={process.env.REACT_APP_GOOGLE_API}
-        style={{ width: 500, borderRadius: 8, height: 48 }}
-        onPlaceSelected={(place) => {
-          setLat(place.geometry.location.lat());
-          setLong(place.geometry.location.lng());
-        }}
-        componentrestrictions={{ country: "us" }}
-        options={{
-          types: ["geocode", "establishment"],
-        }}
-        placeholder="Search for a location"
-      />
-      <TextField
-        inputProps={{ maxLength: 250 }}
-        label="What is your idea?"
-        onChange={(e) => setTarget(e.target.value)}
-        variant="outlined"
-        color="secondary"
-        value={target}
-        fullWidth
-        sx={{ mb: 3, width: 500 }}
-      />
-      <Select
-        value={contentType}
-        label="Content Type"
-        onChange={(event, selected) => {
-          setContentType(event.target.value);
-        }}
-        sx={{ mb: 3, width: 500 }}
-        renderValue={(selected) => {
-          if (selected.length === 0) {
-            return <em>Please Select an Option</em>;
-          }
-
-          return selected;
-        }}
-        displayEmpty
+    <Container
+      sx={{
+        backgroundColor: "#d7d3d3",
+        paddingTop: 2,
+        minHeight: "90vh",
+        borderRadius: 2,
+        marginY: 0,
+        overflowY: "scroll",
+      }}
+    >
+      <Typography variant="h1" sx={{ mb: 3, textAlign: "center" }}>
+        Create a Proposal
+      </Typography>
+      <Container
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
-        <MenuItem disabled value={""}>
-          Please Select an option
-        </MenuItem>
-        <MenuItem value={"Sky Typing"}>Sky Typing</MenuItem>
-        <MenuItem value={"Banner Plane"}>Banner Plane</MenuItem>
-      </Select>
-      <TextField
-        inputProps={{ maxLength: 250 }}
-        label="What is your message?"
-        onChange={(e) => setContent(e.target.value)}
-        variant="outlined"
-        color="secondary"
-        type="content"
-        value={content}
-        fullWidth
-        sx={{ mb: 3, width: 500 }}
-      />
-      <DatePicker
-        showIcon
-        selected={executionDate}
-        onChange={(date) => setExecutionDate(date)}
-        icon="fa fa-calendar"
-      />
-      <CreateButton />
+        <Container>
+          <Autocomplete
+            apiKey={process.env.REACT_APP_GOOGLE_API}
+            style={{ width: 500, borderRadius: 6, height: 55, border: "none" }}
+            onPlaceSelected={(place) => {
+              setLat(place.geometry.location.lat());
+              setLong(place.geometry.location.lng());
+            }}
+            componentrestrictions={{ country: "us" }}
+            options={{
+              types: ["geocode", "establishment"],
+            }}
+            placeholder="Search for a location"
+          />
+          <TextField
+            inputProps={{ maxLength: 250 }}
+            label="What is your idea?"
+            onChange={(e) => setTarget(e.target.value)}
+            variant="outlined"
+            color="secondary"
+            value={target}
+            fullWidth
+            sx={{
+              mb: 3,
+              width: 500,
+              backgroundColor: "white",
+              borderRadius: 2,
+            }}
+          />
+        </Container>
+        <Container>
+          <Select
+            value={contentType}
+            label="Content Type"
+            onChange={(event, selected) => {
+              setContentType(event.target.value);
+            }}
+            sx={{ mb: 3, width: 500, backgroundColor: "white" }}
+            renderValue={(selected) => {
+              if (selected.length === 0) {
+                return <em>Please Select an Option</em>;
+              }
+
+              return selected;
+            }}
+            displayEmpty
+          >
+            <MenuItem disabled value={""}>
+              Please Select an option
+            </MenuItem>
+            <MenuItem value={"Sky Typing"}>Sky Typing</MenuItem>
+            <MenuItem value={"Banner Plane"}>Banner Plane</MenuItem>
+          </Select>
+          <TextField
+            inputProps={{ maxLength: 250 }}
+            label="What is your message?"
+            onChange={(e) => setContent(e.target.value)}
+            variant="outlined"
+            color="secondary"
+            type="content"
+            value={content}
+            fullWidth
+            sx={{
+              mb: 3,
+              width: 500,
+              backgroundColor: "white",
+              borderRadius: 2,
+            }}
+          />
+        </Container>
+        <Container sx={{ display: "flex", justifyContent: "space-around" }}>
+          <DatePicker
+            showIcon
+            selected={executionDate}
+            onChange={(date) => setExecutionDate(date)}
+            icon="fa fa-calendar"
+            sx={{
+              mb: 3,
+              backgroundColor: "white",
+              borderRadius: 2,
+            }}
+          />
+          <CreateButton />
+        </Container>
+      </Container>
     </Container>
   );
 };
