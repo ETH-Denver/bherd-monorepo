@@ -1,13 +1,5 @@
 import * as React from "react";
-import {
-  Box,
-  Button,
-  Input,
-  InputAdornment,
-  Modal,
-  Typography,
-} from "@mui/material";
-import { ethers } from "ethers";
+import { Box, Button, Input, Modal, Typography } from "@mui/material";
 import { useAccount, useReadContract, useWriteContract } from "wagmi";
 import Deployer from "../../abis/Deployer.json";
 import Proposal from "../../abis/Proposal.json";

@@ -1,7 +1,6 @@
 import { Container, Typography, Skeleton } from "@mui/material";
 import { ProposalCard } from "../baseComponents/ProposalCard";
-import { SearchBar } from "../baseComponents/SearchBar";
-import { useReadContract, useReadContracts, useWriteContract } from "wagmi";
+import { useReadContract, useReadContracts } from "wagmi";
 import Deployer from "../../abis/Deployer.json";
 import Proposal from "../../abis/Proposal.json";
 import { ethDenverTheme } from "../../ethDenverTheme";
@@ -34,7 +33,7 @@ export const HomePage = () => {
   const getContractData = (address) => {
     const calls = [];
 
-    fields.map((field) => {
+    fields.forEach((field) => {
       calls.push({
         abi: Proposal.abi,
         address,
@@ -63,7 +62,7 @@ export const HomePage = () => {
         const proposal = {};
         proposal.data = {};
 
-        chunk.map((field, index) => {
+        chunk.forEach((field, index) => {
           proposal.data[fields[index]] = field.result;
         });
         const contractAddressIndex = i === 0 ? 0 : i / fields.length;
@@ -121,7 +120,7 @@ export const HomePage = () => {
                 />
               ))}
             {proposals?.map((proposal, index) => {
-              if (proposal.data.status === "success")
+              if (proposal.data.status === "success") {
                 return (
                   <ProposalCard
                     data={proposal.data}
@@ -129,6 +128,8 @@ export const HomePage = () => {
                     contractAddress={proposal.data.proposalAddress}
                   />
                 );
+              }
+              return null;
             })}
           </Container>
         </Container>

@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useAccount } from "wagmi";
 import EthDenverLogo from "../../asssets/ethdenver-spork-logo-transparent.png";
@@ -16,6 +16,10 @@ export const Header = () => {
         display: "flex",
         alignItems: "center",
         height: "13vh",
+        "&:hover": { cursor: "pointer" },
+      }}
+      onClick={() => {
+        navigate("/frontend");
       }}
     >
       <img
@@ -33,9 +37,13 @@ export const Header = () => {
       <Typography
         variant="h2"
         component="div"
-        sx={{ fontSize: "8vh", fontWeight: 600, fontFamily: "Darker-Hanken-Grotesk",flexGrow: 1, color: "#ffff", "&:hover": { cursor: "pointer" } }}
-        onClick={() => {
-          navigate("/frontend");
+        sx={{
+          fontSize: "8vh",
+          fontWeight: 600,
+          fontFamily: "Darker-Hanken-Grotesk",
+          flexGrow: 1,
+          color: "#ffff",
+          "&:hover": { cursor: "pointer" },
         }}
       >
         B Herd

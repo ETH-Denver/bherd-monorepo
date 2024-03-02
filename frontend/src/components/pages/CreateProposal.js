@@ -7,14 +7,14 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Autocomplete from "react-google-autocomplete";
 import { useWriteContract } from "wagmi";
 import Deployer from "../../abis/Deployer.json";
 import { useNavigate } from "react-router-dom";
-import {ethDenverTheme} from "../../ethDenverTheme";
+import { ethDenverTheme } from "../../ethDenverTheme";
 
 const ProposalForm = () => {
   const [executionDate, setExecutionDate] = useState(new Date());
@@ -65,11 +65,19 @@ const ProposalForm = () => {
         overflowY: "scroll",
       }}
     >
-      <Typography variant="h1" sx={{ color: 'white', mb: 3, textAlign: "center", fontFamily: "Hanken-Grotesk-Regular" }}>
+      <Typography
+        variant="h1"
+        sx={{
+          color: "white",
+          mb: 3,
+          textAlign: "center",
+          fontFamily: "Hanken-Grotesk-Regular",
+        }}
+      >
         Create a Proposal
       </Typography>
       <Container
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center"}}
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
         <Container>
           <Autocomplete

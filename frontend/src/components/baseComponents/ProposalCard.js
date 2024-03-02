@@ -1,4 +1,4 @@
-import { Box, Card, Container, Stack, Typography } from "@mui/material";
+import { Box, Card, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
@@ -35,8 +35,12 @@ export const ProposalCard = (props) => {
       }}
     >
       <Box>
-        <Stack sx={{ textAlign: "left", paddingLeft: "2vh", paddingTop: "1vh" }}>
-          <Typography sx={{ fontFamily: "Bubble", fontSize: "4vh", paddingBottom: "2vh" }}>
+        <Stack
+          sx={{ textAlign: "left", paddingLeft: "2vh", paddingTop: "1vh" }}
+        >
+          <Typography
+            sx={{ fontFamily: "Bubble", fontSize: "4vh", paddingBottom: "2vh" }}
+          >
             {message}
           </Typography>
         </Stack>
@@ -60,11 +64,26 @@ export const ProposalCard = (props) => {
           </Typography>
           <Typography variant="h5">Execution Date: {executionDate}</Typography>
         </Stack>
-        <Stack sx={{ textAlign: "right", paddingRight: "2vh", paddingBottom: "1vh", display: "flex" }}>
-          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>Funded Amount: {`ETH ${ethers.formatEther(fundedAmount)}`}</Typography>
-          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>Funding Target: {`ETH ${ethers.formatEther(fundingTarget)}`}</Typography>
-          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>Funding Status: {fundingStatus}</Typography>
-          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>Provider Status: {providerStatus}</Typography>
+        <Stack
+          sx={{
+            textAlign: "right",
+            paddingRight: "2vh",
+            paddingBottom: "1vh",
+            display: "flex",
+          }}
+        >
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
+            Funded Amount: {`ETH ${ethers.formatEther(fundedAmount)}`}
+          </Typography>
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
+            Funding Target: {`ETH ${ethers.formatEther(fundingTarget)}`}
+          </Typography>
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
+            Funding Status: {fundingStatus}
+          </Typography>
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
+            Provider Status: {providerStatus}
+          </Typography>
         </Stack>
       </Box>
     </Card>
