@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'Bubble';
+    src: url('./bubble-font/BubbleRegular-XJl2.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Hanken-Grotesk';
+    src: url('./eth-denver-fonts/hanken-grotesk.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Hanken-Grotesk-Regular';
+    src: url('./eth-denver-fonts/hanken-grotesk-regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Darker-Hanken-Grotesk';
+    src: url('./eth-denver-fonts/darker-gotesk-light.ttf') format('truetype');
+}
