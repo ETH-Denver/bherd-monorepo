@@ -20,7 +20,6 @@ export const HomePage = () => {
     "amountFunded",
     "deployer",
     "startDay",
-    "endDay",
     "lat",
     "long",
     "target",
@@ -58,7 +57,6 @@ export const HomePage = () => {
     proposalsInfo?.data?.forEach((field, index) => {
       proposal.data[fields[index]] = field.result;
     });
-    console.log(proposal);
     if (proposalsInfo?.data) {
       proposal.data.status = "success";
     }
@@ -68,7 +66,7 @@ export const HomePage = () => {
     setProposals(output);
   }, [proposalsInfo.data]);
 
-  console.log(proposalsInfo.data);
+  console.log(proposalsInfo.data?.[1].result);
 
   return (
     <Container>
@@ -106,7 +104,14 @@ export const HomePage = () => {
               ))}
             {proposals?.map((proposal, index) => {
               if (proposal.data.status === "success")
-                return <ProposalCard data={proposal.data} key={index} />;
+                console.log(proposalsInfo.data, "proposal data");
+              return (
+                <ProposalCard
+                  data={proposal.data}
+                  key={index}
+                  contractAddress={proposalsInfo.data?.[1].result}
+                />
+              );
             })}
           </Container>
         </Container>
