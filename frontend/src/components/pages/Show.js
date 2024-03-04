@@ -39,15 +39,20 @@ export const ShowPage = () => {
     return calls;
   };
 
-  const result = useReadContracts({
+  const { data, error } = useReadContracts({
     contracts: getContractData(address).flat(),
   });
 
   useEffect(() => {
-    if (result !== undefined) {
-      setProposal(result.data);
-    }
-  }, [result.data]);
+    setProposal(data);
+  }, [data]);
 
-  return result?.data ? <ProposalComponent data={proposal} /> : null;
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(data);
+    return <ProposalComponent data={proposal} />;
+  }
+
+  // return result?.data ? <ProposalComponent data={proposal} /> : null;
 };

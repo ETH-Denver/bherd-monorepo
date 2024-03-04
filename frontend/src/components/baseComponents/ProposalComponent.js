@@ -54,7 +54,7 @@ export const ProposalComponent = (props) => {
     "proposer",
     "url",
   ];
-
+  console.log(props.data);
   const fieldsMappedToValues = props.data.reduce((acc, item, index) => {
     acc[fields[index]] = item.result;
     return acc;
@@ -126,7 +126,12 @@ export const ProposalComponent = (props) => {
                   buttonTitle="Contribute"
                   modalTitle="How much would you like to contribute to this campaign?"
                   modalBody={
-                    <ContributeForm proposalAddress={props.contractAddress} amountRemaining={ethers.formatEther(fieldsMappedToValues.amountFunded)} />
+                    <ContributeForm
+                      proposalAddress={props.contractAddress}
+                      amountRemaining={ethers.formatEther(
+                        fieldsMappedToValues.amountFunded
+                      )}
+                    />
                   }
                 />
               )}

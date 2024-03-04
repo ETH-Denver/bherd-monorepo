@@ -14,7 +14,7 @@ import Autocomplete from "react-google-autocomplete";
 import { useWriteContract } from "wagmi";
 import Deployer from "../../abis/Deployer.json";
 import { useNavigate } from "react-router-dom";
-import {ethDenverTheme} from "../../ethDenverTheme";
+import { ethDenverTheme } from "../../ethDenverTheme";
 
 const ProposalForm = () => {
   const [executionDate, setExecutionDate] = useState(new Date());
@@ -25,28 +25,43 @@ const ProposalForm = () => {
   const [contentType, setContentType] = useState("");
   const deployerAddress = process.env.REACT_APP_DEPLOYER_CONTRACT_SEPOLIA;
   const navigate = useNavigate();
+  const { writeContract, error, data } = useWriteContract();
+  const create = () => {
+    console.log(
+      executionDate.getTime(),
+      Math.round(lat.toFixed(7) * 10 ** 7),
+      Math.round(long.toFixed(7) * 10 ** 7),
+      target,
+      0,
+      content
+    );
+    writeContract({
+      abi: Deployer.abi,
+      address: deployerAddress,
+      functionName: "createProposal",
+      args: [
+        executionDate.getTime(),
+        Math.round(lat.toFixed(7) * 10 ** 7),
+        Math.round(long.toFixed(7) * 10 ** 7),
+        target,
+        0,
+        content,
+      ],
+    });
+  };
+  console.log(process.env.REACT_APP_GOOGLE_API);
+  useEffect(() => {
+    console.log(data, "data");
+    console.log(error, "error");
+  }, [data, error]);
   const CreateButton = () => {
-    const { writeContract } = useWriteContract();
     return (
       <Button
         variant="outlined"
         color="secondary"
         onClick={() => {
-          writeContract({
-            abi: Deployer.abi,
-            address: deployerAddress,
-            functionName: "createProposal",
-            args: [
-              executionDate.getTime(),
-
-              lat * 10 ** 7,
-              long * 10 ** 7,
-              target,
-              0,
-              content,
-            ],
-          });
-          navigate("/");
+          create();
+          // navigate("/");
         }}
       >
         Create Proposal
@@ -65,11 +80,19 @@ const ProposalForm = () => {
         overflowY: "scroll",
       }}
     >
-      <Typography variant="h1" sx={{ color: 'white', mb: 3, textAlign: "center", fontFamily: "Hanken-Grotesk-Regular" }}>
+      <Typography
+        variant="h1"
+        sx={{
+          color: "white",
+          mb: 3,
+          textAlign: "center",
+          fontFamily: "Hanken-Grotesk-Regular",
+        }}
+      >
         Create a Proposal
       </Typography>
       <Container
-        sx={{ display: "flex", flexDirection: "column", alignItems: "center"}}
+        sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
       >
         <Container>
           <Autocomplete
