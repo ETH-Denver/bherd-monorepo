@@ -5,7 +5,9 @@ import Proposal from "../../abis/Proposal.json";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ProposalComponent } from "../baseComponents/ProposalComponent";
-import { Box, Container, Stack } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
+import BaseLayout from "components/layouts/BaseLayout";
+import { Loader } from "components/baseComponents/Loader";
 
 export const ShowPage = () => {
   const { address } = useParams();
@@ -38,7 +40,7 @@ export const ShowPage = () => {
     return calls;
   };
 
-  const { data, error } = useReadContracts({
+  const { data, error, isLoading } = useReadContracts({
     contracts: getContractData(address).flat(),
   });
 
@@ -48,8 +50,10 @@ export const ShowPage = () => {
 
   if (error) {
     console.log(error);
+  } else if (proposal && !isLoading) {
+    return <BaseLayout children={<ProposalComponent data={proposal} />} />;
   } else {
-    return <ProposalComponent data={proposal} />;
+    return <BaseLayout children={<Loader />} />;
   }
 
   // return result?.data ? <ProposalComponent data={proposal} /> : null;

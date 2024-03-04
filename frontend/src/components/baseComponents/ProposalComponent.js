@@ -36,9 +36,6 @@ const floatAnimation = keyframes`
 `;
 
 export const ProposalComponent = (props) => {
-  if (!props.data) {
-    return null;
-  }
   const fields = [
     "amountFunded",
     "deployer",
@@ -85,6 +82,36 @@ export const ProposalComponent = (props) => {
     "0x0000000000000000000000000000000000000000"
       ? "Provider Accepted"
       : "Awaiting Provider";
+  console.log(url, "URL");
+  const renderFundButton = () => {
+    if (
+      fundingStatus === "Accepting Contributions" &&
+      providerStatus === "Awaiting Provider"
+    ) {
+      return (
+        <BasicModal
+          sx={{ marginLeft: "0px" }}
+          buttonTitle="Contribute"
+          modalTitle="How much would you like to contribute to this campaign?"
+          modalBody={
+            <ContributeForm
+              proposalAddress={props.contractAddress}
+              amountRemaining={ethers.formatEther(
+                fieldsMappedToValues.amountFunded
+              )}
+            />
+          }
+        />
+      );
+    }
+  };
+
+  const renderNFTButton = () => {
+    if (fundingStatus === "Funded" && providerStatus === "Provider Accepted") {
+      return url && <NFTMintCard />;
+    }
+  };
+
   return (
     <Container
       sx={{
@@ -111,6 +138,8 @@ export const ProposalComponent = (props) => {
           ></ProviderAcceptButton>
           <ProviderFulfillmentForm></ProviderFulfillmentForm>
           <Stack spacing={2} direction="row">
+            {renderFundButton()}
+            {renderNFTButton()}
             {fundingStatus === "Funded" &&
               providerStatus === "Filled" &&
               url && (
@@ -118,25 +147,6 @@ export const ProposalComponent = (props) => {
                   <a href={url}>View Proof</a>
                 </Button>
               )}
-            {fundingStatus === "Incomplete" &&
-              providerStatus === "Unfilled" && (
-                <BasicModal
-                  sx={{ marginLeft: "0px" }}
-                  buttonTitle="Contribute"
-                  modalTitle="How much would you like to contribute to this campaign?"
-                  modalBody={
-                    <ContributeForm
-                      proposalAddress={props.contractAddress}
-                      amountRemaining={ethers.formatEther(
-                        fieldsMappedToValues.amountFunded
-                      )}
-                    />
-                  }
-                />
-              )}
-            {fundingStatus === "Funded" &&
-              providerStatus === "Filled" &&
-              url && <NFTMintCard />}
           </Stack>
         </Stack>
         <Box

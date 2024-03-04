@@ -10,10 +10,17 @@ import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
 
 import { WagmiProvider } from "wagmi";
-import { arbitrumNova, mainnet, sepolia, baseSepolia, lineaTestnet, xdcTestnet } from "wagmi/chains";
+import {
+  arbitrumNova,
+  mainnet,
+  sepolia,
+  baseSepolia,
+  lineaTestnet,
+  xdcTestnet,
+} from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {ThemeProvider} from "@mui/material/styles";
-import {ethDenverTheme} from "./ethDenverTheme";
+import { ThemeProvider } from "@mui/material/styles";
+import { ethDenverTheme } from "./ethDenverTheme";
 
 const queryClient = new QueryClient();
 
@@ -26,7 +33,14 @@ const metadata = {
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 
-const chains = [arbitrumNova, mainnet, sepolia, baseSepolia, lineaTestnet, xdcTestnet];
+const chains = [
+  arbitrumNova,
+  mainnet,
+  sepolia,
+  baseSepolia,
+  lineaTestnet,
+  xdcTestnet,
+];
 const config = defaultWagmiConfig({
   chains, // required
   projectId, // required
@@ -60,7 +74,7 @@ function App() {
     },
     {
       path: "/show/:address",
-      element: <BaseLayout children={<ShowPage />} />,
+      element: <ShowPage />,
     },
     {
       path: "create",
@@ -81,9 +95,6 @@ function App() {
   );
 
   return ContextProvider({ children });
-  // < div >
-  // <RouterProvider router={router} />
-  // </div >
 }
 
 export default App;
