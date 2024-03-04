@@ -54,7 +54,6 @@ export const ProposalComponent = (props) => {
     "proposer",
     "url",
   ];
-  console.log(props.data);
   const fieldsMappedToValues = props.data.reduce((acc, item, index) => {
     acc[fields[index]] = item.result;
     return acc;

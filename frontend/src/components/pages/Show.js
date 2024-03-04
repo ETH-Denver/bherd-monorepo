@@ -9,7 +9,6 @@ import { Box, Container, Stack } from "@mui/material";
 
 export const ShowPage = () => {
   const { address } = useParams();
-
   const [proposal, setProposal] = useState();
   const fields = [
     "amountFunded",
@@ -50,7 +49,6 @@ export const ShowPage = () => {
   if (error) {
     console.log(error);
   } else {
-    console.log(data);
     return <ProposalComponent data={proposal} />;
   }
 

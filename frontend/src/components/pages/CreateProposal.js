@@ -26,34 +26,34 @@ const ProposalForm = () => {
   const deployerAddress = process.env.REACT_APP_DEPLOYER_CONTRACT_SEPOLIA;
   const navigate = useNavigate();
   const { writeContract, error, data } = useWriteContract();
-  const create = () => {
-    console.log(
-      executionDate.getTime(),
-      Math.round(lat.toFixed(7) * 10 ** 7),
-      Math.round(long.toFixed(7) * 10 ** 7),
-      target,
-      0,
-      content
-    );
-    writeContract({
-      abi: Deployer.abi,
-      address: deployerAddress,
-      functionName: "createProposal",
-      args: [
-        executionDate.getTime(),
-        Math.round(lat.toFixed(7) * 10 ** 7),
-        Math.round(long.toFixed(7) * 10 ** 7),
-        target,
-        0,
-        content,
-      ],
-    });
+  // 0x4cff4a0226bbf4d0d025c5e67dd4946a419bc077771843a82f0f8b448f0b6e05
+  const create = async () => {
+    try {
+      // Assuming writeContract returns a Promise
+      const response = await writeContract({
+        abi: Deployer.abi,
+        address: deployerAddress,
+        functionName: "createProposal",
+        args: [
+          executionDate.getTime(),
+          Math.round(lat.toFixed(7) * 10 ** 7),
+          Math.round(long.toFixed(7) * 10 ** 7),
+          target,
+          0,
+          content,
+        ],
+      });
+    } catch (error) {
+      console.error("Error creating contract:", error);
+    }
   };
-  console.log(process.env.REACT_APP_GOOGLE_API);
+
   useEffect(() => {
-    console.log(data, "data");
-    console.log(error, "error");
-  }, [data, error]);
+    if (data) {
+      navigate("/");
+    }
+  }, [data]);
+
   const CreateButton = () => {
     return (
       <Button
@@ -61,7 +61,6 @@ const ProposalForm = () => {
         color="secondary"
         onClick={() => {
           create();
-          // navigate("/");
         }}
       >
         Create Proposal
