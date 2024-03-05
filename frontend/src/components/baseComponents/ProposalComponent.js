@@ -37,6 +37,7 @@ const floatAnimation = keyframes`
 `;
 
 export const ProposalComponent = (props) => {
+  const proposalAddress = window.location.pathname.split("/").pop();
   const fields = [
     "amountFunded",
     "deployer",
@@ -107,11 +108,19 @@ export const ProposalComponent = (props) => {
   //   }
   // };
 
-  const renderNFTButton = () => {
-    if (fundingStatus === "Funded" && providerStatus === "Provider Accepted") {
-      return url && <NFTMintCard />;
-    }
-  };
+  // const renderNFTButton = () => {
+  //   if (fundingStatus === "Funded" && providerStatus === "Provider Accepted") {
+  //     return (
+  //       url && (
+  //         <NFTMintCard
+  //           proposalAddress={proposalAddress}
+  //           fundingStatus={fundingStatus}
+  //           providerStatus={providerStatus}
+  //         />
+  //       )
+  //     );
+  //   }
+  // };
 
   const renderProofButton = () => {
     if (
@@ -160,7 +169,11 @@ export const ProposalComponent = (props) => {
               fundingStatus={fundingStatus}
               providerStatus={providerStatus}
             />
-            {renderNFTButton()}
+            <NFTMintCard
+              proposalAddress={proposalAddress}
+              fundingStatus={fundingStatus}
+              providerStatus={providerStatus}
+            />
             {renderProofButton()}
           </Stack>
         </Stack>

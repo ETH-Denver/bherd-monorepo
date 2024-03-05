@@ -1,4 +1,3 @@
-import { Typography } from "@mui/material";
 import BasicModal from "./BasicModal";
 import ContributeForm from "./ContributeForm";
 
