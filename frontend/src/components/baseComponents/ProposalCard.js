@@ -29,7 +29,10 @@ export const ProposalCard = ({ proposal }) => {
   };
 
   setKey(process.env.REACT_APP_GOOGLE_API);
-  geocode(RequestType.LATLNG, `${lat},${long}`)
+  geocode(
+    RequestType.LATLNG,
+    `${Number(lat) / 10 ** 7},${Number(long) / 10 ** 7}`
+  )
     .then(({ results }) => {
       const address = results[0].formatted_address;
       setAddress(address);

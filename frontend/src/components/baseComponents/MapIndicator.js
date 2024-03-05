@@ -19,7 +19,6 @@ const Pin = ({ text }) => (
 
 export default function MapIndicator({ lat, long }) {
   const [address, setAddress] = React.useState("");
-
   setKey(process.env.REACT_APP_GOOGLE_API);
   geocode(RequestType.LATLNG, `${lat},${long}`)
     .then(({ results }) => {
@@ -34,6 +33,7 @@ export default function MapIndicator({ lat, long }) {
     },
     zoom: 15,
   };
+
   return (
     <Container
       sx={{
