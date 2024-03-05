@@ -1,5 +1,4 @@
 import BasicModal from "./BasicModal";
-import ContributeForm from "./ContributeForm";
 
 export const FundProposalButton = ({
   proposalAddress,
@@ -17,12 +16,6 @@ export const FundProposalButton = ({
         buttonTitle="Contribute"
         modalTitle="How much would you like to contribute to this campaign?"
         amountRemaining={amountRemaining}
-        // modalBody={
-        //   <ContributeForm
-        //     proposalAddress={proposalAddress}
-        //     amountRemaining={amountRemaining}
-        //   />
-        // }
       />
     );
   }
