@@ -1,4 +1,4 @@
-import { Box, Card, Container, Stack, Typography } from "@mui/material";
+import { Box, Card, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
@@ -71,7 +71,7 @@ export const ProposalCard = ({ proposal }) => {
             Intention: {target}
           </Typography>
           <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
-            {/* Location: {location} */}
+            Location: {address}
           </Typography>
           <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
             Funding Deadline: {formatDate(fundingDeadline)}

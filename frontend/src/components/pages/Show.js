@@ -6,32 +6,15 @@ import { useParams } from "react-router-dom";
 import { ProposalComponent } from "../baseComponents/ProposalComponent";
 import BaseLayout from "components/layouts/BaseLayout";
 import { Loader } from "components/baseComponents/Loader";
+import { fields } from "globalVariables/fields";
 
 export const ShowPage = () => {
   const { address } = useParams();
   const [proposal, setProposal] = useState();
-  const fields = React.useMemo(
-    () => [
-      "amountFunded",
-      "deployer",
-      "startDay",
-      "lat",
-      "long",
-      "target",
-      "message",
-      "contentType",
-      "fundingDeadline",
-      "fundingTarget",
-      "provider",
-      "proposer",
-      "url",
-    ],
-    []
-  );
   const getContractData = (address) => {
     const calls = [];
 
-    fields.map((field) => {
+    fields.forEach((field) => {
       calls.push({
         abi: Proposal.abi,
         address,
@@ -56,7 +39,7 @@ export const ShowPage = () => {
     if (data) {
       setProposal(fieldsMappedToValues(data));
     }
-  }, [data, fields]);
+  }, [data]);
 
   if (error) {
     console.log(error);
