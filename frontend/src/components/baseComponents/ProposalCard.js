@@ -2,28 +2,40 @@ import { Box, Card, Container, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
+import { geocode, RequestType, setKey } from "react-geocode";
 
-export const ProposalCard = (props) => {
+export const ProposalCard = ({ proposal }) => {
   const {
-    amountFunded: fundedAmount,
+    amountFunded,
     fundingTarget,
     provider,
     startDay,
     fundingDeadline,
     message,
-    location,
+    lat,
+    long,
     target,
     proposalAddress,
-  } = props.proposal;
-  const formatDate = (timestamp) => {
-    return new Date(Number(timestamp)).toLocaleDateString();
-  };
-  const fundingStatus =
-    Number(fundedAmount) - Number(fundingTarget) > 0 ? "Funded" : "Incomplete";
+  } = proposal;
 
+  const [address, setAddress] = React.useState("");
+  const fundingStatus =
+    Number(amountFunded) - Number(fundingTarget) > 0 ? "Funded" : "Incomplete";
   const providerStatus = provider ? "Filled" : "Unfilled";
 
   const navigate = useNavigate();
+  const formatDate = (timestamp) => {
+    return new Date(Number(timestamp)).toLocaleDateString();
+  };
+
+  setKey(process.env.REACT_APP_GOOGLE_API);
+  geocode(RequestType.LATLNG, `${lat},${long}`)
+    .then(({ results }) => {
+      const address = results[0].formatted_address;
+      setAddress(address);
+    })
+    .catch(console.error);
+  console.log(lat, long);
   return (
     <Card
       onClick={() => navigate(`/show/${proposalAddress}`)}
@@ -59,7 +71,7 @@ export const ProposalCard = (props) => {
             Intention: {target}
           </Typography>
           <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
-            Location: {location}
+            {/* Location: {location} */}
           </Typography>
           <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
             Funding Deadline: {formatDate(fundingDeadline)}
@@ -77,7 +89,7 @@ export const ProposalCard = (props) => {
           }}
         >
           <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
-            Funded Amount: {`ETH ${ethers.formatEther(fundedAmount)}`}
+            Funded Amount: {`ETH ${ethers.formatEther(amountFunded)}`}
           </Typography>
           <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
             Funding Target: {`ETH ${ethers.formatEther(fundingTarget)}`}

@@ -91,7 +91,6 @@ export const HomePage = () => {
         proposal.status = "success";
         proposal.proposalAddress =
           proposalsFromContract.data[contractAddressIndex];
-        console.log([...proposals, proposal]);
         setProposals((proposals) => [...proposals, proposal]);
       }
     }
