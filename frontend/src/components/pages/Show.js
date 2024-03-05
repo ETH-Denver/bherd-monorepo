@@ -10,21 +10,24 @@ import { Loader } from "components/baseComponents/Loader";
 export const ShowPage = () => {
   const { address } = useParams();
   const [proposal, setProposal] = useState();
-  const fields = [
-    "amountFunded",
-    "deployer",
-    "startDay",
-    "lat",
-    "long",
-    "target",
-    "message",
-    "contentType",
-    "fundingDeadline",
-    "fundingTarget",
-    "provider",
-    "proposer",
-    "url",
-  ];
+  const fields = React.useMemo(
+    () => [
+      "amountFunded",
+      "deployer",
+      "startDay",
+      "lat",
+      "long",
+      "target",
+      "message",
+      "contentType",
+      "fundingDeadline",
+      "fundingTarget",
+      "provider",
+      "proposer",
+      "url",
+    ],
+    []
+  );
   const getContractData = (address) => {
     const calls = [];
 
@@ -43,13 +46,22 @@ export const ShowPage = () => {
   });
 
   useEffect(() => {
-    setProposal(data);
-  }, [data]);
+    const fieldsMappedToValues = (contract) => {
+      return contract.reduce((acc, item, index) => {
+        acc[fields[index]] = item.result;
+        return acc;
+      }, {});
+    };
+
+    if (data) {
+      setProposal(fieldsMappedToValues(data));
+    }
+  }, [data, fields]);
 
   if (error) {
     console.log(error);
   } else if (proposal && !isLoading) {
-    return <BaseLayout children={<ProposalComponent data={proposal} />} />;
+    return <BaseLayout children={<ProposalComponent proposal={proposal} />} />;
   } else {
     return <BaseLayout children={<Loader />} />;
   }

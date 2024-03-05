@@ -35,7 +35,7 @@ export const ProposalCard = ({ proposal }) => {
       setAddress(address);
     })
     .catch(console.error);
-  console.log(lat, long);
+
   return (
     <Card
       onClick={() => navigate(`/show/${proposalAddress}`)}
