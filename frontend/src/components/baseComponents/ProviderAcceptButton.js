@@ -1,18 +1,16 @@
 import * as React from "react";
-import { Button, Input, InputAdornment } from "@mui/material";
-import { ethers } from "ethers";
+import { Button } from "@mui/material";
 import { useAccount, useReadContract, useWriteContract } from "wagmi";
 import Proposal from "../../abis/Proposal.json";
 import Deployer from "../../abis/Deployer.json";
 import { useNavigate } from "react-router-dom";
-import {ethDenverTheme} from "../../ethDenverTheme";
+import { ethDenverTheme } from "../../ethDenverTheme";
 
 const ProviderAcceptButton = (props) => {
   const { fundingStatus } = props;
   const navigate = useNavigate();
   const proposalAddress = window.location.pathname.split("/").pop();
   const { writeContract } = useWriteContract();
-  const [amount, setAmount] = React.useState("");
   const { address } = useAccount();
 
   const isProvider = useReadContract({
@@ -27,7 +25,6 @@ const ProviderAcceptButton = (props) => {
     address: proposalAddress,
     functionName: "provider",
   });
-
   const isButtonDisplayed =
     hasProvider?.data !== address &&
     isProvider.data &&
