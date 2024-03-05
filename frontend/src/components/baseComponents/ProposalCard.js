@@ -13,7 +13,8 @@ export const ProposalCard = (props) => {
     message,
     location,
     target,
-  } = props.data;
+    proposalAddress,
+  } = props.proposal;
   const formatDate = (timestamp) => {
     return new Date(Number(timestamp)).toLocaleDateString();
   };
@@ -23,10 +24,9 @@ export const ProposalCard = (props) => {
   const providerStatus = provider ? "Filled" : "Unfilled";
 
   const navigate = useNavigate();
-
   return (
     <Card
-      onClick={() => navigate(`/show/${props.contractAddress}`)}
+      onClick={() => navigate(`/show/${proposalAddress}`)}
       sx={{
         backgroundColor: "#fff",
         borderColor: "white",

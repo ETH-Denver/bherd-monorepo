@@ -50,15 +50,15 @@ export const HomePage = () => {
       contracts.push(getContractData(address));
     }
   }
-  const proposalsInfo = useReadContracts({ contracts: contracts.flat() });
+  const { data } = useReadContracts({ contracts: contracts.flat() });
 
   useEffect(() => {
     setProposals([]);
 
-    if (proposalsInfo?.data) {
+    if (data) {
       const chunkSize = fields.length;
-      for (let i = 0; i < proposalsInfo.data.length; i += chunkSize) {
-        const chunk = proposalsInfo.data.slice(i, i + chunkSize);
+      for (let i = 0; i < data.length; i += chunkSize) {
+        const chunk = data.slice(i, i + chunkSize);
 
         const proposal = {};
         proposal.data = {};
@@ -73,7 +73,7 @@ export const HomePage = () => {
         setProposals((proposals) => [...proposals, proposal]);
       }
     }
-  }, [proposalsInfo.data]);
+  }, [data]);
 
   return (
     <Container>
@@ -108,8 +108,8 @@ export const HomePage = () => {
             Active Proposals
           </Typography>
           <Container sx={{ minWidth: "100%" }}>
-            {!proposalsInfo.data &&
-              [...Array(4)].map((array) => (
+            {!data &&
+              [...Array(4)].map((array, index) => (
                 <Skeleton
                   sx={{
                     marginY: 1,
@@ -118,17 +118,20 @@ export const HomePage = () => {
                   variant="rectangular"
                   width={"100%"}
                   height={200}
+                  key={`skeleton-${index}`}
                 />
               ))}
             {proposals?.map((proposal, index) => {
-              if (proposal.data.status === "success")
+              if (proposal.data.status === "success") {
                 return (
                   <ProposalCard
-                    data={proposal.data}
-                    key={index}
-                    contractAddress={proposal.data.proposalAddress}
+                    proposal={proposal.data}
+                    key={`proposal-${index}`}
                   />
                 );
+              } else {
+                return null;
+              }
             })}
           </Container>
         </Container>
