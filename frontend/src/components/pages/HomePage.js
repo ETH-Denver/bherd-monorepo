@@ -51,7 +51,29 @@ export const HomePage = () => {
     }
   }
   const { data } = useReadContracts({ contracts: contracts.flat() });
-
+  const renderProposals = () => {
+    if (!data) {
+      return [...Array(4)].map((array, index) => (
+        <Skeleton
+          sx={{
+            marginY: 1,
+            borderRadius: 2,
+          }}
+          variant="rectangular"
+          width={"100%"}
+          height={200}
+          key={`skeleton-${index}`}
+        />
+      ));
+    }
+    return proposals?.map((proposal, index) => {
+      if (proposal.status === "success") {
+        return <ProposalCard proposal={proposal} key={`proposal-${index}`} />;
+      } else {
+        return null;
+      }
+    });
+  };
   useEffect(() => {
     setProposals([]);
 
@@ -61,15 +83,15 @@ export const HomePage = () => {
         const chunk = data.slice(i, i + chunkSize);
 
         const proposal = {};
-        proposal.data = {};
 
         chunk.map((field, index) => {
-          proposal.data[fields[index]] = field.result;
+          proposal[fields[index]] = field.result;
         });
         const contractAddressIndex = i === 0 ? 0 : i / fields.length;
-        proposal.data.status = "success";
-        proposal.data.proposalAddress =
+        proposal.status = "success";
+        proposal.proposalAddress =
           proposalsFromContract.data[contractAddressIndex];
+        console.log([...proposals, proposal]);
         setProposals((proposals) => [...proposals, proposal]);
       }
     }
@@ -107,33 +129,7 @@ export const HomePage = () => {
           >
             Active Proposals
           </Typography>
-          <Container sx={{ minWidth: "100%" }}>
-            {!data &&
-              [...Array(4)].map((array, index) => (
-                <Skeleton
-                  sx={{
-                    marginY: 1,
-                    borderRadius: 2,
-                  }}
-                  variant="rectangular"
-                  width={"100%"}
-                  height={200}
-                  key={`skeleton-${index}`}
-                />
-              ))}
-            {proposals?.map((proposal, index) => {
-              if (proposal.data.status === "success") {
-                return (
-                  <ProposalCard
-                    proposal={proposal.data}
-                    key={`proposal-${index}`}
-                  />
-                );
-              } else {
-                return null;
-              }
-            })}
-          </Container>
+          <Container sx={{ minWidth: "100%" }}>{renderProposals()}</Container>
         </Container>
       </Container>
     </Container>
