@@ -1,28 +1,28 @@
 {
   "files": {
     "main.css": "/static/css/main.debe3624.css",
-    "main.js": "/static/js/main.5b7c3c62.js",
+    "main.js": "/static/js/main.e615396a.js",
     "static/js/507.b16fac53.chunk.js": "/static/js/507.b16fac53.chunk.js",
     "static/js/432.0fadded8.chunk.js": "/static/js/432.0fadded8.chunk.js",
     "static/js/466.d6849c5b.chunk.js": "/static/js/466.d6849c5b.chunk.js",
     "static/js/453.55d7919c.chunk.js": "/static/js/453.55d7919c.chunk.js",
     "static/js/171.ed242337.chunk.js": "/static/js/171.ed242337.chunk.js",
     "static/js/903.4074dcb5.chunk.js": "/static/js/903.4074dcb5.chunk.js",
-    "static/js/374.9a4c03d1.chunk.js": "/static/js/374.9a4c03d1.chunk.js",
-    "static/js/696.16bcdee1.chunk.js": "/static/js/696.16bcdee1.chunk.js",
+    "static/js/374.1106c909.chunk.js": "/static/js/374.1106c909.chunk.js",
+    "static/js/696.c9338f99.chunk.js": "/static/js/696.c9338f99.chunk.js",
     "static/media/ethdenver-spork-logo-transparent.png": "/static/media/ethdenver-spork-logo-transparent.354614cd7a73ec09d9f4.png",
     "index.html": "/index.html",
     "main.debe3624.css.map": "/static/css/main.debe3624.css.map",
-    "main.5b7c3c62.js.map": "/static/js/main.5b7c3c62.js.map",
+    "main.e615396a.js.map": "/static/js/main.e615396a.js.map",
     "507.b16fac53.chunk.js.map": "/static/js/507.b16fac53.chunk.js.map",
     "453.55d7919c.chunk.js.map": "/static/js/453.55d7919c.chunk.js.map",
     "171.ed242337.chunk.js.map": "/static/js/171.ed242337.chunk.js.map",
     "903.4074dcb5.chunk.js.map": "/static/js/903.4074dcb5.chunk.js.map",
-    "374.9a4c03d1.chunk.js.map": "/static/js/374.9a4c03d1.chunk.js.map",
-    "696.16bcdee1.chunk.js.map": "/static/js/696.16bcdee1.chunk.js.map"
+    "374.1106c909.chunk.js.map": "/static/js/374.1106c909.chunk.js.map",
+    "696.c9338f99.chunk.js.map": "/static/js/696.c9338f99.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.debe3624.css",
-    "static/js/main.5b7c3c62.js"
+    "static/js/main.e615396a.js"
   ]
 }
