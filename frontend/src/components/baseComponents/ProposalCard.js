@@ -62,7 +62,7 @@ export const ProposalCard = (props) => {
             Location: {location}
           </Typography>
           <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
-            Expiration Date: {formatDate(fundingDeadline)}
+            Funding Deadline: {formatDate(fundingDeadline)}
           </Typography>
           <Typography variant="h5">
             Execution Date: {formatDate(startDay)}

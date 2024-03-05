@@ -137,7 +137,7 @@ export const ProposalComponent = (props) => {
           <TextField
             disabled
             id="filled-disabled"
-            label="Expiration Date"
+            label="Funding Deadline"
             defaultValue={formatDate(fieldsMappedToValues.fundingDeadline)}
             variant="filled"
           />
