@@ -6,29 +6,15 @@ import { useParams } from "react-router-dom";
 import { ProposalComponent } from "../baseComponents/ProposalComponent";
 import BaseLayout from "components/layouts/BaseLayout";
 import { Loader } from "components/baseComponents/Loader";
+import { fields } from "globalVariables/fields";
 
 export const ShowPage = () => {
   const { address } = useParams();
   const [proposal, setProposal] = useState();
-  const fields = [
-    "amountFunded",
-    "deployer",
-    "startDay",
-    "lat",
-    "long",
-    "target",
-    "message",
-    "contentType",
-    "fundingDeadline",
-    "fundingTarget",
-    "provider",
-    "proposer",
-    "url",
-  ];
   const getContractData = (address) => {
     const calls = [];
 
-    fields.map((field) => {
+    fields.forEach((field) => {
       calls.push({
         abi: Proposal.abi,
         address,
@@ -43,13 +29,22 @@ export const ShowPage = () => {
   });
 
   useEffect(() => {
-    setProposal(data);
+    const fieldsMappedToValues = (contract) => {
+      return contract.reduce((acc, item, index) => {
+        acc[fields[index]] = item.result;
+        return acc;
+      }, {});
+    };
+
+    if (data) {
+      setProposal(fieldsMappedToValues(data));
+    }
   }, [data]);
 
   if (error) {
     console.log(error);
   } else if (proposal && !isLoading) {
-    return <BaseLayout children={<ProposalComponent data={proposal} />} />;
+    return <BaseLayout children={<ProposalComponent proposal={proposal} />} />;
   } else {
     return <BaseLayout children={<Loader />} />;
   }

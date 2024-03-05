@@ -17,7 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { ethDenverTheme } from "../../ethDenverTheme";
 
 const ProposalForm = () => {
-  const [executionDate, setExecutionDate] = useState(new Date());
+  const [startDay, setStartDay] = useState(new Date());
   const [target, setTarget] = useState("");
   const [content, setContent] = useState("");
   const [lat, setLat] = useState("");
@@ -33,7 +33,7 @@ const ProposalForm = () => {
         address: deployerAddress,
         functionName: "createProposal",
         args: [
-          executionDate.getTime(),
+          startDay.getTime(),
           Math.round(lat.toFixed(7) * 10 ** 7),
           Math.round(long.toFixed(7) * 10 ** 7),
           target,
@@ -164,8 +164,8 @@ const ProposalForm = () => {
         <Container sx={{ display: "flex", justifyContent: "space-around" }}>
           <DatePicker
             showIcon
-            selected={executionDate}
-            onChange={(date) => setExecutionDate(date)}
+            selected={startDay}
+            onChange={(date) => setStartDay(date)}
             icon="fa fa-calendar"
             sx={{
               mb: 3,

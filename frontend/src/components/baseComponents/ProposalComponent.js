@@ -15,41 +15,29 @@ import ProviderFulfillmentForm from "./ProviderFulfillment";
 import { FundProposalButton } from "./FundProposalButton";
 import { ProofOfAddRun } from "./ProofOfAddRun";
 
-export const ProposalComponent = (props) => {
+export const ProposalComponent = ({ proposal }) => {
   const proposalAddress = window.location.pathname.split("/").pop();
-  const fields = [
-    "amountFunded",
-    "deployer",
-    "startDay",
-    "lat",
-    "long",
-    "target",
-    "message",
-    "contentType",
-    "fundingDeadline",
-    "fundingTarget",
-    "provider",
-    "proposer",
-    "url",
-  ];
-  const fieldsMappedToValues = props.data.reduce((acc, item, index) => {
-    acc[fields[index]] = item.result;
-    return acc;
-  }, {});
-  const { contractAddress } = props;
+  const {
+    amountFunded,
+    startDay,
+    lat,
+    long,
+    target,
+    message,
+    fundingDeadline,
+    fundingTarget,
+    provider,
+    url,
+  } = proposal;
   const formatDate = (timestamp) => {
     return new Date(Number(timestamp)).toLocaleDateString();
   };
-  const url = fieldsMappedToValues.url;
   const fundingStatus =
-    Number(fieldsMappedToValues.fundingTarget) -
-      Number(fieldsMappedToValues.amountFunded) >
-    0
+    Number(fundingTarget) - Number(amountFunded) > 0
       ? "Accepting Contributions"
       : "Funded";
   const providerStatus =
-    fieldsMappedToValues.provider !==
-    "0x0000000000000000000000000000000000000000"
+    provider !== "0x0000000000000000000000000000000000000000"
       ? "Provider Accepted"
       : "Awaiting Provider";
 
@@ -78,10 +66,8 @@ export const ProposalComponent = (props) => {
             <ProviderAcceptButton fundingStatus={fundingStatus} />
             <ProviderFulfillmentForm />
             <FundProposalButton
-              proposalAddress={contractAddress}
-              amountRemaining={ethers.formatEther(
-                fieldsMappedToValues.amountFunded
-              )}
+              proposalAddress={proposalAddress}
+              amountRemaining={ethers.formatEther(amountFunded)}
               fundingStatus={fundingStatus}
               providerStatus={providerStatus}
             />
@@ -114,7 +100,7 @@ export const ProposalComponent = (props) => {
               color: "#fff",
             }}
           >
-            {fieldsMappedToValues.message}
+            {message}
           </Typography>
         </Box>
         <Stack sx={{ marginTop: "40px" }} spacing={2} direction="row">
@@ -125,7 +111,7 @@ export const ProposalComponent = (props) => {
             label="Intention"
             multiline
             rows={2}
-            defaultValue={fieldsMappedToValues.target}
+            defaultValue={target}
             variant="filled"
           />
         </Stack>
@@ -137,24 +123,22 @@ export const ProposalComponent = (props) => {
           <TextField
             disabled
             id="filled-disabled"
-            label="Expiration Date"
-            defaultValue={formatDate(fieldsMappedToValues.fundingDeadline)}
+            label="Funding Deadline"
+            defaultValue={formatDate(fundingDeadline)}
             variant="filled"
           />
           <TextField
             disabled
             id="filled-disabled"
             label="Execution Date"
-            defaultValue={formatDate(fieldsMappedToValues.startDay)}
+            defaultValue={formatDate(startDay)}
             variant="filled"
           />
           <TextField
             disabled
             id="filled-disabled"
             label="Funded Amount"
-            defaultValue={`ETH ${ethers.formatEther(
-              fieldsMappedToValues.amountFunded
-            )}`}
+            defaultValue={`ETH ${ethers.formatEther(amountFunded)}`}
             variant="filled"
           />
         </Stack>
@@ -167,9 +151,7 @@ export const ProposalComponent = (props) => {
             disabled
             id="filled-disabled"
             label="Funding Target"
-            defaultValue={`ETH ${ethers.formatEther(
-              fieldsMappedToValues.fundingTarget
-            )}`}
+            defaultValue={`ETH ${ethers.formatEther(fundingTarget)}`}
             variant="filled"
           />
           <TextField
@@ -195,15 +177,12 @@ export const ProposalComponent = (props) => {
             label="Message"
             multiline
             rows={2}
-            defaultValue={fieldsMappedToValues.message}
+            defaultValue={message}
             variant="filled"
           />
         </Stack>
       </Stack>
-      <MapIndicator
-        lat={Number(fieldsMappedToValues.lat) / 10 ** 7}
-        long={Number(fieldsMappedToValues.long) / 10 ** 7}
-      />
+      <MapIndicator lat={Number(lat) / 10 ** 7} long={Number(long) / 10 ** 7} />
     </Container>
   );
 };

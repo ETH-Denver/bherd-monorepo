@@ -1,30 +1,47 @@
-import { Box, Card, Container, Stack, Typography } from "@mui/material";
+import { Box, Card, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
+import { geocode, RequestType, setKey } from "react-geocode";
 
-export const ProposalCard = (props) => {
+export const ProposalCard = ({ proposal }) => {
   const {
-    amountFunded: fundedAmount,
+    amountFunded,
     fundingTarget,
     provider,
-    endDay: executionDate,
-    fundingDeadline: expirationDate,
+    startDay,
+    fundingDeadline,
     message,
-    location,
+    lat,
+    long,
     target,
-  } = props.data;
+    proposalAddress,
+  } = proposal;
 
+  const [address, setAddress] = React.useState("");
   const fundingStatus =
-    Number(fundedAmount) - Number(fundingTarget) > 0 ? "Funded" : "Incomplete";
-
+    Number(amountFunded) - Number(fundingTarget) > 0 ? "Funded" : "Incomplete";
   const providerStatus = provider ? "Filled" : "Unfilled";
 
   const navigate = useNavigate();
+  const formatDate = (timestamp) => {
+    return new Date(Number(timestamp)).toLocaleDateString();
+  };
+
+  setKey(process.env.REACT_APP_GOOGLE_API);
+  geocode(
+    RequestType.LATLNG,
+    `${Number(lat) / 10 ** 7},${Number(long) / 10 ** 7}`
+  )
+    .then(({ results }) => {
+      const address = results[0].formatted_address;
+      setAddress(address);
+    })
+    .catch(console.error);
 
   return (
     <Card
-      onClick={() => navigate(`/show/${props.contractAddress}`)}
+      onClick={() => navigate(`/show/${proposalAddress}`)}
       sx={{
         backgroundColor: "#fff",
         borderColor: "white",
@@ -35,8 +52,12 @@ export const ProposalCard = (props) => {
       }}
     >
       <Box>
-        <Stack sx={{ textAlign: "left", paddingLeft: "2vh", paddingTop: "1vh" }}>
-          <Typography sx={{ fontFamily: "Bubble", fontSize: "4vh", paddingBottom: "2vh" }}>
+        <Stack
+          sx={{ textAlign: "left", paddingLeft: "2vh", paddingTop: "1vh" }}
+        >
+          <Typography
+            sx={{ fontFamily: "Bubble", fontSize: "4vh", paddingBottom: "2vh" }}
+          >
             {message}
           </Typography>
         </Stack>
@@ -53,18 +74,35 @@ export const ProposalCard = (props) => {
             Intention: {target}
           </Typography>
           <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
-            Location: {location}
+            Location: {address}
           </Typography>
           <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
-            Expiration Date: {Number(expirationDate)}
+            Funding Deadline: {formatDate(fundingDeadline)}
           </Typography>
-          <Typography variant="h5">Execution Date: {executionDate}</Typography>
+          <Typography variant="h5">
+            Execution Date: {formatDate(startDay)}
+          </Typography>
         </Stack>
-        <Stack sx={{ textAlign: "right", paddingRight: "2vh", paddingBottom: "1vh", display: "flex" }}>
-          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>Funded Amount: {`ETH ${ethers.formatEther(fundedAmount)}`}</Typography>
-          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>Funding Target: {`ETH ${ethers.formatEther(fundingTarget)}`}</Typography>
-          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>Funding Status: {fundingStatus}</Typography>
-          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>Provider Status: {providerStatus}</Typography>
+        <Stack
+          sx={{
+            textAlign: "right",
+            paddingRight: "2vh",
+            paddingBottom: "1vh",
+            display: "flex",
+          }}
+        >
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
+            Funded Amount: {`ETH ${ethers.formatEther(amountFunded)}`}
+          </Typography>
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
+            Funding Target: {`ETH ${ethers.formatEther(fundingTarget)}`}
+          </Typography>
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
+            Funding Status: {fundingStatus}
+          </Typography>
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
+            Provider Status: {providerStatus}
+          </Typography>
         </Stack>
       </Box>
     </Card>
