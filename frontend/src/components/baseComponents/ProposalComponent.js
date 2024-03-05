@@ -7,9 +7,6 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { keyframes } from "@emotion/react";
-import BasicModal from "./BasicModal";
-import ContributeForm from "./ContributeForm";
 import MapIndicator from "./MapIndicator";
 import { ethers } from "ethers";
 import NFTMintCard from "./NFTMintCard";
@@ -17,25 +14,6 @@ import ProviderAcceptButton from "./ProviderAcceptButton";
 import ProviderFulfillmentForm from "./ProviderFulfillment";
 import { FundProposalButton } from "./FundProposalButton";
 import { ProofOfAddRun } from "./ProofOfAddRun";
-
-const floatAnimation = keyframes`
-  0% {
-    transform: translateX(-100px);
-    opacity: 1;
-  }
-  50% {
-    transform: translateX(100px); // adjust this value as needed
-    opacity: 0;
-  }
-  50.01% {
-    transform: translateX(-100px); // move it back to left off-screen
-    opacity: 0; // keep it invisible
-  }
-  100% {
-    transform: translateX(-100px);
-    opacity: 1;
-  }
-`;
 
 export const ProposalComponent = (props) => {
   const proposalAddress = window.location.pathname.split("/").pop();
@@ -59,82 +37,21 @@ export const ProposalComponent = (props) => {
     return acc;
   }, {});
   const { contractAddress } = props;
-  // takes a unix timestamp and returns a formatted date string
-  const unixTimestampToDateString = (timestamp) => {
-    return new Date(Number(timestamp) * 1000).toLocaleDateString();
+  const formatDate = (timestamp) => {
+    return new Date(Number(timestamp)).toLocaleDateString();
   };
-
   const url = fieldsMappedToValues.url;
-
-  const executionDateFormatted = unixTimestampToDateString(
-    fieldsMappedToValues.startDay
-  );
-  const expirationDateFormatted = unixTimestampToDateString(
-    fieldsMappedToValues.startDay
-  );
-
   const fundingStatus =
     Number(fieldsMappedToValues.fundingTarget) -
       Number(fieldsMappedToValues.amountFunded) >
     0
       ? "Accepting Contributions"
       : "Funded";
-
   const providerStatus =
     fieldsMappedToValues.provider !==
     "0x0000000000000000000000000000000000000000"
       ? "Provider Accepted"
       : "Awaiting Provider";
-
-  // const renderFundButton = () => {
-  //   if (
-  //     fundingStatus === "Accepting Contributions" &&
-  //     providerStatus === "Awaiting Provider"
-  //   ) {
-  //     return (
-  //       <BasicModal
-  //         sx={{ marginLeft: "0px" }}
-  //         buttonTitle="Contribute"
-  //         modalTitle="How much would you like to contribute to this campaign?"
-  //         modalBody={
-  //           <ContributeForm
-  //             proposalAddress={props.contractAddress}
-  //             amountRemaining={ethers.formatEther(
-  //               fieldsMappedToValues.amountFunded
-  //             )}
-  //           />
-  //         }
-  //       />
-  //     );
-  //   }
-  // };
-
-  // const renderNFTButton = () => {
-  //   if (fundingStatus === "Funded" && providerStatus === "Provider Accepted") {
-  //     return (
-  //       url && (
-  //         <NFTMintCard
-  //           proposalAddress={proposalAddress}
-  //           fundingStatus={fundingStatus}
-  //           providerStatus={providerStatus}
-  //         />
-  //       )
-  //     );
-  //   }
-  // };
-
-  // const renderProofButton = () => {
-  //   if (
-  //     fundingStatus === "Funded" &&
-  //     providerStatus === "Provider Accepted" &&
-  //     url
-  //   )
-  //     return (
-  //       <Button>
-  //         <a href={url}>View Proof</a>
-  //       </Button>
-  //     );
-  // };
 
   return (
     <Container
@@ -157,11 +74,9 @@ export const ProposalComponent = (props) => {
               Back to List
             </Button>
           </Stack>
-          <ProviderAcceptButton
-            fundingStatus={fundingStatus}
-          ></ProviderAcceptButton>
-          <ProviderFulfillmentForm></ProviderFulfillmentForm>
           <Stack spacing={2} direction="row">
+            <ProviderAcceptButton fundingStatus={fundingStatus} />
+            <ProviderFulfillmentForm />
             <FundProposalButton
               proposalAddress={contractAddress}
               amountRemaining={ethers.formatEther(
@@ -188,7 +103,7 @@ export const ProposalComponent = (props) => {
             justifyContent: "center",
             textAlign: "center",
             minHeight: "175px",
-            background: "linear-gradient(to bottom, skyblue, white)",
+            background: "linear-gradient(to bottom, skyblue, #dff1f8)",
             overflow: "hidden",
           }}
         >
@@ -197,7 +112,6 @@ export const ProposalComponent = (props) => {
             sx={{
               fontFamily: "Bubble",
               color: "#fff",
-              animation: `${floatAnimation} 7s infinite`,
             }}
           >
             {fieldsMappedToValues.message}
@@ -224,14 +138,14 @@ export const ProposalComponent = (props) => {
             disabled
             id="filled-disabled"
             label="Expiration Date"
-            defaultValue={expirationDateFormatted}
+            defaultValue={formatDate(fieldsMappedToValues.fundingDeadline)}
             variant="filled"
           />
           <TextField
             disabled
             id="filled-disabled"
             label="Execution Date"
-            defaultValue={executionDateFormatted}
+            defaultValue={formatDate(fieldsMappedToValues.startDay)}
             variant="filled"
           />
           <TextField

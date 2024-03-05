@@ -2,8 +2,6 @@ import React from "react";
 import { useWriteContract } from "wagmi";
 import Button from "@mui/material/Button";
 import Proposal from "../../abis/Proposal.json";
-import { navigate } from "react-router-dom";
-import { ethers } from "ethers";
 
 const NFTMintCard = ({ proposalAddress, fundingStatus, providerStatus }) => {
   const { writeContract } = useWriteContract();

@@ -25,11 +25,9 @@ const ProposalForm = () => {
   const [contentType, setContentType] = useState("");
   const deployerAddress = process.env.REACT_APP_DEPLOYER_CONTRACT_SEPOLIA;
   const navigate = useNavigate();
-  const { writeContract, error, data } = useWriteContract();
-  // 0x4cff4a0226bbf4d0d025c5e67dd4946a419bc077771843a82f0f8b448f0b6e05
+  const { writeContract, data } = useWriteContract();
   const create = async () => {
     try {
-      // Assuming writeContract returns a Promise
       const response = await writeContract({
         abi: Deployer.abi,
         address: deployerAddress,
