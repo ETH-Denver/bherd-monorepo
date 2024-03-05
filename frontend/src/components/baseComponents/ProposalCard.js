@@ -8,13 +8,15 @@ export const ProposalCard = (props) => {
     amountFunded: fundedAmount,
     fundingTarget,
     provider,
-    endDay: executionDate,
-    fundingDeadline: expirationDate,
+    startDay,
+    fundingDeadline,
     message,
     location,
     target,
   } = props.data;
-
+  const formatDate = (timestamp) => {
+    return new Date(Number(timestamp)).toLocaleDateString();
+  };
   const fundingStatus =
     Number(fundedAmount) - Number(fundingTarget) > 0 ? "Funded" : "Incomplete";
 
@@ -35,8 +37,12 @@ export const ProposalCard = (props) => {
       }}
     >
       <Box>
-        <Stack sx={{ textAlign: "left", paddingLeft: "2vh", paddingTop: "1vh" }}>
-          <Typography sx={{ fontFamily: "Bubble", fontSize: "4vh", paddingBottom: "2vh" }}>
+        <Stack
+          sx={{ textAlign: "left", paddingLeft: "2vh", paddingTop: "1vh" }}
+        >
+          <Typography
+            sx={{ fontFamily: "Bubble", fontSize: "4vh", paddingBottom: "2vh" }}
+          >
             {message}
           </Typography>
         </Stack>
@@ -56,15 +62,32 @@ export const ProposalCard = (props) => {
             Location: {location}
           </Typography>
           <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
-            Expiration Date: {Number(expirationDate)}
+            Expiration Date: {formatDate(fundingDeadline)}
           </Typography>
-          <Typography variant="h5">Execution Date: {executionDate}</Typography>
+          <Typography variant="h5">
+            Execution Date: {formatDate(startDay)}
+          </Typography>
         </Stack>
-        <Stack sx={{ textAlign: "right", paddingRight: "2vh", paddingBottom: "1vh", display: "flex" }}>
-          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>Funded Amount: {`ETH ${ethers.formatEther(fundedAmount)}`}</Typography>
-          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>Funding Target: {`ETH ${ethers.formatEther(fundingTarget)}`}</Typography>
-          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>Funding Status: {fundingStatus}</Typography>
-          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>Provider Status: {providerStatus}</Typography>
+        <Stack
+          sx={{
+            textAlign: "right",
+            paddingRight: "2vh",
+            paddingBottom: "1vh",
+            display: "flex",
+          }}
+        >
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
+            Funded Amount: {`ETH ${ethers.formatEther(fundedAmount)}`}
+          </Typography>
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
+            Funding Target: {`ETH ${ethers.formatEther(fundingTarget)}`}
+          </Typography>
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
+            Funding Status: {fundingStatus}
+          </Typography>
+          <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
+            Provider Status: {providerStatus}
+          </Typography>
         </Stack>
       </Box>
     </Card>
