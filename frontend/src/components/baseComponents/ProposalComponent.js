@@ -15,6 +15,7 @@ import { ethers } from "ethers";
 import NFTMintCard from "./NFTMintCard";
 import ProviderAcceptButton from "./ProviderAcceptButton";
 import ProviderFulfillmentForm from "./ProviderFulfillment";
+import { FundProposalButton } from "./FundProposalButton";
 
 const floatAnimation = keyframes`
   0% {
@@ -55,7 +56,7 @@ export const ProposalComponent = (props) => {
     acc[fields[index]] = item.result;
     return acc;
   }, {});
-
+  const { contractAddress } = props;
   // takes a unix timestamp and returns a formatted date string
   const unixTimestampToDateString = (timestamp) => {
     return new Date(Number(timestamp) * 1000).toLocaleDateString();
@@ -82,34 +83,47 @@ export const ProposalComponent = (props) => {
     "0x0000000000000000000000000000000000000000"
       ? "Provider Accepted"
       : "Awaiting Provider";
-  console.log(url, "URL");
-  const renderFundButton = () => {
-    if (
-      fundingStatus === "Accepting Contributions" &&
-      providerStatus === "Awaiting Provider"
-    ) {
-      return (
-        <BasicModal
-          sx={{ marginLeft: "0px" }}
-          buttonTitle="Contribute"
-          modalTitle="How much would you like to contribute to this campaign?"
-          modalBody={
-            <ContributeForm
-              proposalAddress={props.contractAddress}
-              amountRemaining={ethers.formatEther(
-                fieldsMappedToValues.amountFunded
-              )}
-            />
-          }
-        />
-      );
-    }
-  };
+
+  // const renderFundButton = () => {
+  //   if (
+  //     fundingStatus === "Accepting Contributions" &&
+  //     providerStatus === "Awaiting Provider"
+  //   ) {
+  //     return (
+  //       <BasicModal
+  //         sx={{ marginLeft: "0px" }}
+  //         buttonTitle="Contribute"
+  //         modalTitle="How much would you like to contribute to this campaign?"
+  //         modalBody={
+  //           <ContributeForm
+  //             proposalAddress={props.contractAddress}
+  //             amountRemaining={ethers.formatEther(
+  //               fieldsMappedToValues.amountFunded
+  //             )}
+  //           />
+  //         }
+  //       />
+  //     );
+  //   }
+  // };
 
   const renderNFTButton = () => {
     if (fundingStatus === "Funded" && providerStatus === "Provider Accepted") {
       return url && <NFTMintCard />;
     }
+  };
+
+  const renderProofButton = () => {
+    if (
+      fundingStatus === "Funded" &&
+      providerStatus === "Provider Accepted" &&
+      url
+    )
+      return (
+        <Button>
+          <a href={url}>View Proof</a>
+        </Button>
+      );
   };
 
   return (
@@ -138,15 +152,16 @@ export const ProposalComponent = (props) => {
           ></ProviderAcceptButton>
           <ProviderFulfillmentForm></ProviderFulfillmentForm>
           <Stack spacing={2} direction="row">
-            {renderFundButton()}
-            {renderNFTButton()}
-            {fundingStatus === "Funded" &&
-              providerStatus === "Filled" &&
-              url && (
-                <Button>
-                  <a href={url}>View Proof</a>
-                </Button>
+            <FundProposalButton
+              proposalAddress={contractAddress}
+              amountRemaining={ethers.formatEther(
+                fieldsMappedToValues.amountFunded
               )}
+              fundingStatus={fundingStatus}
+              providerStatus={providerStatus}
+            />
+            {renderNFTButton()}
+            {renderProofButton()}
           </Stack>
         </Stack>
         <Box
