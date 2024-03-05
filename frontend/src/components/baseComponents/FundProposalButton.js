@@ -16,12 +16,13 @@ export const FundProposalButton = ({
         sx={{ marginLeft: "0px" }}
         buttonTitle="Contribute"
         modalTitle="How much would you like to contribute to this campaign?"
-        modalBody={
-          <ContributeForm
-            proposalAddress={proposalAddress}
-            amountRemaining={amountRemaining}
-          />
-        }
+        amountRemaining={amountRemaining}
+        // modalBody={
+        //   <ContributeForm
+        //     proposalAddress={proposalAddress}
+        //     amountRemaining={amountRemaining}
+        //   />
+        // }
       />
     );
   }
