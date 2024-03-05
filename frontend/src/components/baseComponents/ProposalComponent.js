@@ -16,6 +16,7 @@ import NFTMintCard from "./NFTMintCard";
 import ProviderAcceptButton from "./ProviderAcceptButton";
 import ProviderFulfillmentForm from "./ProviderFulfillment";
 import { FundProposalButton } from "./FundProposalButton";
+import { ProofOfAddRun } from "./ProofOfAddRun";
 
 const floatAnimation = keyframes`
   0% {
@@ -122,18 +123,18 @@ export const ProposalComponent = (props) => {
   //   }
   // };
 
-  const renderProofButton = () => {
-    if (
-      fundingStatus === "Funded" &&
-      providerStatus === "Provider Accepted" &&
-      url
-    )
-      return (
-        <Button>
-          <a href={url}>View Proof</a>
-        </Button>
-      );
-  };
+  // const renderProofButton = () => {
+  //   if (
+  //     fundingStatus === "Funded" &&
+  //     providerStatus === "Provider Accepted" &&
+  //     url
+  //   )
+  //     return (
+  //       <Button>
+  //         <a href={url}>View Proof</a>
+  //       </Button>
+  //     );
+  // };
 
   return (
     <Container
@@ -174,7 +175,11 @@ export const ProposalComponent = (props) => {
               fundingStatus={fundingStatus}
               providerStatus={providerStatus}
             />
-            {renderProofButton()}
+            <ProofOfAddRun
+              url={url}
+              fundingStatus={fundingStatus}
+              providerStatus={providerStatus}
+            />
           </Stack>
         </Stack>
         <Box
