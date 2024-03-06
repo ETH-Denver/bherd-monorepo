@@ -6,7 +6,7 @@ import Proposal from "../../abis/Proposal.json";
 import { ethDenverTheme } from "../../ethDenverTheme";
 import { useEffect, useState } from "react";
 import React from "react";
-import { fields } from "globalVariables/fields";
+import { fields } from "constants/fields";
 
 export const HomePage = () => {
   const [proposals, setProposals] = useState([]);

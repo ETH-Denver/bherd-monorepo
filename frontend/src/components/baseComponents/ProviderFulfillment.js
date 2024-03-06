@@ -25,11 +25,7 @@ const ProviderFulfillment = () => {
     address: proposalAddress,
     functionName: "provider",
   });
-
-  const isButtonDisplayed =
-    hasProvider.data !== "0x0000000000000000000000000000000000000000" &&
-    hasProvider.data !== address &&
-    isProvider.data;
+  const isButtonDisplayed = hasProvider.data === address && !url;
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);

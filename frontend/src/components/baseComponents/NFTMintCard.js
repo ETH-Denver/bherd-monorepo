@@ -3,9 +3,9 @@ import { useWriteContract } from "wagmi";
 import Button from "@mui/material/Button";
 import Proposal from "../../abis/Proposal.json";
 
-const NFTMintCard = ({ proposalAddress, fundingStatus, providerStatus }) => {
+const NFTMintCard = ({ proposalAddress, url }) => {
   const { writeContract } = useWriteContract();
-  if (fundingStatus === "Funded" && providerStatus === "Provider Accepted") {
+  if (url) {
     return (
       <Button
         variant={"contained"}

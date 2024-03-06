@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { ProposalComponent } from "../baseComponents/ProposalComponent";
 import BaseLayout from "components/layouts/BaseLayout";
 import { Loader } from "components/baseComponents/Loader";
-import { fields } from "globalVariables/fields";
+import { fields } from "constants/fields";
 
 export const ShowPage = () => {
   const { address } = useParams();

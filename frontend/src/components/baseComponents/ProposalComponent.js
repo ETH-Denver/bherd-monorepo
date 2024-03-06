@@ -73,8 +73,7 @@ export const ProposalComponent = ({ proposal }) => {
             />
             <NFTMintCard
               proposalAddress={proposalAddress}
-              fundingStatus={fundingStatus}
-              providerStatus={providerStatus}
+              url={url}
             />
             <ProofOfAddRun
               url={url}
