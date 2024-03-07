@@ -29,7 +29,7 @@ jobs:
       - name: Build
         run: cd frontend && npm run build
       - name: Deploy
-        run: npm run deploy
+        run: cd frontend && npm run deploy
       # - name: Upload artifact
       #   uses: actions/upload-pages-artifact@v3
 
