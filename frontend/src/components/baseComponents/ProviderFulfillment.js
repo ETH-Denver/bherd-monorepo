@@ -14,30 +14,19 @@ import { useNavigate } from "react-router-dom";
 import { ethDenverTheme } from "ethDenverTheme";
 
 const ProviderFulfillment = () => {
-  const navigate = useNavigate();
   const proposalAddress = window.location.pathname.split("/").pop();
   const { writeContract } = useWriteContract();
   const [url, setUrl] = React.useState("");
   const { address } = useAccount();
-
-  // const isProvider = useReadContract({
-  //   abi: Deployer.abi,
-  //   address: process.env.REACT_APP_DEPLOYER_CONTRACT_SEPOLIA,
-  //   functionName: "isProvider",
-  //   args: [address],
-  // });
-
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const hasProvider = useReadContract({
     abi: Proposal.abi,
     address: proposalAddress,
     functionName: "provider",
   });
-  console.log(hasProvider.data, address);
   const isButtonDisplayed = hasProvider.data === address;
-
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   if (isButtonDisplayed) {
     return (
       <Box>
@@ -105,14 +94,12 @@ const ProviderFulfillment = () => {
                   placeSelf: "end",
                 }}
                 onClick={() => {
-                  // e.preventDefault();
                   writeContract({
                     abi: Proposal.abi,
                     address: proposalAddress,
                     functionName: "completeProposal",
                     args: [url],
                   });
-                  navigate("/show/" + proposalAddress);
                   handleClose();
                 }}
               >
