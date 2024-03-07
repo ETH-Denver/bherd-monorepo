@@ -45,6 +45,7 @@ jobs:
         run: |
           echo "Contents of frontend/build directory after download:"
           ls -la frontend/build
+
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
