@@ -18,20 +18,7 @@ jobs:
           node-version: 14
 
       - name: Install Dependencies
-        run: |
-          cd frontend
-          if [ "$(uname -s)" == "FreeBSD" ]; then
-            npm install
-          else
-            echo "Skipping installation of platform-specific dependencies."
-          fi
-
-      - name: Install react-scripts
-        run: |
-          cd frontend
-          npm install react-scripts
+        run: cd frontend && npm install
 
       - name: Build and Deploy
-        run: |
-          cd frontend  
-          npm run deploy
+        run: cd frontend && npm run deploy
