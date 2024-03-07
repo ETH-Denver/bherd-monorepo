@@ -26,6 +26,11 @@ jobs:
             echo "Skipping installation of platform-specific dependencies."
           fi
 
+      - name: Install react-scripts
+        run: |
+          cd frontend
+          npm install react-scripts
+
       - name: Build and Deploy
         run: |
           cd frontend  
