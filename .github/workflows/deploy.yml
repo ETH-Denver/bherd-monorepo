@@ -1,7 +1,7 @@
 name: Run Deploy
 
 on:
-  push:
+  pull-request:
     branches: [main]
 
 permissions:
@@ -28,11 +28,8 @@ jobs:
         run: cd frontend && npm install
       - name: Build
         run: cd frontend && npm run build
-      - name: Archive artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: github-pages
-          path: frontend/build
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
 
   deploy:
     environment:
@@ -41,17 +38,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Print Downloaded Artifacts
-        run: |
-          echo "Contents of frontend/build directory after download:"
-          ls -a .
-
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: github-pages
-          path: frontend/build
-
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
