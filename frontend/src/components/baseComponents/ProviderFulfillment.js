@@ -1,5 +1,12 @@
 import * as React from "react";
-import { Box, Button, Input, Modal, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Input,
+  Modal,
+  Typography,
+} from "@mui/material";
 import { useAccount, useReadContract, useWriteContract } from "wagmi";
 import Deployer from "../../abis/Deployer.json";
 import Proposal from "../../abis/Proposal.json";
@@ -13,19 +20,19 @@ const ProviderFulfillment = () => {
   const [url, setUrl] = React.useState("");
   const { address } = useAccount();
 
-  const isProvider = useReadContract({
-    abi: Deployer.abi,
-    address: process.env.REACT_APP_DEPLOYER_CONTRACT_SEPOLIA,
-    functionName: "isProvider",
-    args: [address],
-  });
+  // const isProvider = useReadContract({
+  //   abi: Deployer.abi,
+  //   address: process.env.REACT_APP_DEPLOYER_CONTRACT_SEPOLIA,
+  //   functionName: "isProvider",
+  //   args: [address],
+  // });
 
   const hasProvider = useReadContract({
     abi: Proposal.abi,
     address: proposalAddress,
     functionName: "provider",
   });
-
+  console.log(hasProvider.data, address);
   const isButtonDisplayed = hasProvider.data === address;
 
   const [open, setOpen] = React.useState(false);
@@ -74,9 +81,8 @@ const ProviderFulfillment = () => {
             >
               Please add a url to the proof of completion
             </Typography>
-
-            <form
-              style={{
+            <Container
+              sx={{
                 display: "flex",
                 flexDirection: "column",
                 height: "fitContent",
@@ -90,8 +96,7 @@ const ProviderFulfillment = () => {
                 }}
                 placeholder={"https://www.youtube.com/<your extension>"}
                 type={"url"}
-              ></Input>
-
+              />
               <Button
                 variant={"contained"}
                 sx={{
@@ -99,8 +104,8 @@ const ProviderFulfillment = () => {
                   width: "25%",
                   placeSelf: "end",
                 }}
-                onClick={(e) => {
-                  e.preventDefault();
+                onClick={() => {
+                  // e.preventDefault();
                   writeContract({
                     abi: Proposal.abi,
                     address: proposalAddress,
@@ -113,7 +118,7 @@ const ProviderFulfillment = () => {
               >
                 Link Proof
               </Button>
-            </form>
+            </Container>
           </Box>
         </Modal>
       </Box>
