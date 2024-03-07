@@ -112,8 +112,7 @@ export const HomePage = () => {
               marginY: 4,
             }}
           >
-            {/* Active Proposals */}
-            test
+            Active Proposals
           </Typography>
           <Container sx={{ minWidth: "100%" }}>{renderProposals()}</Container>
         </Container>
