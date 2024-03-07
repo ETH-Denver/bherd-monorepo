@@ -28,6 +28,13 @@ jobs:
         run: cd frontend && npm install
       - name: Build
         run: cd frontend && npm run build
+      - name: setup sshkeys
+        id: ssh-agent
+        run: |
+          eval `ssh-agent`
+          ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}" 
+          echo "SSH_AGENT_PID=$SSH_AGENT_PID" >> $GITHUB_ENV
+          echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> $GITHUB_ENV
       - name: Deploy
         run: cd frontend && npm run deploy
       # - name: Upload artifact
