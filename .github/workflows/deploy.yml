@@ -44,7 +44,7 @@ jobs:
       - name: Print Downloaded Artifacts
         run: |
           echo "Contents of frontend/build directory after download:"
-          ls -la frontend
+          ls
 
       - name: Download artifacts
         uses: actions/download-artifact@v2
