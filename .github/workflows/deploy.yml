@@ -15,12 +15,16 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 12
+          node-version: 14
 
       - name: Install Dependencies
         run: |
-          cd frontend  
-          npm install
+          cd frontend
+          if [ "$(uname -s)" == "Darwin" ]; then
+            npm install
+          else
+            echo "Skipping installation of platform-specific dependencies."
+          fi
 
       - name: Build and Deploy
         run: |

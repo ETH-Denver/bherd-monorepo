@@ -61,5 +61,8 @@
   },
   "devDependencies": {
     "gh-pages": "^6.1.1"
+  },
+  "resolutions": {
+    "@parcel/watcher-darwin-arm64": "1.0.0-linux-x64"
   }
 }
