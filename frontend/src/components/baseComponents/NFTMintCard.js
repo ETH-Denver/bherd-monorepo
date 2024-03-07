@@ -19,7 +19,7 @@ export const NFTMintCard = ({ proposalAddress, isMintingEnabled }) => {
         variant={"contained"}
         sx={{
           backgroundColor: "#844aff",
-          width: "fit-content",
+          minWidth: 200,
           placeSelf: "end",
         }}
         onClick={() => {

@@ -20,7 +20,6 @@ export const ContributeForm = ({ amountRemaining, handleClose }) => {
         value: ethers.parseEther(amount),
       });
       if (response) {
-        console.log(response);
         handleClose();
       }
     } catch (error) {

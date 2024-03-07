@@ -8,15 +8,13 @@ import {
   Typography,
 } from "@mui/material";
 import { useAccount, useReadContract, useWriteContract } from "wagmi";
-import Deployer from "../../abis/Deployer.json";
 import Proposal from "../../abis/Proposal.json";
-import { useNavigate } from "react-router-dom";
 import { ethDenverTheme } from "ethDenverTheme";
 
-export const ProviderFulfillment = () => {
+export const ProviderFulfillment = ({ url }) => {
   const proposalAddress = window.location.pathname.split("/").pop();
   const { writeContract } = useWriteContract();
-  const [url, setUrl] = React.useState("");
+  const [proof, setProof] = React.useState("");
   const { address } = useAccount();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -26,7 +24,24 @@ export const ProviderFulfillment = () => {
     address: proposalAddress,
     functionName: "provider",
   });
-  const isButtonDisplayed = hasProvider.data === address;
+  const linkProof = async () => {
+    try {
+      const response = await writeContract({
+        abi: Proposal.abi,
+        address: proposalAddress,
+        functionName: "completeProposal",
+        args: [proof],
+      });
+
+      if (response) {
+        handleClose();
+      }
+    } catch (error) {
+      console.error("Error creating contract:", error);
+    }
+  };
+  const isButtonDisplayed = hasProvider.data === address && !url;
+
   if (isButtonDisplayed) {
     return (
       <Box>
@@ -34,6 +49,7 @@ export const ProviderFulfillment = () => {
           sx={{
             backgroundColor: ethDenverTheme.palette.primary.main,
             color: "white",
+            minWidth: 200,
           }}
           variant="contained"
           onClick={handleOpen}
@@ -81,7 +97,7 @@ export const ProviderFulfillment = () => {
               <Input
                 sx={{ paddingLeft: "10px", marginBottom: "20px" }}
                 onChange={(e) => {
-                  setUrl(e.target.value);
+                  setProof(e.target.value);
                 }}
                 placeholder={"https://www.youtube.com/<your extension>"}
                 type={"url"}
@@ -94,13 +110,7 @@ export const ProviderFulfillment = () => {
                   placeSelf: "end",
                 }}
                 onClick={() => {
-                  writeContract({
-                    abi: Proposal.abi,
-                    address: proposalAddress,
-                    functionName: "completeProposal",
-                    args: [url],
-                  });
-                  handleClose();
+                  linkProof();
                 }}
               >
                 Link Proof

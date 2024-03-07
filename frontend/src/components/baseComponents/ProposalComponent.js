@@ -66,7 +66,7 @@ export const ProposalComponent = ({ proposal }) => {
           </Stack>
           <Stack spacing={2} direction="row">
             <ProviderAcceptButton fundingStatus={fundingStatus} />
-            <ProviderFulfillment />
+            <ProviderFulfillment url={url} />
             <FundProposalButton
               proposalAddress={proposalAddress}
               amountRemaining={ethers.formatEther(amountFunded)}

@@ -52,7 +52,7 @@ export const ProviderAcceptButton = (props) => {
           variant={"contained"}
           sx={{
             backgroundColor: ethDenverTheme.palette.primary.main,
-            width: "fit-content",
+            minWidth: 200,
             placeSelf: "end",
           }}
           onClick={() => {
