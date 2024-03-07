@@ -12,29 +12,17 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Detect Platform
-        id: platform
-        run: echo "::set-output name=platform::$(uname -s | tr '[:upper:]' '[:lower:]')"
-
-      - name: Set up Node.js and npm
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 14
-          npm: latest
-
-      - name: Clean npm cache
-        run: npm cache clean --force
-        working-directory: frontend
 
       - name: Install Dependencies
         run: |
-          cd frontend
-          if [ "${{ steps.platform.outputs.platform }}" == "linux" ]; then
-            npm install
-          else
-            echo "Skipping installation of platform-specific dependencies."
-          fi
+          cd frontend  
+          npm install
 
       - name: Build and Deploy
-        run: npm run deploy
-        working-directory: frontend
+        run: |
+          cd frontend  
+          npm run deploy
