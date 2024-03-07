@@ -1,7 +1,7 @@
 name: Run Deploy
 
 on:
-  push:
+  pull-request:
     branches: [main]
 
 permissions:
@@ -20,18 +20,14 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 14
-
       - name: Install Dependencies
         run: cd frontend && npm install
-
       - name: Build
         run: cd frontend && npm run build
-
       - name: Archive artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -45,6 +41,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Print Downloaded Artifacts
+        run: |
+          echo "Contents of frontend/build directory after download:"
+          ls -la frontend/build
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
