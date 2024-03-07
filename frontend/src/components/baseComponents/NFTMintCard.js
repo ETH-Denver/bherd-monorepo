@@ -5,6 +5,14 @@ import Proposal from "../../abis/Proposal.json";
 
 export const NFTMintCard = ({ proposalAddress, isMintingEnabled }) => {
   const { writeContract } = useWriteContract();
+  const mint = () => {
+    writeContract({
+      abi: Proposal.abi,
+      address: proposalAddress,
+      functionName: "mint",
+    });
+  };
+
   if (isMintingEnabled) {
     return (
       <Button
@@ -15,11 +23,7 @@ export const NFTMintCard = ({ proposalAddress, isMintingEnabled }) => {
           placeSelf: "end",
         }}
         onClick={() => {
-          writeContract({
-            abi: Proposal.abi,
-            address: proposalAddress,
-            functionName: "mint",
-          });
+          mint();
         }}
       >
         Mint Your NFT
