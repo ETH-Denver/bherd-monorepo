@@ -1,7 +1,7 @@
 name: Run Deploy
 
 on:
-  pull-request:
+  pull_request:
     branches: [main]
 
 permissions:
