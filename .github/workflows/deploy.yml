@@ -20,7 +20,7 @@ jobs:
       - name: Install Dependencies
         run: |
           cd frontend
-          if [ "$(uname -s)" == "Darwin" ]; then
+          if [ "$(uname -m)" == "aarch64" ]; then
             npm install
           else
             echo "Skipping installation of platform-specific dependencies."
