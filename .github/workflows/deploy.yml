@@ -24,5 +24,6 @@ jobs:
 
       - name: Build and Deploy
         run: |
+          pwd
           cd frontend  
           npm run deploy
