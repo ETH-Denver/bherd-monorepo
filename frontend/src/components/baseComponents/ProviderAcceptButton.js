@@ -26,7 +26,7 @@ const ProviderAcceptButton = (props) => {
     functionName: "provider",
   });
   const isButtonDisplayed =
-    hasProvider?.data !== address &&
+    hasProvider?.data === '0x0000000000000000000000000000000000000000' &&
     isProvider.data &&
     fundingStatus === "Funded";
   return (

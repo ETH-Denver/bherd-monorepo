@@ -28,7 +28,9 @@ export const ProposalComponent = ({ proposal }) => {
     fundingTarget,
     provider,
     url,
+    isMintingEnabled
   } = proposal;
+
   const formatDate = (timestamp) => {
     return new Date(Number(timestamp)).toLocaleDateString();
   };
@@ -75,6 +77,7 @@ export const ProposalComponent = ({ proposal }) => {
               proposalAddress={proposalAddress}
               fundingStatus={fundingStatus}
               providerStatus={providerStatus}
+              isMintingEnabled={isMintingEnabled}
             />
             <ProofOfAddRun
               url={url}

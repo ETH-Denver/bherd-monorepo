@@ -26,10 +26,8 @@ const ProviderFulfillment = () => {
     functionName: "provider",
   });
 
-  const isButtonDisplayed =
-    hasProvider.data !== "0x0000000000000000000000000000000000000000" &&
-    hasProvider.data !== address &&
-    isProvider.data;
+  const isButtonDisplayed = hasProvider.data === address;
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -110,6 +108,7 @@ const ProviderFulfillment = () => {
                     args: [url],
                   });
                   navigate("/show/" + proposalAddress);
+                  handleClose();
                 }}
               >
                 Link Proof
