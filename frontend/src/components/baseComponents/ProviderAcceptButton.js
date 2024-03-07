@@ -5,19 +5,17 @@ import Proposal from "../../abis/Proposal.json";
 import Deployer from "../../abis/Deployer.json";
 import { ethDenverTheme } from "../../ethDenverTheme";
 
-const ProviderAcceptButton = (props) => {
+export const ProviderAcceptButton = (props) => {
   const { fundingStatus } = props;
   const proposalAddress = window.location.pathname.split("/").pop();
   const { writeContract } = useWriteContract();
   const { address } = useAccount();
-
   const isProvider = useReadContract({
     abi: Deployer.abi,
     address: process.env.REACT_APP_DEPLOYER_CONTRACT_SEPOLIA,
     functionName: "isProvider",
     args: [address],
   });
-
   const hasProvider = useReadContract({
     abi: Proposal.abi,
     address: proposalAddress,
@@ -67,5 +65,3 @@ const ProviderAcceptButton = (props) => {
     </Container>
   );
 };
-
-export default ProviderAcceptButton;

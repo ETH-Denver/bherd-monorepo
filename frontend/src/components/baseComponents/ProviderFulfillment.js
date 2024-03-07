@@ -13,7 +13,7 @@ import Proposal from "../../abis/Proposal.json";
 import { useNavigate } from "react-router-dom";
 import { ethDenverTheme } from "ethDenverTheme";
 
-const ProviderFulfillment = () => {
+export const ProviderFulfillment = () => {
   const proposalAddress = window.location.pathname.split("/").pop();
   const { writeContract } = useWriteContract();
   const [url, setUrl] = React.useState("");
@@ -114,11 +114,3 @@ const ProviderFulfillment = () => {
     return null;
   }
 };
-
-export default function ProviderFulfillmentForm() {
-  return (
-    <div>
-      <ProviderFulfillment></ProviderFulfillment>
-    </div>
-  );
-}

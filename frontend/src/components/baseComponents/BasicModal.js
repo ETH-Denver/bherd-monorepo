@@ -62,7 +62,6 @@ export default function BasicModal({
             handleClose={handleClose}
             amountRemaining={amountRemaining}
           />
-          {/* {modalBody} */}
         </Box>
       </Modal>
     </Box>

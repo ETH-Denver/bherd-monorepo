@@ -3,7 +3,7 @@ import { useWriteContract } from "wagmi";
 import Button from "@mui/material/Button";
 import Proposal from "../../abis/Proposal.json";
 
-const NFTMintCard = ({ proposalAddress, isMintingEnabled }) => {
+export const NFTMintCard = ({ proposalAddress, isMintingEnabled }) => {
   const { writeContract } = useWriteContract();
   if (isMintingEnabled) {
     return (
@@ -14,8 +14,7 @@ const NFTMintCard = ({ proposalAddress, isMintingEnabled }) => {
           width: "fit-content",
           placeSelf: "end",
         }}
-        onClick={(e) => {
-          e.preventDefault();
+        onClick={() => {
           writeContract({
             abi: Proposal.abi,
             address: proposalAddress,
@@ -28,5 +27,3 @@ const NFTMintCard = ({ proposalAddress, isMintingEnabled }) => {
     );
   }
 };
-
-export default NFTMintCard;

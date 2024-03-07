@@ -9,9 +9,9 @@ import {
 import React from "react";
 import MapIndicator from "./MapIndicator";
 import { ethers } from "ethers";
-import NFTMintCard from "./NFTMintCard";
-import ProviderAcceptButton from "./ProviderAcceptButton";
-import ProviderFulfillmentForm from "./ProviderFulfillment";
+import { NFTMintCard } from "./NFTMintCard";
+import { ProviderAcceptButton } from "./ProviderAcceptButton";
+import { ProviderFulfillment } from "./ProviderFulfillment";
 import { FundProposalButton } from "./FundProposalButton";
 import { ProofOfAddRun } from "./ProofOfAddRun";
 
@@ -28,7 +28,7 @@ export const ProposalComponent = ({ proposal }) => {
     fundingTarget,
     provider,
     url,
-    isMintingEnabled
+    isMintingEnabled,
   } = proposal;
 
   const formatDate = (timestamp) => {
@@ -66,7 +66,7 @@ export const ProposalComponent = ({ proposal }) => {
           </Stack>
           <Stack spacing={2} direction="row">
             <ProviderAcceptButton fundingStatus={fundingStatus} />
-            <ProviderFulfillmentForm />
+            <ProviderFulfillment />
             <FundProposalButton
               proposalAddress={proposalAddress}
               amountRemaining={ethers.formatEther(amountFunded)}

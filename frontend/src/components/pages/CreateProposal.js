@@ -16,7 +16,7 @@ import Deployer from "../../abis/Deployer.json";
 import { useNavigate } from "react-router-dom";
 import { ethDenverTheme } from "../../ethDenverTheme";
 
-const ProposalForm = () => {
+export const CreateProposal = () => {
   const [startDay, setStartDay] = useState(new Date());
   const [target, setTarget] = useState("");
   const [content, setContent] = useState("");
@@ -166,14 +166,6 @@ const ProposalForm = () => {
           Create Proposal
         </Button>
       </Container>
-    </Container>
-  );
-};
-
-export const CreateProposalPage = () => {
-  return (
-    <Container>
-      <ProposalForm />
     </Container>
   );
 };

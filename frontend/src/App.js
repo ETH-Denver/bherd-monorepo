@@ -4,7 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { HomePage } from "./components/pages/HomePage";
 import { ShowPage } from "./components/pages/Show";
 import BaseLayout from "./components/layouts/BaseLayout";
-import { CreateProposalPage } from "components/pages/CreateProposal";
+import { CreateProposal } from "components/pages/CreateProposal";
 
 import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
@@ -78,7 +78,7 @@ function App() {
     },
     {
       path: "create",
-      element: <BaseLayout children={<CreateProposalPage />} />,
+      element: <BaseLayout children={<CreateProposal />} />,
     },
     {
       path: "/:anything-that-doesnt-match",
