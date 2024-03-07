@@ -5,7 +5,6 @@ import "./Deployer.sol";
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 
 contract Proposal is ERC1155 {
-
     uint256 public constant FUNDING_LEAD = 30 days;
 
     // Proposal parameters
@@ -24,6 +23,7 @@ contract Proposal is ERC1155 {
     uint256 public amountFunded; // current funding total
     string public url; // proof of execution
     uint public tokenId; // NFT id
+    bool public isMintingEnabled;
 
     mapping(address => uint256) contributions; // track contributions in event of refunds
 
@@ -35,7 +35,7 @@ contract Proposal is ERC1155 {
         string memory _target,
         uint _contentType,
         string memory _contentMessage
-    ) ERC1155("ipfs://QmQMWnHT1TFktiq6XnykNkshamWPydU3peW2RKuQKcBzS2.png") {
+    ) ERC1155("") {
         proposer = tx.origin;
         deployer = _deployer;
         startDay = _startDay;
@@ -60,7 +60,7 @@ contract Proposal is ERC1155 {
 
         // Mint loyalty token and proposer nft
         _mint(address(this), tokenId, 1e18, "");
-        tokenId ++;
+        tokenId++;
         _mint(proposer, tokenId, 1, "");
     }
 
@@ -92,7 +92,7 @@ contract Proposal is ERC1155 {
             "Only providers can accept proposals"
         );
         require(
-            amountFunded > ((fundingTarget * 98) / 100),
+            amountFunded >= fundingTarget,
             "proposal has not been fully funded"
         );
         provider = msg.sender;
@@ -121,11 +121,12 @@ contract Proposal is ERC1155 {
         );
         url = _url;
         // Disburse funds
-        bool sent = payable(msg.sender).send(fundingTarget);
+        bool sent = payable(provider).send(address(this).balance);
         require(sent, "Failed to send Ether");
 
+        isMintingEnabled = true;
         // Mint provider NFT
-        tokenId ++;
+        tokenId++;
         _mint(msg.sender, tokenId, 1, "");
     }
 
@@ -135,7 +136,7 @@ contract Proposal is ERC1155 {
         require(bytes(url).length != 0, "Proposal is not complete");
 
         // Mint token
-        tokenId ++;
+        tokenId++;
         contributions[msg.sender] = 0;
         _mint(msg.sender, tokenId, 1, "");
     }

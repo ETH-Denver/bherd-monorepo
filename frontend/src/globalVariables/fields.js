@@ -12,4 +12,5 @@ export const fields = [
   "provider",
   "proposer",
   "url",
+  "isMintingEnabled",
 ];

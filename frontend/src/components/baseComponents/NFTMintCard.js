@@ -3,24 +3,28 @@ import { useWriteContract } from "wagmi";
 import Button from "@mui/material/Button";
 import Proposal from "../../abis/Proposal.json";
 
-const NFTMintCard = ({ proposalAddress, fundingStatus, providerStatus }) => {
+export const NFTMintCard = ({ proposalAddress, isMintingEnabled }) => {
   const { writeContract } = useWriteContract();
-  if (fundingStatus === "Funded" && providerStatus === "Provider Accepted") {
+  const mint = () => {
+    writeContract({
+      abi: Proposal.abi,
+      address: proposalAddress,
+      functionName: "mint",
+    });
+  };
+
+  if (isMintingEnabled) {
     return (
       <Button
         variant={"contained"}
         sx={{
           backgroundColor: "#844aff",
-          width: "fit-content",
+          minWidth: 200,
           placeSelf: "end",
+          color: "white",
         }}
-        onClick={(e) => {
-          e.preventDefault();
-          writeContract({
-            abi: Proposal.abi,
-            address: proposalAddress,
-            functionName: "mint",
-          });
+        onClick={() => {
+          mint();
         }}
       >
         Mint Your NFT
@@ -28,5 +32,3 @@ const NFTMintCard = ({ proposalAddress, fundingStatus, providerStatus }) => {
     );
   }
 };
-
-export default NFTMintCard;

@@ -1,7 +1,7 @@
 import { Container } from "@mui/material";
 import { Header } from "components/baseComponents/Header";
 import React from "react";
-import {ethDenverTheme} from "../../ethDenverTheme";
+import { ethDenverTheme } from "../../ethDenverTheme";
 
 export default function BaseLayout({ children }) {
   return (
@@ -25,7 +25,7 @@ export default function BaseLayout({ children }) {
           minHeight: "200px",
           backgroundColor: ethDenverTheme.palette.primary.main,
         }}
-      ></Container>
+      />
     </Container>
   );
 }

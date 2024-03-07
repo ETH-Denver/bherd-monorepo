@@ -7,8 +7,10 @@ export const ProofOfAddRun = ({ fundingStatus, providerStatus, url }) => {
     url
   )
     return (
-      <Button>
-        <a href={url}>View Proof</a>
+      <Button variant="contained" sx={{ minWidth: 200 }}>
+        <a style={{ textDecoration: "none", color: "white" }} href={url}>
+          View Proof
+        </a>
       </Button>
     );
 };

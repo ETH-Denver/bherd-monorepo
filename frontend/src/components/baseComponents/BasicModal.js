@@ -22,6 +22,7 @@ export default function BasicModal({
         sx={{
           backgroundColor: ethDenverTheme.palette.primary.main,
           color: "white",
+          minWidth: 200,
         }}
         variant="contained"
         onClick={handleOpen}
@@ -62,7 +63,6 @@ export default function BasicModal({
             handleClose={handleClose}
             amountRemaining={amountRemaining}
           />
-          {/* {modalBody} */}
         </Box>
       </Modal>
     </Box>

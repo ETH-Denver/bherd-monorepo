@@ -1,38 +1,47 @@
 import * as React from "react";
-import { Box, Button, Input, Modal, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Input,
+  Modal,
+  Typography,
+} from "@mui/material";
 import { useAccount, useReadContract, useWriteContract } from "wagmi";
-import Deployer from "../../abis/Deployer.json";
 import Proposal from "../../abis/Proposal.json";
-import { useNavigate } from "react-router-dom";
 import { ethDenverTheme } from "ethDenverTheme";
 
-const ProviderFulfillment = () => {
-  const navigate = useNavigate();
+export const ProviderFulfillment = ({ url }) => {
   const proposalAddress = window.location.pathname.split("/").pop();
   const { writeContract } = useWriteContract();
-  const [url, setUrl] = React.useState("");
+  const [proof, setProof] = React.useState("");
   const { address } = useAccount();
-
-  const isProvider = useReadContract({
-    abi: Deployer.abi,
-    address: process.env.REACT_APP_DEPLOYER_CONTRACT_SEPOLIA,
-    functionName: "isProvider",
-    args: [address],
-  });
-
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const hasProvider = useReadContract({
     abi: Proposal.abi,
     address: proposalAddress,
     functionName: "provider",
   });
+  const linkProof = async () => {
+    try {
+      const response = await writeContract({
+        abi: Proposal.abi,
+        address: proposalAddress,
+        functionName: "completeProposal",
+        args: [proof],
+      });
 
-  const isButtonDisplayed =
-    hasProvider.data !== "0x0000000000000000000000000000000000000000" &&
-    hasProvider.data !== address &&
-    isProvider.data;
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+      if (response) {
+        handleClose();
+      }
+    } catch (error) {
+      console.error("Error creating contract:", error);
+    }
+  };
+  const isButtonDisplayed = hasProvider.data === address && !url;
+
   if (isButtonDisplayed) {
     return (
       <Box>
@@ -40,6 +49,7 @@ const ProviderFulfillment = () => {
           sx={{
             backgroundColor: ethDenverTheme.palette.primary.main,
             color: "white",
+            minWidth: 200,
           }}
           variant="contained"
           onClick={handleOpen}
@@ -76,9 +86,8 @@ const ProviderFulfillment = () => {
             >
               Please add a url to the proof of completion
             </Typography>
-
-            <form
-              style={{
+            <Container
+              sx={{
                 display: "flex",
                 flexDirection: "column",
                 height: "fitContent",
@@ -88,12 +97,11 @@ const ProviderFulfillment = () => {
               <Input
                 sx={{ paddingLeft: "10px", marginBottom: "20px" }}
                 onChange={(e) => {
-                  setUrl(e.target.value);
+                  setProof(e.target.value);
                 }}
                 placeholder={"https://www.youtube.com/<your extension>"}
                 type={"url"}
-              ></Input>
-
+              />
               <Button
                 variant={"contained"}
                 sx={{
@@ -101,20 +109,13 @@ const ProviderFulfillment = () => {
                   width: "25%",
                   placeSelf: "end",
                 }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  writeContract({
-                    abi: Proposal.abi,
-                    address: proposalAddress,
-                    functionName: "completeProposal",
-                    args: [url],
-                  });
-                  navigate("/show/" + proposalAddress);
+                onClick={() => {
+                  linkProof();
                 }}
               >
                 Link Proof
               </Button>
-            </form>
+            </Container>
           </Box>
         </Modal>
       </Box>
@@ -123,11 +124,3 @@ const ProviderFulfillment = () => {
     return null;
   }
 };
-
-export default function ProviderFulfillmentForm() {
-  return (
-    <div>
-      <ProviderFulfillment></ProviderFulfillment>
-    </div>
-  );
-}
