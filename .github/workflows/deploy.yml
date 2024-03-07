@@ -18,7 +18,7 @@ jobs:
           node-version: 14
 
       - name: Install Dependencies
-        run: cd frontend && npm install
+        run: cd frontend && yarn install
 
       - name: Build and Deploy
-        run: cd frontend && npm run deploy
+        run: cd frontend && yarn run deploy
