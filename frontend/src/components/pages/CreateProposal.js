@@ -50,7 +50,7 @@ export const CreateProposal = () => {
     if (data) {
       navigate("/");
     }
-  }, [data]);
+  }, [data, navigate]);
 
   return (
     <Container
