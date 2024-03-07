@@ -21,6 +21,7 @@ export const NFTMintCard = ({ proposalAddress, isMintingEnabled }) => {
           backgroundColor: "#844aff",
           minWidth: 200,
           placeSelf: "end",
+          color: "white",
         }}
         onClick={() => {
           mint();
