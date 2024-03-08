@@ -40,7 +40,7 @@ export const AlertProvider = ({ children }) => {
 
 export default function BaseLayout({ children }) {
   const { open, setOpen } = useAlertContext();
-
+  window.scrollTo(0, 0);
   return (
     <Container
       disableGutters={true}
