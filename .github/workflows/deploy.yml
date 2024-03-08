@@ -27,8 +27,8 @@ jobs:
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
-          source: ./frontend
-          destination: ./frontend
+          source: ./frontend/build
+          destination: ./frontend/build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
