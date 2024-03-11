@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "@dotenvx/dotenvx": "^0.23.0",
+    "@emailjs/browser": "^4.3.3",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.11",
@@ -22,6 +23,7 @@
     "react-dom": "^18.2.0",
     "react-geocode": "^1.0.0-alpha.1",
     "react-google-autocomplete": "^2.7.3",
+    "react-hook-form": "^7.51.0",
     "react-router-dom": "^6.22.2",
     "react-scripts": "^5.0.1",
     "react-spinners": "^0.13.8",

@@ -1,6 +1,7 @@
 import { Button, Container, TextField, Typography } from "@mui/material";
 import { ethDenverTheme } from "ethDenverTheme";
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 
 export const ProviderInquiryForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -11,16 +12,30 @@ export const ProviderInquiryForm = () => {
   const [company, setCompany] = useState("");
   const [description, setDescription] = useState("");
 
-  const handleSubmit = () => {
-    console.log({
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      phone: phone,
-      areaOfExpertise: areaOfExpertise,
-      company: company,
-      description: description,
-    });
+  const sendEmail = (e) => {
+    emailjs
+      .send(
+        "service_bsn21db",
+        "template_tnh5ipg",
+        {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          phone: phone,
+          areaOfExpertise: areaOfExpertise,
+          company: company,
+          description: description,
+        },
+        "ghSCx4-hol5cv32eO"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
   };
 
   return (
@@ -57,6 +72,7 @@ export const ProviderInquiryForm = () => {
           </Typography>
           <Container>
             <TextField
+              name="firstName"
               inputProps={{ maxLength: 250 }}
               label="First Name"
               required
@@ -146,6 +162,7 @@ export const ProviderInquiryForm = () => {
               }}
             />
             <TextField
+              name="description"
               inputProps={{ maxLength: 250 }}
               label="Tell us about you and your company"
               required
@@ -163,8 +180,8 @@ export const ProviderInquiryForm = () => {
           </Container>
           <Button
             variant="contained"
-            onClick={() => {
-              handleSubmit();
+            onClick={(e) => {
+              sendEmail();
             }}
             sx={{ width: 260, backgroundColor: "#fff", marginRight: "10px" }}
           >
