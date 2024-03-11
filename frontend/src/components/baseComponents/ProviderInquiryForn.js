@@ -1,4 +1,4 @@
-import { Container, TextField, Typography } from "@mui/material";
+import { Button, Container, TextField, Typography } from "@mui/material";
 import { ethDenverTheme } from "ethDenverTheme";
 import { useState } from "react";
 
@@ -10,6 +10,19 @@ export const ProviderInquiryForm = () => {
   const [areaOfExpertise, setAreaOfExpertise] = useState("");
   const [company, setCompany] = useState("");
   const [description, setDescription] = useState("");
+
+  const handleSubmit = () => {
+    console.log({
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phone: phone,
+      areaOfExpertise: areaOfExpertise,
+      company: company,
+      description: description,
+    });
+  };
+
   return (
     <Container>
       <Container
@@ -148,6 +161,15 @@ export const ProviderInquiryForm = () => {
               }}
             />
           </Container>
+          <Button
+            variant="contained"
+            onClick={() => {
+              handleSubmit();
+            }}
+            sx={{ width: 260, backgroundColor: "#fff", marginRight: "10px" }}
+          >
+            Become A Provider
+          </Button>
         </Container>
       </Container>
     </Container>
