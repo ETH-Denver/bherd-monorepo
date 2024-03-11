@@ -50,6 +50,15 @@ export const Header = () => {
       <Container
         sx={{ display: "flex", flexDirection: "row", width: "fit-content" }}
       >
+        <Button
+          variant="contained"
+          onClick={() => {
+            navigate("/become-a-provider");
+          }}
+          sx={{ width: 260, backgroundColor: "#fff", marginRight: "10px" }}
+        >
+          Become A Provider
+        </Button>
         {account && account.address && (
           <Button
             variant="contained"
