@@ -30,7 +30,15 @@ export const ProviderInquiryForm = () => {
       )
       .then(
         (result) => {
-          console.log(result.text);
+          if (result.text === "OK") {
+            setFirstName("");
+            setLastName("");
+            setEmail("");
+            setPhone("");
+            setAreaOfExpertise("");
+            setCompany("");
+            setDescription("");
+          }
         },
         (error) => {
           console.log(error.text);
