@@ -3,7 +3,7 @@ import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { HomePage } from "./components/pages/HomePage";
 import { ShowPage } from "./components/pages/Show";
-import BaseLayout from "./components/layouts/BaseLayout";
+import BaseLayout, { AlertProvider } from "./components/layouts/BaseLayout";
 import { CreateProposal } from "components/pages/CreateProposal";
 
 import { createWeb3Modal } from "@web3modal/wagmi/react";
@@ -21,6 +21,7 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "@mui/material/styles";
 import { ethDenverTheme } from "./ethDenverTheme";
+import { Alert } from "@mui/material";
 import { ProviderInquiry } from "components/pages/ProviderInquiry";
 
 const queryClient = new QueryClient();
@@ -93,9 +94,11 @@ function App() {
 
   const children = (
     <ThemeProvider theme={ethDenverTheme}>
-      <div>
-        <RouterProvider router={router} />
-      </div>
+      <AlertProvider>
+        <div>
+          <RouterProvider router={router} />
+        </div>
+      </AlertProvider>
     </ThemeProvider>
   );
 
