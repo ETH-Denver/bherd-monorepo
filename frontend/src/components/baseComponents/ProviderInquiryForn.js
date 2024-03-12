@@ -268,7 +268,14 @@ export const ProviderInquiryForm = () => {
               onClick={(e) => {
                 sendEmail();
               }}
-              sx={{ width: 260, backgroundColor: "#fff", marginRight: "10px" }}
+              sx={{
+                width: 260,
+                marginRight: "10px",
+                position: "relative",
+                left: 325,
+                fontSize: "16px",
+                fontWeight: "bold",
+              }}
             >
               Become A Provider
             </Button>
