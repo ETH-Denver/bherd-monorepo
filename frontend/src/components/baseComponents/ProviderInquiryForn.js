@@ -3,6 +3,7 @@ import { ethDenverTheme } from "ethDenverTheme";
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { Loader } from "./Loader";
+import { MuiTelInput } from "mui-tel-input";
 
 export const ProviderInquiryForm = () => {
   const [firstName, setFirstName] = useState("");
@@ -89,113 +90,178 @@ export const ProviderInquiryForm = () => {
             >
               Provider Application
             </Typography>
-            <Container>
-              <TextField
-                name="firstName"
-                inputProps={{ maxLength: 250 }}
-                label="First Name"
-                required
-                onChange={(e) => setFirstName(e.target.value)}
-                variant="outlined"
-                color="secondary"
-                value={firstName}
-                sx={{
-                  mb: 3,
-                  width: 500,
-                  backgroundColor: "white",
-                  borderRadius: 2,
-                }}
-              />
-              <TextField
-                inputProps={{ maxLength: 250 }}
-                label="Last Name"
-                required
-                onChange={(e) => setLastName(e.target.value)}
-                variant="outlined"
-                color="secondary"
-                value={lastName}
-                sx={{
-                  mb: 3,
-                  width: 500,
-                  backgroundColor: "white",
-                  borderRadius: 2,
-                }}
-              />
-              <TextField
-                inputProps={{ maxLength: 250 }}
-                label="Email"
-                required
-                onChange={(e) => setEmail(e.target.value)}
-                variant="outlined"
-                color="secondary"
-                value={email}
-                sx={{
-                  mb: 3,
-                  width: 500,
-                  backgroundColor: "white",
-                  borderRadius: 2,
-                }}
-              />
-              <TextField
-                inputProps={{ maxLength: 250 }}
-                label="Phone Number"
-                required
-                onChange={(e) => setPhone(e.target.value)}
-                variant="outlined"
-                color="secondary"
-                value={phone}
-                sx={{
-                  mb: 3,
-                  width: 500,
-                  backgroundColor: "white",
-                  borderRadius: 2,
-                }}
-              />
-              <TextField
-                inputProps={{ maxLength: 250 }}
-                label="Area of Expertise"
-                required
-                onChange={(e) => setAreaOfExpertise(e.target.value)}
-                variant="outlined"
-                color="secondary"
-                value={areaOfExpertise}
-                sx={{
-                  mb: 3,
-                  width: 500,
-                  backgroundColor: "white",
-                  borderRadius: 2,
-                }}
-              />
-              <TextField
-                inputProps={{ maxLength: 250 }}
-                label="Company Site (Optional)"
-                onChange={(e) => setCompany(e.target.value)}
-                variant="outlined"
-                color="secondary"
-                value={company}
-                sx={{
-                  mb: 3,
-                  width: 500,
-                  backgroundColor: "white",
-                  borderRadius: 2,
-                }}
-              />
-              <TextField
-                name="description"
-                inputProps={{ maxLength: 250 }}
-                label="Tell us about you and your company"
-                required
-                onChange={(e) => setDescription(e.target.value)}
-                variant="outlined"
-                color="secondary"
-                value={description}
-                sx={{
-                  mb: 3,
-                  width: 500,
-                  backgroundColor: "white",
-                  borderRadius: 2,
-                }}
-              />
+            <Container
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, auto)",
+                gridAutoRows: "minmax(100px, auto)",
+              }}
+            >
+              <Container>
+                <Typography
+                  variant="h6"
+                  sx={{ textAlign: "start", paddingLeft: 3 }}
+                >
+                  First Name
+                </Typography>
+                <TextField
+                  name="firstName"
+                  inputProps={{ maxLength: 250 }}
+                  required
+                  onChange={(e) => setFirstName(e.target.value)}
+                  variant="outlined"
+                  color="secondary"
+                  type="text"
+                  value={firstName}
+                  sx={{
+                    mb: 3,
+                    width: 400,
+                    backgroundColor: "white",
+                    borderRadius: 2,
+                  }}
+                />
+              </Container>
+              <Container>
+                <Typography
+                  variant="h6"
+                  sx={{ textAlign: "start", paddingLeft: 3 }}
+                >
+                  Last Name
+                </Typography>
+                <TextField
+                  inputProps={{ maxLength: 250 }}
+                  required
+                  onChange={(e) => setLastName(e.target.value)}
+                  variant="outlined"
+                  color="secondary"
+                  value={lastName}
+                  type="text"
+                  sx={{
+                    mb: 3,
+                    width: 400,
+                    backgroundColor: "white",
+                    borderRadius: 2,
+                  }}
+                />
+              </Container>
+              <Container>
+                <Typography
+                  variant="h6"
+                  sx={{ textAlign: "start", paddingLeft: 3 }}
+                >
+                  Email
+                </Typography>
+                <TextField
+                  inputProps={{ maxLength: 250 }}
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                  variant="outlined"
+                  color="secondary"
+                  type="email"
+                  value={email}
+                  sx={{
+                    mb: 3,
+                    width: 400,
+                    backgroundColor: "white",
+                    borderRadius: 2,
+                  }}
+                />
+              </Container>
+              <Container>
+                <Typography
+                  variant="h6"
+                  sx={{ textAlign: "start", paddingLeft: 3 }}
+                >
+                  Phone
+                </Typography>
+                <MuiTelInput
+                  defaultCountry="US"
+                  value={phone}
+                  onChange={(value) => setPhone(value)}
+                  type="tel"
+                  variant="outlined"
+                  color="secondary"
+                  required
+                  sx={{
+                    mb: 3,
+                    width: 400,
+                    backgroundColor: "white",
+                    borderRadius: 2,
+                  }}
+                />
+              </Container>
+              <Container>
+                <Typography
+                  variant="h6"
+                  sx={{ textAlign: "start", paddingLeft: 3 }}
+                >
+                  Area of Expertise
+                </Typography>
+                <TextField
+                  inputProps={{ maxLength: 250 }}
+                  required
+                  onChange={(e) => setAreaOfExpertise(e.target.value)}
+                  variant="outlined"
+                  color="secondary"
+                  type="text"
+                  value={areaOfExpertise}
+                  sx={{
+                    mb: 3,
+                    width: 400,
+                    backgroundColor: "white",
+                    borderRadius: 2,
+                  }}
+                />
+              </Container>
+              <Container>
+                <Typography
+                  variant="h6"
+                  sx={{ textAlign: "start", paddingLeft: 3 }}
+                >
+                  Company Site
+                </Typography>
+                <TextField
+                  inputProps={{ maxLength: 250 }}
+                  onChange={(e) => setCompany(e.target.value)}
+                  variant="outlined"
+                  color="secondary"
+                  type="url"
+                  value={company}
+                  sx={{
+                    mb: 3,
+                    width: 400,
+                    backgroundColor: "white",
+                    borderRadius: 2,
+                  }}
+                />
+              </Container>
+              <Container sx={{ gridColumn: "span 2", width: "100%" }}>
+                <Typography
+                  variant="h6"
+                  sx={{ textAlign: "start", paddingLeft: 3 }}
+                >
+                  Tell us about you and your company
+                </Typography>
+                <TextField
+                  size="large"
+                  name="description"
+                  inputProps={{ maxLength: 250 }}
+                  required
+                  onChange={(e) => setDescription(e.target.value)}
+                  variant="outlined"
+                  color="secondary"
+                  type="text"
+                  multiline
+                  rows={5}
+                  value={description}
+                  sx={{
+                    mb: 3,
+                    width: "95%",
+                    backgroundColor: "white",
+                    borderRadius: 2,
+                  }}
+                />
+              </Container>
             </Container>
             <Button
               variant="contained"
