@@ -22,6 +22,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "@mui/material/styles";
 import { ethDenverTheme } from "./ethDenverTheme";
 import { Alert } from "@mui/material";
+import { ProviderInquiry } from "components/pages/ProviderInquiry";
 
 const queryClient = new QueryClient();
 
@@ -80,6 +81,10 @@ function App() {
     {
       path: "create",
       element: <BaseLayout children={<CreateProposal />} />,
+    },
+    {
+      path: "become-a-provider",
+      element: <ProviderInquiry />,
     },
     {
       path: "/:anything-that-doesnt-match",
