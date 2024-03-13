@@ -5,10 +5,8 @@ import { HomePage } from "./components/pages/HomePage";
 import { ShowPage } from "./components/pages/Show";
 import BaseLayout, { AlertProvider } from "./components/layouts/BaseLayout";
 import { CreateProposal } from "components/pages/CreateProposal";
-
 import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
-
 import { WagmiProvider } from "wagmi";
 import {
   arbitrumNova,
