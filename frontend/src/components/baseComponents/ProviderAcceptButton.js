@@ -1,8 +1,6 @@
-import { Box, Button, Modal } from "@mui/material";
 import { useAccount, useReadContract } from "wagmi";
 import Proposal from "../../abis/Proposal.json";
 import Deployer from "../../abis/Deployer.json";
-import { ethDenverTheme } from "../../ethDenverTheme";
 import { useState } from "react";
 import { ProviderTerms } from "./ProviderTerms";
 import BasicModal from "./BasicModal";
@@ -14,6 +12,7 @@ export const ProviderAcceptButton = (props) => {
   const { fundingStatus } = props;
   const proposalAddress = window.location.pathname.split("/").pop();
   const { address } = useAccount();
+
   const isProvider = useReadContract({
     abi: Deployer.abi,
     address: process.env.REACT_APP_DEPLOYER_CONTRACT_SEPOLIA,
@@ -37,7 +36,7 @@ export const ProviderAcceptButton = (props) => {
         open={open}
         handleClose={handleClose}
         handleOpen={handleOpen}
-        modalBody={<ProviderTerms />}
+        modalBody={<ProviderTerms proposalAddress={proposalAddress} />}
       />
     );
   }
