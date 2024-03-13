@@ -1,15 +1,15 @@
-import * as React from "react";
 import { Button, Container, Input, InputAdornment } from "@mui/material";
 import { ethers } from "ethers";
 import { useWriteContract } from "wagmi";
 import Proposal from "../../abis/Proposal.json";
 import { ethDenverTheme } from "../../ethDenverTheme";
 import { useEffect } from "react";
+import { useState } from "react";
 
 export const ContributeForm = ({ amountRemaining, handleClose }) => {
   const proposalAddress = window.location.pathname.split("/").pop();
   const { writeContract, data } = useWriteContract();
-  const [amount, setAmount] = React.useState("1.0");
+  const [amount, setAmount] = useState("1.0");
   const contribute = async () => {
     try {
       const response = await writeContract({

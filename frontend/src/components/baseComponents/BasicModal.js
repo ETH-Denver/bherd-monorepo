@@ -10,12 +10,10 @@ export default function BasicModal({
   buttonTitle,
   modalTitle,
   modalBody,
-  amountRemaining,
+  open,
+  handleOpen,
+  handleClose,
 }) {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   return (
     <Box>
       <Button
@@ -59,10 +57,7 @@ export default function BasicModal({
           >
             {modalTitle}
           </Typography>
-          <ContributeForm
-            handleClose={handleClose}
-            amountRemaining={amountRemaining}
-          />
+          {modalBody}
         </Box>
       </Modal>
     </Box>
