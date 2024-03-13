@@ -42,7 +42,7 @@ export const ProposalComponent = ({ proposal }) => {
     provider !== "0x0000000000000000000000000000000000000000"
       ? "Provider Accepted"
       : "Awaiting Provider";
-
+  console.log("fundingStatus", fundingStatus);
   return (
     <Container
       sx={{

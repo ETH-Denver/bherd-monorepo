@@ -1,4 +1,10 @@
-import { Button, Container, Input, InputAdornment } from "@mui/material";
+import {
+  Button,
+  Container,
+  Input,
+  InputAdornment,
+  Typography,
+} from "@mui/material";
 import { ethers } from "ethers";
 import { useWriteContract } from "wagmi";
 import Proposal from "../../abis/Proposal.json";
@@ -42,6 +48,9 @@ export const ContributeForm = ({ amountRemaining, handleClose }) => {
         justifyContent: "space-between",
       }}
     >
+      <Typography variant="h3" component="h6" sx={{ paddingBottom: "20px" }}>
+        How much would you like to contribute to this campaign?
+      </Typography>
       <InputAdornment position="start">
         ETH
         <Input

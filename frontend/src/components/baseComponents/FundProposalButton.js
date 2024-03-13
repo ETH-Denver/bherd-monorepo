@@ -19,7 +19,6 @@ export const FundProposalButton = ({
       <BasicModal
         sx={{ marginLeft: "0px" }}
         buttonTitle="Contribute"
-        modalTitle="How much would you like to contribute to this campaign?"
         open={open}
         handleClose={handleClose}
         handleOpen={handleOpen}
@@ -29,7 +28,6 @@ export const FundProposalButton = ({
             amountRemaining={amountRemaining}
           />
         }
-        amountRemaining={amountRemaining}
       />
     );
   }
