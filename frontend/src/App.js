@@ -5,10 +5,8 @@ import { HomePage } from "./components/pages/HomePage";
 import { ShowPage } from "./components/pages/Show";
 import BaseLayout, { AlertProvider } from "./components/layouts/BaseLayout";
 import { CreateProposal } from "components/pages/CreateProposal";
-
 import { createWeb3Modal } from "@web3modal/wagmi/react";
 import { defaultWagmiConfig } from "@web3modal/wagmi/react/config";
-
 import { WagmiProvider } from "wagmi";
 import {
   arbitrumNova,
@@ -21,7 +19,6 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "@mui/material/styles";
 import { ethDenverTheme } from "./ethDenverTheme";
-import { Alert } from "@mui/material";
 import { ProviderInquiry } from "components/pages/ProviderInquiry";
 
 const queryClient = new QueryClient();
