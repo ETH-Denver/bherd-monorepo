@@ -48,7 +48,7 @@ export const ProviderTerms = ({ proposalAddress }) => {
           is your responsibility as the provider to present sufficient evidence
           to prove that the advertisement was run as detailed in this proposal.
           You are obligated to present the advertisement as provided by
-          funding members of the respective campaign.
+          funding members of the respective campaign within reason. 
         </Typography>
         <Typography>
           Failure to comply may result in the loss of privileges to utilize the
