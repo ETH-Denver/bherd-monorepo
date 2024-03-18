@@ -11,7 +11,7 @@ export const Header = () => {
     <Container
       disableGutters={true}
       sx={{
-        minWidth: "100vw",
+        minWidth: "100%",
         backgroundColor: "#ff65af",
         display: "flex",
         alignItems: "center",

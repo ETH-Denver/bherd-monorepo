@@ -30,7 +30,7 @@ export default function MapIndicator({ address, lat, long }) {
       sx={{
         display: "flex",
         flexDirection: "column",
-        width: "400px",
+        width: "450px",
         height: "400px",
         borderRadius: 2,
         overflow: "hidden",

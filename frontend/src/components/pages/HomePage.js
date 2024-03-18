@@ -90,17 +90,16 @@ export const HomePage = () => {
           display: "flex",
           flexDirection: "column",
           textAlign: "center",
-          paddingY: "10vh",
+          paddingY: 7,
         }}
       >
         <Container
           sx={{
             backgroundColor: ethDenverTheme.palette.secondary.main,
-            paddingY: "4vh",
-            minHeight: "80vh",
             borderRadius: 2,
             marginY: 0,
             overflowY: "scroll",
+            height: "85vh",
           }}
         >
           <Typography

@@ -45,12 +45,13 @@ export default function BaseLayout({ children }) {
     <Container
       disableGutters={true}
       sx={{
-        minWidth: "100vw",
+        minWidth: "100%",
         padding: 0,
         minHeight: "100vh",
         backgroundColor: "#fff",
         display: "flex",
         flexDirection: "column",
+        overflowX: "hidden",
       }}
     >
       <Collapse in={open}>
