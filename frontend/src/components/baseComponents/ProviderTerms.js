@@ -47,7 +47,7 @@ export const ProviderTerms = ({ proposalAddress }) => {
           Once the advertisement, as provided by the customer, has been run, it
           is your responsibility as the provider to present sufficient evidence
           to prove that the advertisement was run as detailed in this proposal.
-          You are obligated to present the advertisement exactly as provided by
+          You are obligated to present the advertisement as provided by
           funding members of the respective campaign.
         </Typography>
         <Typography>
