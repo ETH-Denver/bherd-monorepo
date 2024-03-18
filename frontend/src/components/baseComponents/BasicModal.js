@@ -1,21 +1,15 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { ethDenverTheme } from "../../ethDenverTheme";
-import { ContributeForm } from "./ContributeForm";
 
 export default function BasicModal({
   buttonTitle,
-  modalTitle,
   modalBody,
-  amountRemaining,
+  open,
+  handleOpen,
+  handleClose,
 }) {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   return (
     <Box>
       <Button
@@ -45,24 +39,12 @@ export default function BasicModal({
             border: "2px solid #000",
             boxShadow: 24,
             p: 4,
-            height: "15vh",
+            height: "40vh",
             width: "60vw",
-            overflow: "scroll",
-            textAlign: "center",
+            overflowY: "scroll",
           }}
         >
-          <Typography
-            id="modal-modal-title"
-            variant="h3"
-            component="h6"
-            sx={{ paddingBottom: "20px" }}
-          >
-            {modalTitle}
-          </Typography>
-          <ContributeForm
-            handleClose={handleClose}
-            amountRemaining={amountRemaining}
-          />
+          {modalBody}
         </Box>
       </Modal>
     </Box>

@@ -1,15 +1,20 @@
-import * as React from "react";
-import { Button, Container, Input, InputAdornment } from "@mui/material";
+import {
+  Button,
+  Container,
+  Input,
+  InputAdornment,
+  Typography,
+} from "@mui/material";
 import { ethers } from "ethers";
 import { useWriteContract } from "wagmi";
 import Proposal from "../../abis/Proposal.json";
 import { ethDenverTheme } from "../../ethDenverTheme";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const ContributeForm = ({ amountRemaining, handleClose }) => {
   const proposalAddress = window.location.pathname.split("/").pop();
   const { writeContract, data } = useWriteContract();
-  const [amount, setAmount] = React.useState("1.0");
+  const [amount, setAmount] = useState("1.0");
   const contribute = async () => {
     try {
       const response = await writeContract({
@@ -42,6 +47,9 @@ export const ContributeForm = ({ amountRemaining, handleClose }) => {
         justifyContent: "space-between",
       }}
     >
+      <Typography variant="h3" component="h6" sx={{ paddingBottom: "20px" }}>
+        How much would you like to contribute to this campaign?
+      </Typography>
       <InputAdornment position="start">
         ETH
         <Input
