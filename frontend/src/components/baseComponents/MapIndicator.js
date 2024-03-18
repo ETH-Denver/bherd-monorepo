@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import GoogleMapReact from "google-map-react";
-import { Container, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { geocode, RequestType, setKey } from "react-geocode";
 
 const Pin = ({ text }) => (
@@ -17,15 +17,7 @@ const Pin = ({ text }) => (
   </div>
 );
 
-export default function MapIndicator({ lat, long }) {
-  const [address, setAddress] = React.useState("");
-  setKey(process.env.REACT_APP_GOOGLE_API);
-  geocode(RequestType.LATLNG, `${lat},${long}`)
-    .then(({ results }) => {
-      const address = results[0].formatted_address;
-      setAddress(address);
-    })
-    .catch(console.error);
+export default function MapIndicator({ address, lat, long }) {
   const defaultProps = {
     center: {
       lat: lat,
@@ -33,32 +25,31 @@ export default function MapIndicator({ lat, long }) {
     },
     zoom: 15,
   };
-
   return (
-    <Container
+    <Box
       sx={{
         display: "flex",
         flexDirection: "column",
-        width: "30vw",
-        height: "30vh",
+        width: "400px",
+        height: "400px",
+        borderRadius: 2,
+        overflow: "hidden",
         textAlign: "center",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
-      <Typography
-        sx={{ marginLeft: 2, fontSize: "1.3rem", paddingBottom: "20px" }}
+      <GoogleMapReact
+        draggable={false}
+        bootstrapURLKeys={{ key: "" }}
+        defaultCenter={defaultProps.center}
+        defaultZoom={defaultProps.zoom}
       >
+        <Pin lat={lat} lng={long} text="📍" />
+      </GoogleMapReact>
+      <Typography sx={{ fontSize: "1.3rem", paddingBottom: "20px" }}>
         {address}
       </Typography>
-      <div style={{ height: "100%", width: "100%" }}>
-        <GoogleMapReact
-          draggable={false}
-          bootstrapURLKeys={{ key: "" }}
-          defaultCenter={defaultProps.center}
-          defaultZoom={defaultProps.zoom}
-        >
-          <Pin lat={lat} lng={long} text="📍" />
-        </GoogleMapReact>
-      </div>
-    </Container>
+    </Box>
   );
 }
