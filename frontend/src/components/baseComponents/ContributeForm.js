@@ -9,8 +9,7 @@ import { ethers } from "ethers";
 import { useWriteContract } from "wagmi";
 import Proposal from "../../abis/Proposal.json";
 import { ethDenverTheme } from "../../ethDenverTheme";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const ContributeForm = ({ amountRemaining, handleClose }) => {
   const proposalAddress = window.location.pathname.split("/").pop();
