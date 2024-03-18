@@ -40,7 +40,7 @@ export const ProviderTerms = ({ proposalAddress }) => {
         <Typography>
           By proceeding, you acknowledge and agree to the terms outlined herein
           without any alterations. Your acceptance of these terms binds you to
-          run the advertisement for the specified funding target amount, in view
+          deliver the advertisement in the specified format, at the
           of the designated address on the agreed-upon target date.
         </Typography>
         <Typography sx={{ paddingY: 2 }}>
