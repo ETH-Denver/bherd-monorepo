@@ -51,10 +51,8 @@ export const ProviderTerms = ({ proposalAddress }) => {
           funding members of the respective campaign within reason. 
         </Typography>
         <Typography>
-          Failure to comply may result in the loss of privileges to utilize the
-          platform, as well as potential legal consequences to recover funds
-          necessary for reimbursing affected customers. Your acceptance of these
-          terms signifies your understanding and commitment to fulfilling the
+          Failure to comply may result in revocation of provider status on the platform, in addition to remedy at law. Your acceptance of these
+          terms signifies your understanding and commitment to providing a good faith effort of fulfilling the
           obligations outlined above.
         </Typography>
       </Box>
