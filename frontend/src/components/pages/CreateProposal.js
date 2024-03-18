@@ -15,6 +15,7 @@ import { useWriteContract } from "wagmi";
 import Deployer from "../../abis/Deployer.json";
 import { useNavigate } from "react-router-dom";
 import { ethDenverTheme } from "../../ethDenverTheme";
+import { formatContentType } from "globalVariables/contentTypes";
 
 export const CreateProposal = () => {
   const [startDay, setStartDay] = useState(new Date());
@@ -37,7 +38,7 @@ export const CreateProposal = () => {
           Math.round(lat.toFixed(7) * 10 ** 7),
           Math.round(long.toFixed(7) * 10 ** 7),
           target,
-          0,
+          contentType,
           content,
         ],
       });
@@ -113,19 +114,18 @@ export const CreateProposal = () => {
           }}
           sx={{ mb: 3, width: 500, backgroundColor: "white" }}
           renderValue={(selected) => {
-            if (selected.length === 0) {
+            if (!selected && typeof selected !== "number") {
               return <em>Please Select an Option</em>;
             }
-
-            return selected;
+            return formatContentType(selected);
           }}
           displayEmpty
         >
           <MenuItem disabled value={""}>
             Please Select an option
           </MenuItem>
-          <MenuItem value={"Sky Typing"}>Sky Typing</MenuItem>
-          <MenuItem value={"Banner Plane"}>Banner Plane</MenuItem>
+          <MenuItem value={0}>Sky Typing</MenuItem>
+          <MenuItem value={1}>Banner Plane</MenuItem>
         </Select>
         <TextField
           inputProps={{ maxLength: 250 }}
