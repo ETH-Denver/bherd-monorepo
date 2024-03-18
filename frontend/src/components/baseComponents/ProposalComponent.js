@@ -63,12 +63,14 @@ export const ProposalComponent = ({ proposal }) => {
       sx={{
         marginY: 10,
         display: "flex",
-        backgroundColor: "silver",
+        boxShadow: "2px 4px 18px rgba(0, 0, 0, 0.3)",
+        backgroundImage: "linear-gradient(180deg, #d9d9d9, #bababa 60%)",
         borderRadius: 5,
-        height: "90vh",
+        height: "100vh",
         minWidth: "90vw",
         flexDirection: "column",
         alignItems: "center",
+        justifyContent: "center",
       }}
     >
       <Box
@@ -175,7 +177,7 @@ export const ProposalComponent = ({ proposal }) => {
             <Typography variant="h3">Intention:</Typography>
             <Box
               sx={{
-                backgroundColor: "grey",
+                backgroundColor: "#c8c8c8",
                 opacity: 0.7,
                 height: 200,
                 borderRadius: 2,
@@ -189,7 +191,7 @@ export const ProposalComponent = ({ proposal }) => {
             <Typography variant="h3">Message:</Typography>
             <Box
               sx={{
-                backgroundColor: "grey",
+                backgroundColor: "#c8c8c8",
                 opacity: 0.7,
                 height: 200,
                 borderRadius: 2,
