@@ -64,7 +64,7 @@ export const ProposalComponent = ({ proposal }) => {
         marginY: 10,
         display: "flex",
         boxShadow: "2px 4px 18px rgba(0, 0, 0, 0.3)",
-        backgroundImage: "linear-gradient(180deg, #d9d9d9, #bababa 60%)",
+        backgroundImage: "linear-gradient(176deg, #d9d9d9, #cecece 60%)",
         borderRadius: 5,
         height: "100vh",
         minWidth: "90vw",
@@ -82,6 +82,7 @@ export const ProposalComponent = ({ proposal }) => {
           width: "80vw",
           marginY: 5,
           paddingY: 5,
+          boxShadow: "inset 0px 2px 20px 2px rgba(0, 0, 0, 0.1)",
         }}
       >
         <Box sx={{ display: "flex" }}>
@@ -98,7 +99,7 @@ export const ProposalComponent = ({ proposal }) => {
           }}
         >
           <Box>
-            <Typography variant="h3">Location:</Typography>
+            <Typography variant="h4">Location:</Typography>
             <MapIndicator
               lat={Number(lat) / 10 ** 7}
               long={Number(long) / 10 ** 7}
@@ -113,13 +114,13 @@ export const ProposalComponent = ({ proposal }) => {
             }}
           >
             <Box sx={{}}>
-              <Typography variant="h3">Amount Needed:</Typography>
+              <Typography variant="h4">Amount Needed:</Typography>
               <Typography variant="h4">
                 {`ETH ${ethers.formatEther(fundingTarget)}`}
               </Typography>
             </Box>
             <Box sx={{}}>
-              <Typography variant="h3">Amount Funded:</Typography>
+              <Typography variant="h4">Amount Funded:</Typography>
               <Typography
                 variant="h4"
                 sx={{
@@ -129,7 +130,7 @@ export const ProposalComponent = ({ proposal }) => {
               >{`ETH ${ethers.formatEther(amountFunded)}`}</Typography>
             </Box>
             <Box sx={{}}>
-              <Typography variant="h3">Funding Status:</Typography>
+              <Typography variant="h4">Funding Status:</Typography>
               <Typography
                 variant="h4"
                 sx={{
@@ -149,17 +150,17 @@ export const ProposalComponent = ({ proposal }) => {
             }}
           >
             <Box sx={{}}>
-              <Typography variant="h3">Funding Deadline:</Typography>
+              <Typography variant="h4">Funding Deadline:</Typography>
               <Typography variant="h4">
                 {formatDate(fundingDeadline)}
               </Typography>
             </Box>
             <Box sx={{}}>
-              <Typography variant="h3">Execution Date:</Typography>
+              <Typography variant="h4">Execution Date:</Typography>
               <Typography variant="h4">{formatDate(startDay)}</Typography>
             </Box>
             <Box sx={{}}>
-              <Typography variant="h3">Provider Status:</Typography>
+              <Typography variant="h4">Provider Status:</Typography>
               <Typography
                 variant="h4"
                 sx={{
@@ -174,7 +175,7 @@ export const ProposalComponent = ({ proposal }) => {
         </Box>
         <Box sx={{ display: "flex", justifyContent: "space-around" }}>
           <Box sx={{ width: "48%" }}>
-            <Typography variant="h3">Intention:</Typography>
+            <Typography variant="h4">Intention:</Typography>
             <Box
               sx={{
                 backgroundColor: "#c8c8c8",
@@ -188,7 +189,7 @@ export const ProposalComponent = ({ proposal }) => {
             </Box>
           </Box>
           <Box sx={{ width: "48%" }}>
-            <Typography variant="h3">Message:</Typography>
+            <Typography variant="h4">Message:</Typography>
             <Box
               sx={{
                 backgroundColor: "#c8c8c8",
