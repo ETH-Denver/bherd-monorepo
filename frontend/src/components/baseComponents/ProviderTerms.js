@@ -41,7 +41,7 @@ export const ProviderTerms = ({ proposalAddress }) => {
           By proceeding, you acknowledge and agree to the terms outlined herein
           without any alterations. Your acceptance of these terms binds you to
           deliver the advertisement in the specified format, at the
-          of the designated address on the agreed-upon target date.
+         designated address on the agreed-upon target date.
         </Typography>
         <Typography sx={{ paddingY: 2 }}>
           Once the advertisement, as provided by the customer, has been run, it
