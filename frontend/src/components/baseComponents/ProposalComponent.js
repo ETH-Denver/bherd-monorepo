@@ -82,6 +82,12 @@ export const ProposalComponent = ({ proposal }) => {
           paddingY: 5,
         }}
       >
+        <Box sx={{ display: "flex" }}>
+          <Typography variant="h4" sx={{ marginX: 2 }}>
+            Media Type:
+          </Typography>
+          <Typography variant="h4">{formatContentType(contentType)}</Typography>
+        </Box>
         <Box
           sx={{
             display: "flex",
@@ -106,19 +112,31 @@ export const ProposalComponent = ({ proposal }) => {
           >
             <Box sx={{}}>
               <Typography variant="h3">Amount Needed:</Typography>
-              <Typography variant="h5">
+              <Typography variant="h4">
                 {`ETH ${ethers.formatEther(fundingTarget)}`}
               </Typography>
             </Box>
             <Box sx={{}}>
               <Typography variant="h3">Amount Funded:</Typography>
-              <Typography variant="h5">{`ETH ${ethers.formatEther(
-                amountFunded
-              )}`}</Typography>
+              <Typography
+                variant="h4"
+                sx={{
+                  color:
+                    fundingStatus === "provider accepted" ? "red" : "green",
+                }}
+              >{`ETH ${ethers.formatEther(amountFunded)}`}</Typography>
             </Box>
             <Box sx={{}}>
               <Typography variant="h3">Funding Status:</Typography>
-              <Typography variant="h5">{fundingStatus}</Typography>
+              <Typography
+                variant="h4"
+                sx={{
+                  color:
+                    fundingStatus === "provider accepted" ? "red" : "green",
+                }}
+              >
+                {fundingStatus}
+              </Typography>
             </Box>
           </Box>
           <Box
@@ -130,17 +148,25 @@ export const ProposalComponent = ({ proposal }) => {
           >
             <Box sx={{}}>
               <Typography variant="h3">Funding Deadline:</Typography>
-              <Typography variant="h5">
+              <Typography variant="h4">
                 {formatDate(fundingDeadline)}
               </Typography>
             </Box>
             <Box sx={{}}>
               <Typography variant="h3">Execution Date:</Typography>
-              <Typography variant="h5">{formatDate(startDay)}</Typography>
+              <Typography variant="h4">{formatDate(startDay)}</Typography>
             </Box>
             <Box sx={{}}>
               <Typography variant="h3">Provider Status:</Typography>
-              <Typography variant="h5">{providerStatus}</Typography>
+              <Typography
+                variant="h4"
+                sx={{
+                  color:
+                    providerStatus === "provider accepted" ? "red" : "green",
+                }}
+              >
+                {providerStatus}
+              </Typography>
             </Box>
           </Box>
         </Box>
