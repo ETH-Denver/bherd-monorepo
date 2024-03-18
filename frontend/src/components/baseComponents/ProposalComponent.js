@@ -14,6 +14,7 @@ import { ProviderAcceptButton } from "./ProviderAcceptButton";
 import { ProviderFulfillment } from "./ProviderFulfillment";
 import { FundProposalButton } from "./FundProposalButton";
 import { ProofOfAddRun } from "./ProofOfAddRun";
+import { formatContentType } from "globalVariables/contentTypes";
 
 export const ProposalComponent = ({ proposal }) => {
   const proposalAddress = window.location.pathname.split("/").pop();
@@ -30,7 +31,7 @@ export const ProposalComponent = ({ proposal }) => {
     url,
     isMintingEnabled,
   } = proposal;
-
+  console.log(formatContentType(proposal.contentType));
   const formatDate = (timestamp) => {
     return new Date(Number(timestamp)).toLocaleDateString();
   };

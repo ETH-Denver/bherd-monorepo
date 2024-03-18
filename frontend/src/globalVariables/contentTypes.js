@@ -3,7 +3,8 @@ export const formatContentType = (contentType) => {
     0: "Sky Typing",
     1: "Banner Plane",
   };
-  if (contentType || contentType === 0) {
+  if (contentType || contentType === 0 || typeof contentType === "bigint") {
+    Number(contentType);
     return contentTypes[contentType];
   }
 };
