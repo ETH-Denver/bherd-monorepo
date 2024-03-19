@@ -70,7 +70,7 @@ export const ProposalComponent = ({ proposal }) => {
         minWidth: "90vw",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        overflowY: "scroll",
       }}
     >
       <Box
@@ -85,12 +85,64 @@ export const ProposalComponent = ({ proposal }) => {
           boxShadow: "inset 0px 2px 20px 2px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Box sx={{ display: "flex" }}>
-          <Typography variant="h4" sx={{ marginX: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            textAlign: "center",
+            height: "300px",
+            background: "linear-gradient(to bottom, skyblue, #dff1f8)",
+            width: "100%",
+            marginBottom: 2,
+          }}
+        >
+          <Typography
+            variant="h1"
+            sx={{
+              color: "#fff",
+              fontSize: 100,
+              fontWeight: "bold",
+            }}
+          >
+            {message}
+          </Typography>
+        </Box>
+        <Box sx={{ width: "100%" }}>
+          <Box sx={{ width: "100%", display: "flex" }}>
+            <Typography variant="h4" sx={{ marginX: 2, fontWeight: "bold" }}>
+              Reason for Running:
+            </Typography>
+            <Typography variant="h4">{target}</Typography>
+          </Box>
+        </Box>
+        <hr
+          style={{
+            width: "98%",
+            borderBottom: "1px solid black",
+            borderTop: "none",
+            marginY: 6,
+          }}
+        />
+        <Box sx={{ display: "flex", width: "100%" }}>
+          <Typography variant="h4" sx={{ marginX: 2, fontWeight: "bold" }}>
             Media Type:
           </Typography>
           <Typography variant="h4">{formatContentType(contentType)}</Typography>
         </Box>
+        <hr
+          style={{
+            width: "98%",
+            borderBottom: "1px solid black",
+            borderTop: "none",
+            marginY: 6,
+          }}
+        />
+        <Typography
+          variant="h4"
+          sx={{ fontWeight: "bold", marginX: 2, marginBottom: 1 }}
+        >
+          Location:
+        </Typography>
         <Box
           sx={{
             display: "flex",
@@ -99,7 +151,6 @@ export const ProposalComponent = ({ proposal }) => {
           }}
         >
           <Box>
-            <Typography variant="h4">Location:</Typography>
             <MapIndicator
               lat={Number(lat) / 10 ** 7}
               long={Number(long) / 10 ** 7}
@@ -110,17 +161,20 @@ export const ProposalComponent = ({ proposal }) => {
             sx={{
               display: "flex",
               flexDirection: "column",
-              justifyContent: "space-around",
             }}
           >
-            <Box sx={{}}>
-              <Typography variant="h4">Amount Needed:</Typography>
+            <Box>
+              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                Amount Needed:
+              </Typography>
               <Typography variant="h4">
                 {`ETH ${ethers.formatEther(fundingTarget)}`}
               </Typography>
             </Box>
-            <Box sx={{}}>
-              <Typography variant="h4">Amount Funded:</Typography>
+            <Box sx={{ marginY: 4 }}>
+              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                Amount Funded:
+              </Typography>
               <Typography
                 variant="h4"
                 sx={{
@@ -129,8 +183,10 @@ export const ProposalComponent = ({ proposal }) => {
                 }}
               >{`ETH ${ethers.formatEther(amountFunded)}`}</Typography>
             </Box>
-            <Box sx={{}}>
-              <Typography variant="h4">Funding Status:</Typography>
+            <Box>
+              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                Funding Status:
+              </Typography>
               <Typography
                 variant="h4"
                 sx={{
@@ -146,21 +202,26 @@ export const ProposalComponent = ({ proposal }) => {
             sx={{
               display: "flex",
               flexDirection: "column",
-              justifyContent: "space-around",
             }}
           >
-            <Box sx={{}}>
-              <Typography variant="h4">Funding Deadline:</Typography>
+            <Box>
+              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                Funding Deadline:
+              </Typography>
               <Typography variant="h4">
                 {formatDate(fundingDeadline)}
               </Typography>
             </Box>
-            <Box sx={{}}>
-              <Typography variant="h4">Execution Date:</Typography>
+            <Box sx={{ marginY: 4 }}>
+              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                Execution Date:
+              </Typography>
               <Typography variant="h4">{formatDate(startDay)}</Typography>
             </Box>
-            <Box sx={{}}>
-              <Typography variant="h4">Provider Status:</Typography>
+            <Box>
+              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                Provider Status:
+              </Typography>
               <Typography
                 variant="h4"
                 sx={{
@@ -170,36 +231,6 @@ export const ProposalComponent = ({ proposal }) => {
               >
                 {providerStatus}
               </Typography>
-            </Box>
-          </Box>
-        </Box>
-        <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-          <Box sx={{ width: "48%" }}>
-            <Typography variant="h4">Intention:</Typography>
-            <Box
-              sx={{
-                backgroundColor: "#c8c8c8",
-                opacity: 0.7,
-                height: 200,
-                borderRadius: 2,
-                padding: 1,
-              }}
-            >
-              <Typography variant="h5">{target}</Typography>
-            </Box>
-          </Box>
-          <Box sx={{ width: "48%" }}>
-            <Typography variant="h4">Message:</Typography>
-            <Box
-              sx={{
-                backgroundColor: "#c8c8c8",
-                opacity: 0.7,
-                height: 200,
-                borderRadius: 2,
-                padding: 1,
-              }}
-            >
-              <Typography variant="h5">{message}</Typography>
             </Box>
           </Box>
         </Box>
