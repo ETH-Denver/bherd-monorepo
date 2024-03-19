@@ -19,7 +19,6 @@ export const ProposalCard = ({ proposal }) => {
     proposalAddress,
     contentType,
   } = proposal;
-  console.log(formatContentType(contentType));
   const [address, setAddress] = React.useState("");
   const fundingStatus =
     Number(amountFunded) - Number(fundingTarget) >= 0 ? "Funded" : "Incomplete";
