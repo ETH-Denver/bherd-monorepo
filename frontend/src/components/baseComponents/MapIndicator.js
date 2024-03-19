@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
 import GoogleMapReact from "google-map-react";
 import { Box, Typography } from "@mui/material";
-import { geocode, RequestType, setKey } from "react-geocode";
 
 const Pin = ({ text }) => (
   <div
