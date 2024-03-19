@@ -42,7 +42,7 @@ export const Header = () => {
           "&:hover": { cursor: "pointer" },
         }}
         onClick={() => {
-          navigate("/frontend");
+          navigate("/");
         }}
       >
         B Herd

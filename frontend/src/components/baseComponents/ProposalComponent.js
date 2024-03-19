@@ -58,184 +58,217 @@ export const ProposalComponent = ({ proposal }) => {
     .catch(console.error);
 
   return (
-    <Container
-      disableGutters
-      sx={{
-        marginY: 10,
-        display: "flex",
-        boxShadow: "2px 4px 18px rgba(0, 0, 0, 0.3)",
-        backgroundImage: "linear-gradient(176deg, #d9d9d9, #cecece 60%)",
-        borderRadius: 5,
-        height: "100vh",
-        minWidth: "90vw",
-        flexDirection: "column",
-        alignItems: "center",
-        overflowY: "scroll",
-      }}
-    >
+    <>
       <Box
+        sx={{ display: "flex", justifyContent: "space-between", marginY: 2 }}
+      >
+        <Stack>
+          <Button sx={{ marginLeft: 15 }} href={"/"}>
+            Back to Proposals
+          </Button>
+        </Stack>
+        <Stack sx={{ marginRight: 15 }} spacing={2} direction="row">
+          <ProviderAcceptButton fundingStatus={fundingStatus} />
+          <ProviderFulfillment url={url} />
+          <FundProposalButton
+            proposalAddress={proposalAddress}
+            amountRemaining={ethers.formatEther(amountFunded)}
+            fundingStatus={fundingStatus}
+            providerStatus={providerStatus}
+          />
+          <NFTMintCard
+            proposalAddress={proposalAddress}
+            fundingStatus={fundingStatus}
+            providerStatus={providerStatus}
+            isMintingEnabled={isMintingEnabled}
+          />
+          <ProofOfAddRun
+            url={url}
+            fundingStatus={fundingStatus}
+            providerStatus={providerStatus}
+          />
+        </Stack>
+      </Box>
+      <Container
+        disableGutters
         sx={{
-          backgroundColor: "white",
+          marginBottom: 10,
           display: "flex",
-          flexDirection: "column",
+          boxShadow: "2px 4px 18px rgba(0, 0, 0, 0.3)",
+          backgroundImage: "linear-gradient(176deg, #d9d9d9, #cecece 60%)",
           borderRadius: 5,
-          width: "80vw",
-          marginY: 5,
-          paddingY: 5,
-          boxShadow: "inset 0px 2px 20px 2px rgba(0, 0, 0, 0.1)",
+          height: "100vh",
+          minWidth: "90vw",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <Box
           sx={{
+            backgroundColor: "white",
             display: "flex",
-            alignItems: "center",
-            textAlign: "center",
-            height: "300px",
-            background: "linear-gradient(to bottom, skyblue, #dff1f8)",
-            width: "100%",
-            marginBottom: 2,
+            flexDirection: "column",
+            borderRadius: 5,
+            width: "80vw",
+            marginY: 5,
+            paddingY: 5,
+            boxShadow: "inset 0px 2px 20px 2px rgba(0, 0, 0, 0.1)",
           }}
         >
-          <Typography
-            variant="h1"
+          <Box
             sx={{
-              color: "#fff",
-              fontSize: 100,
-              fontWeight: "bold",
+              display: "flex",
+              alignItems: "center",
+              textAlign: "center",
+              height: "300px",
+              background: "linear-gradient(to bottom, skyblue, #dff1f8)",
+              width: "100%",
+              marginBottom: 2,
             }}
           >
-            {message}
-          </Typography>
-        </Box>
-        <Box sx={{ width: "100%" }}>
-          <Box sx={{ width: "100%", display: "flex" }}>
-            <Typography variant="h4" sx={{ marginX: 2, fontWeight: "bold" }}>
-              Reason for Running:
+            <Typography
+              variant="h1"
+              sx={{
+                color: "#fff",
+                fontSize: 100,
+                fontWeight: "bold",
+              }}
+            >
+              {message}
             </Typography>
-            <Typography variant="h4">{target}</Typography>
           </Box>
-        </Box>
-        <hr
-          style={{
-            width: "98%",
-            borderBottom: "1px solid black",
-            borderTop: "none",
-            marginY: 6,
-          }}
-        />
-        <Box sx={{ display: "flex", width: "100%" }}>
-          <Typography variant="h4" sx={{ marginX: 2, fontWeight: "bold" }}>
-            Media Type:
+          <Box sx={{ width: "100%" }}>
+            <Box sx={{ width: "100%", display: "flex" }}>
+              <Typography variant="h4" sx={{ marginX: 2, fontWeight: "bold" }}>
+                Reason for Running:
+              </Typography>
+              <Typography variant="h4">{target}</Typography>
+            </Box>
+          </Box>
+          <hr
+            style={{
+              width: "98%",
+              borderBottom: "1px solid black",
+              borderTop: "none",
+              marginY: 6,
+            }}
+          />
+          <Box sx={{ display: "flex", width: "100%" }}>
+            <Typography variant="h4" sx={{ marginX: 2, fontWeight: "bold" }}>
+              Media Type:
+            </Typography>
+            <Typography variant="h4">
+              {formatContentType(contentType)}
+            </Typography>
+          </Box>
+          <hr
+            style={{
+              width: "98%",
+              borderBottom: "1px solid black",
+              borderTop: "none",
+              marginY: 6,
+            }}
+          />
+          <Typography
+            variant="h4"
+            sx={{ fontWeight: "bold", marginX: 2, marginBottom: 1 }}
+          >
+            Location:
           </Typography>
-          <Typography variant="h4">{formatContentType(contentType)}</Typography>
-        </Box>
-        <hr
-          style={{
-            width: "98%",
-            borderBottom: "1px solid black",
-            borderTop: "none",
-            marginY: 6,
-          }}
-        />
-        <Typography
-          variant="h4"
-          sx={{ fontWeight: "bold", marginX: 2, marginBottom: 1 }}
-        >
-          Location:
-        </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-around",
-            width: "100%",
-          }}
-        >
-          <Box>
-            <MapIndicator
-              lat={Number(lat) / 10 ** 7}
-              long={Number(long) / 10 ** 7}
-              address={address}
-            />
-          </Box>
           <Box
             sx={{
               display: "flex",
-              flexDirection: "column",
+              justifyContent: "space-around",
+              width: "100%",
             }}
           >
             <Box>
-              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-                Amount Needed:
-              </Typography>
-              <Typography variant="h4">
-                {`ETH ${ethers.formatEther(fundingTarget)}`}
-              </Typography>
+              <MapIndicator
+                lat={Number(lat) / 10 ** 7}
+                long={Number(long) / 10 ** 7}
+                address={address}
+              />
             </Box>
-            <Box sx={{ marginY: 4 }}>
-              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-                Amount Funded:
-              </Typography>
-              <Typography
-                variant="h4"
-                sx={{
-                  color:
-                    fundingStatus === "provider accepted" ? "red" : "green",
-                }}
-              >{`ETH ${ethers.formatEther(amountFunded)}`}</Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Box>
+                <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                  Amount Needed:
+                </Typography>
+                <Typography variant="h4">
+                  {`ETH ${ethers.formatEther(fundingTarget)}`}
+                </Typography>
+              </Box>
+              <Box sx={{ marginY: 4 }}>
+                <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                  Amount Funded:
+                </Typography>
+                <Typography
+                  variant="h4"
+                  sx={{
+                    color:
+                      fundingStatus === "provider accepted" ? "red" : "green",
+                  }}
+                >{`ETH ${ethers.formatEther(amountFunded)}`}</Typography>
+              </Box>
+              <Box>
+                <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                  Funding Status:
+                </Typography>
+                <Typography
+                  variant="h4"
+                  sx={{
+                    color:
+                      fundingStatus === "provider accepted" ? "red" : "green",
+                  }}
+                >
+                  {fundingStatus}
+                </Typography>
+              </Box>
             </Box>
-            <Box>
-              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-                Funding Status:
-              </Typography>
-              <Typography
-                variant="h4"
-                sx={{
-                  color:
-                    fundingStatus === "provider accepted" ? "red" : "green",
-                }}
-              >
-                {fundingStatus}
-              </Typography>
-            </Box>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <Box>
-              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-                Funding Deadline:
-              </Typography>
-              <Typography variant="h4">
-                {formatDate(fundingDeadline)}
-              </Typography>
-            </Box>
-            <Box sx={{ marginY: 4 }}>
-              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-                Execution Date:
-              </Typography>
-              <Typography variant="h4">{formatDate(startDay)}</Typography>
-            </Box>
-            <Box>
-              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-                Provider Status:
-              </Typography>
-              <Typography
-                variant="h4"
-                sx={{
-                  color:
-                    providerStatus === "provider accepted" ? "red" : "green",
-                }}
-              >
-                {providerStatus}
-              </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Box>
+                <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                  Funding Deadline:
+                </Typography>
+                <Typography variant="h4">
+                  {formatDate(fundingDeadline)}
+                </Typography>
+              </Box>
+              <Box sx={{ marginY: 4 }}>
+                <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                  Execution Date:
+                </Typography>
+                <Typography variant="h4">{formatDate(startDay)}</Typography>
+              </Box>
+              <Box>
+                <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                  Provider Status:
+                </Typography>
+                <Typography
+                  variant="h4"
+                  sx={{
+                    color:
+                      providerStatus === "provider accepted" ? "red" : "green",
+                  }}
+                >
+                  {providerStatus}
+                </Typography>
+              </Box>
             </Box>
           </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+    </>
     // <Container
     //   sx={{
     //     backgroundColor: "#fff",
