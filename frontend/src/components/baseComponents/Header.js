@@ -1,4 +1,4 @@
-import { Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useAccount } from "wagmi";
 import EthDenverLogo from "../../asssets/ethdenver-spork-logo-transparent.png";
@@ -15,41 +15,47 @@ export const Header = () => {
         backgroundColor: "#ff65af",
         display: "flex",
         alignItems: "center",
-        height: "13vh",
+        justifyContent: "space-between",
       }}
     >
-      <img
-        src={EthDenverLogo}
-        alt="Logo"
-        style={{
-          width: "7vh",
-          paddingLeft: "5vh",
-          paddingRight: "10px",
-          paddingTop: "10px",
-          paddingBottom: "10px",
-        }}
-      />
-
-      <Typography
-        variant="h2"
-        component="div"
+      <Box
         sx={{
-          fontSize: "8vh",
-          fontWeight: 600,
-          fontFamily: "Darker-Hanken-Grotesk",
-          flexGrow: 1,
-          color: "#ffff",
-          "&:hover": { cursor: "pointer" },
+          display: "flex",
+          alignItems: "center",
+          marginLeft: 4,
+          "&:hover": {
+            cursor: "pointer",
+          },
         }}
         onClick={() => {
           navigate("/");
         }}
       >
-        B Herd
-      </Typography>
-      <Container
-        sx={{ display: "flex", flexDirection: "row", width: "fit-content" }}
-      >
+        <img
+          src={EthDenverLogo}
+          alt="Logo"
+          style={{
+            width: 100,
+            paddingRight: "10px",
+            paddingTop: "10px",
+            paddingBottom: "10px",
+          }}
+        />
+        <Typography
+          variant="h2"
+          component="div"
+          sx={{
+            fontSize: 76,
+            fontWeight: 600,
+            fontFamily: "Darker-Hanken-Grotesk",
+            flexGrow: 1,
+            color: "#ffff",
+          }}
+        >
+          B Herd
+        </Typography>
+      </Box>
+      <Box sx={{ display: "flex", flexDirection: "row", marginRight: 4 }}>
         <Button
           variant="contained"
           onClick={() => {
@@ -71,7 +77,7 @@ export const Header = () => {
           </Button>
         )}
         <w3m-button style={{ display: "flex", justifyContent: "flex-end" }} />
-      </Container>
+      </Box>
     </Container>
   );
 };
