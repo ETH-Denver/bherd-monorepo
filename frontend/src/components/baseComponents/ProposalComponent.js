@@ -126,6 +126,8 @@ export const ProposalComponent = ({ proposal }) => {
                 color: "#fff",
                 fontSize: 100,
                 fontWeight: "bold",
+                textAlign: "center",
+                width: "100%",
               }}
             >
               {message}
