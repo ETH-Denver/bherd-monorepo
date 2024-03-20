@@ -50,6 +50,9 @@ export const ProposalCard = ({ proposal }) => {
         marginY: 3,
         filter: "drop-shadow(8px 8px 3px #ff65af)",
         borderRadius: 2,
+        "&:hover": {
+          cursor: "pointer",
+        },
       }}
     >
       <Box

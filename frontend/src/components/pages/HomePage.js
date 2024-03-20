@@ -100,6 +100,9 @@ export const HomePage = () => {
             marginY: 0,
             overflowY: "scroll",
             height: "85vh",
+            "&:hover": {
+              cursor: "default",
+            },
           }}
         >
           <Typography
