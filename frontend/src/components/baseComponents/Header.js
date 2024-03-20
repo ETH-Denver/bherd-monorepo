@@ -76,18 +76,7 @@ export const Header = () => {
             Create Proposal
           </Button>
         )}
-        <Box
-          sx={{
-            backgroundColor: account && account.address ? "#fc65af" : "",
-            borderRadius: 1,
-            padding: "10px",
-            position: account && account.address ? "fixed" : "relative",
-            bottom: account && account.address ? "0" : "auto",
-            right: account && account.address ? "0" : "auto",
-          }}
-        >
-          <w3m-button balance="show" style={{}} />
-        </Box>
+        <w3m-button balance="hide" style={{}} />
       </Box>
     </Container>
   );
