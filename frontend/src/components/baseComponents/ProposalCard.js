@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 import { geocode, RequestType, setKey } from "react-geocode";
+import { formatContentType } from "globalVariables/contentTypes";
 
 export const ProposalCard = ({ proposal }) => {
   const {
@@ -16,11 +17,11 @@ export const ProposalCard = ({ proposal }) => {
     long,
     target,
     proposalAddress,
+    contentType,
   } = proposal;
-
   const [address, setAddress] = React.useState("");
   const fundingStatus =
-    Number(amountFunded) - Number(fundingTarget) > 0 ? "Funded" : "Incomplete";
+    Number(amountFunded) - Number(fundingTarget) >= 0 ? "Funded" : "Incomplete";
   const providerStatus = provider ? "Filled" : "Unfilled";
 
   const navigate = useNavigate();
@@ -47,20 +48,33 @@ export const ProposalCard = ({ proposal }) => {
         borderColor: "white",
         borderStyle: "solid",
         marginY: 3,
-        filter: "drop-shadow(12px 12px 0px #ff65af)",
+        filter: "drop-shadow(8px 8px 3px #ff65af)",
         borderRadius: 2,
+        "&:hover": {
+          cursor: "pointer",
+        },
       }}
     >
-      <Box>
-        <Stack
-          sx={{ textAlign: "left", paddingLeft: "2vh", paddingTop: "1vh" }}
-        >
-          <Typography
-            sx={{ fontFamily: "Bubble", fontSize: "4vh", paddingBottom: "2vh" }}
-          >
-            {message}
+      <Box
+        sx={{
+          textAlign: "left",
+          paddingTop: 1.5,
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <Typography sx={{ marginLeft: 1, fontSize: 30, fontWeight: "bold" }}>
+          {message}
+        </Typography>
+
+        <Box sx={{ display: "flex" }}>
+          <Typography sx={{ fontSize: 25, fontWeight: "bold" }}>
+            Media Type:
           </Typography>
-        </Stack>
+          <Typography sx={{ marginLeft: 1, fontSize: 23 }}>
+            {formatContentType(contentType)}
+          </Typography>
+        </Box>
       </Box>
       <Box
         sx={{
@@ -69,39 +83,45 @@ export const ProposalCard = ({ proposal }) => {
           justifyContent: "space-between",
         }}
       >
-        <Stack sx={{ textAlign: "left", paddingLeft: "2vh", display: "flex" }}>
+        <Stack sx={{ textAlign: "left", paddingLeft: 2, display: "flex" }}>
           <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
-            Intention: {target}
+            <span style={{ fontWeight: "bold" }}>Intention:</span> {target}
           </Typography>
           <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
-            Location: {address}
+            <span style={{ fontWeight: "bold" }}> Location:</span> {address}
           </Typography>
           <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
-            Funding Deadline: {formatDate(fundingDeadline)}
+            <span style={{ fontWeight: "bold" }}>Funding Deadline:</span>{" "}
+            {formatDate(fundingDeadline)}
           </Typography>
           <Typography variant="h5">
-            Execution Date: {formatDate(startDay)}
+            <span style={{ fontWeight: "bold" }}>Execution Date: </span>
+            {formatDate(startDay)}
           </Typography>
         </Stack>
         <Stack
           sx={{
-            textAlign: "right",
+            textAlign: "left",
             paddingRight: "2vh",
             paddingBottom: "1vh",
             display: "flex",
           }}
         >
           <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
-            Funded Amount: {`ETH ${ethers.formatEther(amountFunded)}`}
+            <span style={{ fontWeight: "bold" }}>Funded Amount:</span>{" "}
+            {`ETH ${ethers.formatEther(amountFunded)}`}
           </Typography>
           <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
-            Funding Target: {`ETH ${ethers.formatEther(fundingTarget)}`}
+            <span style={{ fontWeight: "bold" }}>Funding Target:</span>{" "}
+            {`ETH ${ethers.formatEther(fundingTarget)}`}
           </Typography>
           <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
-            Funding Status: {fundingStatus}
+            <span style={{ fontWeight: "bold" }}>Funding Status: </span>
+            {fundingStatus}
           </Typography>
           <Typography variant="h5" sx={{ paddingBottom: "1vh" }}>
-            Provider Status: {providerStatus}
+            <span style={{ fontWeight: "bold" }}>Provider Status: </span>
+            {providerStatus}
           </Typography>
         </Stack>
       </Box>
