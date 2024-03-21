@@ -216,7 +216,9 @@ export const ProposalComponent = ({ proposal }) => {
                   variant="h4"
                   sx={{
                     color:
-                      fundingStatus === "provider accepted" ? "red" : "green",
+                      fundingStatus === "Accepting Contributions"
+                        ? "red"
+                        : "green",
                   }}
                 >{`ETH ${ethers.formatEther(amountFunded)}`}</Typography>
               </Box>
@@ -228,7 +230,9 @@ export const ProposalComponent = ({ proposal }) => {
                   variant="h4"
                   sx={{
                     color:
-                      fundingStatus === "provider accepted" ? "red" : "green",
+                      fundingStatus !== "Accepting Contributions"
+                        ? "red"
+                        : "green",
                   }}
                 >
                   {fundingStatus}
@@ -263,7 +267,7 @@ export const ProposalComponent = ({ proposal }) => {
                   variant="h4"
                   sx={{
                     color:
-                      providerStatus === "provider accepted" ? "red" : "green",
+                      providerStatus === "Awaiting Provider" ? "red" : "green",
                   }}
                 >
                   {providerStatus}
